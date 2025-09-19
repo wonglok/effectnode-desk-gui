@@ -31,7 +31,10 @@ declare module "next-auth" {
  */
 export const authConfig = {
   providers: [
-    GoogleProvider,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     /**
      * ...add more providers here.
      *
@@ -43,6 +46,11 @@ export const authConfig = {
      */
   ],
   callbacks: {
+    signIn: async ({ user, account, profile }) => {
+      console.log(user.email);
+
+      return true; // Do different verification for other providers that don't have `email_verified`
+    },
     session: ({ session, token }) => {
       return {
         ...session,
@@ -50,6 +58,7 @@ export const authConfig = {
           ...session.user,
           id: `${md5(session?.user?.email)}`,
           _id: `${md5(session?.user?.email)}`,
+          sub: token?.sub,
         },
       };
     },

@@ -43,6 +43,9 @@ export default async function Home() {
               </div>
             </Link>
           </div>
+          {/*  */}
+
+          {/*  */}
           <div className="flex flex-col items-center gap-2">
             <p className="text-2xl text-white">
               {hello ? hello.greeting : "Loading tRPC query..."}
