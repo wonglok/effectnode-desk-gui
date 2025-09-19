@@ -1,5 +1,6 @@
+import md5 from "md5";
 import { type DefaultSession, type NextAuthConfig } from "next-auth";
-import DiscordProvider from "next-auth/providers/discord";
+import GoogleProvider from "next-auth/providers/google";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -11,6 +12,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
+      _id: string;
       // ...other properties
       // role: UserRole;
     } & DefaultSession["user"];
@@ -29,7 +31,7 @@ declare module "next-auth" {
  */
 export const authConfig = {
   providers: [
-    DiscordProvider,
+    GoogleProvider,
     /**
      * ...add more providers here.
      *
@@ -41,12 +43,15 @@ export const authConfig = {
      */
   ],
   callbacks: {
-    session: ({ session, token }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: token.sub,
-      },
-    }),
+    session: ({ session, token }) => {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: `${md5(session?.user?.email)}`,
+          _id: `${md5(session?.user?.email)}`,
+        },
+      };
+    },
   },
 } satisfies NextAuthConfig;
