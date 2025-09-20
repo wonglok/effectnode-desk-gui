@@ -1,17 +1,25 @@
 "use client";
 
 import { LogoutButton } from "@/components/buttons/LogoutButton";
+import { launchCoder } from "@/components/mini-apps/appMethods";
 import { MiniApps } from "@/components/mini-apps/MiniApps";
-
+import { Box } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { useEffect } from "react";
 export default function Home() {
+    useEffect(() => {
+        //
+        launchCoder({
+            args: {
+                appID: "myapp001",
+            },
+        });
+        //
+    }, []);
     return (
         <>
-            {/*  */}
-            {/*  */}
-
             <div className="relative h-full w-full">
                 {/*  */}
-
                 {/*  */}
 
                 <div
@@ -21,12 +29,21 @@ export default function Home() {
                         backgroundSize: "cover",
                         backgroundPosition: "center center",
                     }}
-                ></div>
+                >
+                    {/*  */}
+                    <Canvas>
+                        <MiniApps></MiniApps>
+                    </Canvas>
+                    {/*  */}
+                </div>
 
                 <div className="absolute top-0 left-0 h-[53px] w-full border-b border-gray-300 bg-white">
                     {/*  */}
-                    <MiniApps></MiniApps>
                     {/*  */}
+                    <div className="flex h-full w-full items-center justify-between">
+                        <div className="ml-2"></div>
+                        <div className="mr-2"></div>
+                    </div>
                 </div>
 
                 <div className="absolute bottom-0 left-0 h-[53px] w-full border-t border-gray-300 bg-white">
