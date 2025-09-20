@@ -26,8 +26,8 @@ export default async function RootLayout({
 
     let session = await auth();
     return (
-        <html lang="en" className={`${geist.variable}`}>
-            <body>
+        <html lang="en" className={`${geist.variable} h-full w-full`}>
+            <body className="h-full w-full">
                 <SessionProvider session={session}>
                     <TRPCReactProvider>{children}</TRPCReactProvider>
                 </SessionProvider>

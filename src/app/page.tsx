@@ -9,10 +9,7 @@ import { redirect } from "next/navigation";
 
 export default async function Home() {
     // const hello = await api.post.hello({ text: "from tRPC" });
-    // const session = await auth();
-    // if (!session?.user?.email) {
-    //     return
-    // }
+    const session = await auth();
 
     // if (session?.user) {
     //     void api.post.getLatest.prefetch();
@@ -29,5 +26,9 @@ export default async function Home() {
     //     </HydrateClient>
     // );
 
-    return redirect("/login");
+    if (!session?.user?.email) {
+        return redirect("/login");
+    } else {
+        return redirect("/desk");
+    }
 }
