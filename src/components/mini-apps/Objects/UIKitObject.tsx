@@ -53,7 +53,7 @@ const notifications = [
 ];
 
 export function UIKitObject() {
-    const openRef = useRef(false);
+    const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
     const translateZ = useMemo(() => signal(0), []);

@@ -54,19 +54,37 @@ export function MiniApps() {
 function Drags() {
     return (
         <>
-            <EnableDrag name="cta">
+            <EnableDrag
+                name="cta"
+                initPos={[
+                    1.813950721276176, 2.1260770921571748e-14,
+                    -6.010966669614811,
+                ]}
+            >
                 <Suspense fallback={null}>
                     <LaydownText text="Desk"></LaydownText>
                 </Suspense>
             </EnableDrag>
 
-            <EnableDrag name="avatar" initPos={[0, 5, 0]}>
+            <EnableDrag
+                name="avatar"
+                initPos={[
+                    -1.0884924105567535, -2.7824964554667986e-14,
+                    -6.433399772550491,
+                ]}
+            >
                 <Suspense fallback={null}>
                     <Avatar></Avatar>
                 </Suspense>
             </EnableDrag>
 
-            <EnableDrag name="card-page-1" initPos={[-5, 0, 5]}>
+            <EnableDrag
+                name="card-page-1"
+                initPos={[
+                    -5.470102401240012, 4.413136522884997e-15,
+                    -4.8063050618900025,
+                ]}
+            >
                 <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
                     <Suspense fallback={null}>
                         <UIKitObject></UIKitObject>
@@ -74,7 +92,13 @@ function Drags() {
                 </group>
             </EnableDrag>
 
-            <EnableDrag name="card-2" initPos={[-5, 0, 5]}>
+            <EnableDrag
+                name="card-page-2"
+                initPos={[
+                    8.84911023890157, -1.0644263248593688e-14,
+                    -6.874954929038775,
+                ]}
+            >
                 <group
                     position={[0, 0.1, 0]}
                     rotation={[Math.PI * -0.5, 0, 0]}

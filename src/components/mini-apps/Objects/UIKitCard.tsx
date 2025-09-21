@@ -58,7 +58,7 @@ const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 // ];
 
 export function UIKitCard() {
-    const openRef = useRef(false);
+    const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
     const translateZ = useMemo(() => signal(0), []);
@@ -209,7 +209,7 @@ export function UIKitCard() {
                                 fontWeight="medium"
                                 letterSpacing={-0.4}
                                 color={colors.primary}
-                                defaultValue={"Im loklok"}
+                                defaultValue={"Thank you Jesus"}
                             />
 
                             <Text
@@ -218,7 +218,7 @@ export function UIKitCard() {
                                 letterSpacing={-0.4}
                                 color={colors.primary}
                             >
-                                1 activities for you
+                                {`Prayer Time`}
                             </Text>
                         </Container>
                         <Container flexDirection="row">
