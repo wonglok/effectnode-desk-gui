@@ -54,6 +54,7 @@ import {
 } from "three";
 import { RTextureMat } from "./RTextureMat";
 import { AvatarMotion } from "./AvatarMotion";
+import { MagicMirror } from "./MagicMirror";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
@@ -184,29 +185,23 @@ export function UIKitObject({ name = "avasit" }) {
                             height={400}
                             castShadow
                         >
-                            <mesh geometry={cardGeometry}>
-                                <RTextureMat
-                                    width={512 * 1.5}
-                                    height={512 * 1.5}
-                                    colorSpace={NoColorSpace}
-                                    eventPriority={100}
-                                >
-                                    {/* <ambientLight intensity={Math.PI} /> */}
+                            <RTextureMat
+                                width={512 * 1.5}
+                                height={512 * 1.5}
+                                colorSpace={NoColorSpace}
+                                eventPriority={100}
+                            >
+                                {/* <ambientLight intensity={Math.PI} /> */}
 
-                                    <directionalLight
-                                        intensity={1}
-                                        position={[0, 5, 5]}
-                                    ></directionalLight>
+                                <AvatarMotion
+                                    avatarURL={`/avatar/angel.glb`}
+                                    motionURL={`/avatar/formal-salute.fbx`}
+                                ></AvatarMotion>
 
-                                    <AvatarMotion
-                                        avatarURL={`/avatar/angel.glb`}
-                                        motionURL={`/avatar/formal-salute.fbx`}
-                                    ></AvatarMotion>
-
-                                    <Cloud position={[0, 0, -1]}></Cloud>
-                                    <Sky rayleigh={0.1} azimuth={0.25}></Sky>
-                                </RTextureMat>
-                            </mesh>
+                                <ambientLight intensity={Math.PI * 0.5} />
+                                {/* <Cloud position={[0, 0, -1]}></Cloud> */}
+                                <Sky rayleigh={0.1} azimuth={0.5}></Sky>
+                            </RTextureMat>
                         </Content>
                     </Suspense>
 

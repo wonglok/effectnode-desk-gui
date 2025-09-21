@@ -44,7 +44,6 @@ import {
     Object3D,
     RenderTarget,
     WebGLRenderTarget,
-    PerspectiveCamera,
     EquirectangularReflectionMapping,
     ///
 } from "three";
@@ -164,31 +163,25 @@ export function UIKitCard() {
                             width="100%"
                             height={400}
                         >
-                            <mesh geometry={cardGeometry}>
-                                <RTextureMat
-                                    width={512 * 1.5}
-                                    height={512 * 1.5}
-                                    colorSpace={NoColorSpace}
-                                    eventPriority={100}
-                                    position={[0, 1.7, 0.7]}
-                                >
-                                    <>
-                                        <ambientLight intensity={Math.PI} />
+                            <RTextureMat
+                                width={512 * 1.5}
+                                height={512 * 1.5}
+                                colorSpace={NoColorSpace}
+                                eventPriority={100}
+                                position={[0, 1.7, 0.7]}
+                            >
+                                <>
+                                    <AvatarMotion
+                                        avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
+                                        motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
+                                    ></AvatarMotion>
 
-                                        <AvatarMotion
-                                            avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                                            motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
-                                        ></AvatarMotion>
+                                    {/* <Cloud position={[0, 0, 0]}></Cloud> */}
+                                    <ambientLight intensity={Math.PI * 0.5} />
 
-                                        <Cloud position={[0, 0, -1]}></Cloud>
-
-                                        <Sky
-                                            rayleigh={0.1}
-                                            azimuth={0.25}
-                                        ></Sky>
-                                    </>
-                                </RTextureMat>
-                            </mesh>
+                                    <Sky rayleigh={0.1} azimuth={0.5}></Sky>
+                                </>
+                            </RTextureMat>
                         </Content>
                     </Suspense>
 
