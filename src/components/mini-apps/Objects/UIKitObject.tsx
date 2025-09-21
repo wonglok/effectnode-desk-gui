@@ -1,16 +1,17 @@
 import { easing, geometry } from "maath";
-import { Suspense, useMemo, useRef } from "react";
+import { Suspense, useEffect, useMemo, useRef } from "react";
 import { signal } from "@preact/signals-core";
 import {
     Cloud,
     Environment,
     MeshPortalMaterial,
-    PerspectiveCamera,
     RenderTexture,
     Sky,
     Sphere,
+    useEnvironment,
+    useGLTF,
 } from "@react-three/drei";
-import { Canvas, extend, useFrame } from "@react-three/fiber";
+import { Canvas, createPortal, extend, useFrame } from "@react-three/fiber";
 import {
     Root,
     Container,
@@ -35,15 +36,62 @@ import {
 } from "@react-three/uikit-default";
 import { Avatar2 } from "./Avatar2";
 import { LinearToSRGB } from "three/src/math/ColorManagement.js";
-import { NoColorSpace } from "three";
+import {
+    NoColorSpace,
+    Object3D,
+    RenderTarget,
+    WebGLRenderTarget,
+    PerspectiveCamera,
+    EquirectangularReflectionMapping,
+} from "three";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
 
-export function UIKitObject() {
-    return <></>;
+function RTextureMat({ children, width = 1024, height = 1024 }: any) {
+    let env = useEnvironment({
+        files: [`/game-asset/hdr/brown_photostudio_02_1k.hdr`],
+    });
+    env.mapping = EquirectangularReflectionMapping;
+
+    let ref = useRef<any>(null);
+
+    let o3 = useMemo(() => {
+        return new Object3D();
+    }, []);
+    let rtt = useMemo(() => {
+        return new WebGLRenderTarget(width, height);
+    }, []);
+
+    let cam = useMemo(() => {
+        return new PerspectiveCamera(65, width / height, 0.01, 500);
+    }, []);
+
+    useFrame((st) => {
+        cam.position.y = 1.7;
+        cam.position.z = 0.75;
+        cam.rotation.x = -0.1;
+        cam.aspect = 1;
+        cam.updateMatrixWorld();
+        cam.updateProjectionMatrix();
+
+        st.gl.setRenderTarget(rtt);
+        ref.current.environment = env;
+        st.gl.render(ref.current, cam);
+        st.gl.setRenderTarget(null);
+    });
+
+    return (
+        <>
+            <meshStandardMaterial
+                emissive={"#ffffff"}
+                emissiveMap={rtt.texture}
+            ></meshStandardMaterial>
+            {createPortal(<scene ref={ref}>{children}</scene>, o3)}
+        </>
+    );
 }
 
 export function CardPage() {
@@ -87,39 +135,34 @@ export function CardPage() {
                         height={400}
                     >
                         <mesh geometry={cardGeometry}>
-                            <meshStandardMaterial emissive={"#ffffff"}>
-                                <RenderTexture
-                                    attach={"emissiveMap"}
-                                    width={1024}
-                                    height={1024}
-                                    colorSpace={NoColorSpace}
-                                >
+                            <RTextureMat
+                                width={1024}
+                                height={1024}
+                                colorSpace={NoColorSpace}
+                                eventPriority={100}
+                            >
+                                <>
                                     <color
                                         attach="background"
                                         args={["#bababa"]}
                                     />
                                     <ambientLight intensity={Math.PI} />
-                                    <Environment
-                                        files={[
-                                            `/game-asset/hdr/brown_photostudio_02_1k.hdr`,
-                                        ]}
-                                    />
 
                                     <Avatar2></Avatar2>
 
                                     <Cloud position={[0, 0, -1]}></Cloud>
                                     <Sky rayleigh={0.1} azimuth={0.25}></Sky>
-                                    <PerspectiveCamera
-                                        makeDefault
-                                        aspect={1}
-                                        near={0.01}
-                                        far={1000}
-                                        position={[0, 1.7, 0.75]}
-                                        rotation={[-0.1, 0, 0]}
-                                        fov={65}
-                                    />
-                                </RenderTexture>
-                            </meshStandardMaterial>
+                                    {/* <PerspectiveCamera
+                                            makeDefault
+                                            aspect={1}
+                                            near={0.01}
+                                            far={1000}
+                                            position={[0, 1.7, 0.75]}
+                                            rotation={[-0.1, 0, 0]}
+                                            fov={65}
+                                        /> */}
+                                </>
+                            </RTextureMat>
                         </mesh>
                     </Content>
                 </Suspense>
