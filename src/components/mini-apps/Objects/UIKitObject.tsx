@@ -263,6 +263,14 @@ export function UIKitObject({ name = "avasit" }) {
                     </Container>
                 </Container>
 
+                <group rotation={[Math.PI * 0.5, 0, 0]}>
+                    <group
+                        position={[3, 0, 0]}
+                        name={name}
+                        rotation={[0, -0.3, 0]}
+                        userData={{ openRef: openRef }}
+                    ></group>
+                </group>
                 <Container
                     flexDirection="column"
                     overflow={"hidden"}
@@ -362,7 +370,7 @@ export function UIKitObject({ name = "avasit" }) {
                                 ))}
                             </Container>
                         </CardContent>
-                        <CardFooter name={name}>
+                        <CardFooter>
                             <Button
                                 onClick={(e) => {
                                     e.stopPropagation();

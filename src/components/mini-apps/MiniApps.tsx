@@ -151,6 +151,7 @@ function AutoSync({ name = "avasit" }) {
 
         avatarsits.forEach((ava) => {
             ava.getWorldPosition(ref.current.position).multiplyScalar(1);
+            ava.getWorldQuaternion(ref.current.quaternion);
         });
     });
 
