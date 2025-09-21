@@ -4,12 +4,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { LogInIcon } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { redirect } from "next/navigation";
 
 export function LoginForm({
     className,
     ...props
 }: React.ComponentProps<"form">) {
+    let session = useSession();
+
+    useEffect(() => {
+        if (session?.data?.user?.email) {
+            redirect("/desk");
+        }
+    }, [session]);
+
     return (
         <form className={cn("flex flex-col gap-6", className)} {...props}>
             <div className="flex flex-col items-center gap-2 text-center">
@@ -56,10 +66,14 @@ export function LoginForm({
                         //     redirect: true,
                         //     redirectTo: `/desk`,
                         // });
-                        signIn(undefined, {
-                            redirect: true,
-                            redirectTo: "/desk",
-                        });
+                        // signIn(undefined, {
+                        //     redirect: true,
+                        //     redirectTo: "/desk",
+                        // });
+                        signIn();
+                        //
+                        //
+                        // location.assign(`/api/auth/signin`);
                         //
                         //
                     }}
