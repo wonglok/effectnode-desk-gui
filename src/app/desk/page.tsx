@@ -2,6 +2,7 @@
 
 import { LogoutButton } from "@/components/buttons/LogoutButton";
 import { launchCoder } from "@/components/mini-apps/appMethods";
+import { WebGLArea } from "@/components/mini-apps/WebGLArea";
 import { MiniApps } from "@/components/mini-apps/MiniApps";
 import { useEffect } from "react";
 export default function Home() {
@@ -29,8 +30,8 @@ export default function Home() {
                     // }}
                 >
                     {/*  */}
+                    <WebGLArea></WebGLArea>
                     <MiniApps></MiniApps>
-                    {/*  */}
                 </div>
 
                 <div className="absolute top-0 left-0 h-[53px] w-full border-b border-gray-300 bg-white">
