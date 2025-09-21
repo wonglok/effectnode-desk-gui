@@ -23,8 +23,11 @@ export function RTextureMat({ children, width = 1024, height = 1024 }: any) {
         return new Object3D();
     }, []);
     let rtt = useMemo(() => {
-        return new WebGLRenderTarget(width, height);
-    }, []);
+        return new WebGLRenderTarget(width, height, {
+            //
+            stencilBuffer: false,
+        });
+    }, [width, height]);
 
     let cam = useMemo(() => {
         return new PerspectiveCamera(65, width / height, 0.01, 500);

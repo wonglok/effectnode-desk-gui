@@ -94,8 +94,8 @@ export function CardPage() {
                     >
                         <mesh geometry={cardGeometry}>
                             <RTextureMat
-                                width={1024}
-                                height={1024}
+                                width={512 * 1.5}
+                                height={512 * 1.5}
                                 colorSpace={NoColorSpace}
                                 eventPriority={100}
                             >
@@ -110,15 +110,6 @@ export function CardPage() {
 
                                     <Cloud position={[0, 0, -1]}></Cloud>
                                     <Sky rayleigh={0.1} azimuth={0.25}></Sky>
-                                    {/* <PerspectiveCamera
-                                            makeDefault
-                                            aspect={1}
-                                            near={0.01}
-                                            far={1000}
-                                            position={[0, 1.7, 0.75]}
-                                            rotation={[-0.1, 0, 0]}
-                                            fov={65}
-                                        /> */}
                                 </>
                             </RTextureMat>
                         </mesh>
