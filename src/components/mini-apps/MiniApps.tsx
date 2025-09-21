@@ -58,7 +58,7 @@ export function MiniApps() {
                 <EnableDrag name="card-page">
                     <group
                         position={[5, 1, 0]}
-                        rotation={[Math.PI * -0.5, 0, 0]}
+                        rotation={[Math.PI * -0.45, 0, 0]}
                         // position={[0, 0.5, 0]}
                     >
                         <Suspense fallback={null}>
