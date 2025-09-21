@@ -35,7 +35,6 @@ export function MiniApps() {
                     toneMappingExposure: 1,
                     localClippingEnabled: true,
                 }}
-                shadows
             >
                 {/* <StandUpText text="Praise the LORD"></StandUpText> */}
 
@@ -55,13 +54,6 @@ export function MiniApps() {
 function Drags() {
     return (
         <>
-            <directionalLight
-                position={[0, 15, 15]}
-                intensity={5}
-                castShadow
-                receiveShadow
-            />
-
             <EnableDrag name="cta">
                 <Suspense fallback={null}>
                     <LaydownText text="Desk"></LaydownText>

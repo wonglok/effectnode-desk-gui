@@ -169,8 +169,11 @@ export function UIKitObject() {
                                     eventPriority={100}
                                 >
                                     <>
-                                        <ambientLight intensity={Math.PI} />
-
+                                        {/* <ambientLight intensity={Math.PI} /> */}
+                                        <directionalLight
+                                            intensity={1}
+                                            position={[0, 5, 5]}
+                                        ></directionalLight>
                                         <AvatarMotion
                                             avatarURL={`/avatar/angel.glb`}
                                             motionURL={`/avatar/formal-salute.fbx`}

@@ -21,7 +21,7 @@ export default function Home() {
                 {/*  */}
 
                 <div
-                    className="absolute top-[53px] right-0 bottom-[53px] left-0 bg-gradient-to-tr from-red-500 to-violet-500"
+                    className="absolute top-[53px] right-0 bottom-[53px] left-0 bg-gradient-to-tr from-red-200 to-violet-200"
                     // style={{
                     //     backgroundImage: `url('/bg/room.jpg')`,
                     //     backgroundSize: "cover",

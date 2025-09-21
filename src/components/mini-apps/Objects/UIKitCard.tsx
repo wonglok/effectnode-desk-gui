@@ -23,9 +23,11 @@ import {
 } from "@react-three/uikit";
 import { BellRing, Check } from "@react-three/uikit-lucide";
 import {
-    Defaults,
+    ///
     colors,
     Avatar,
+    ///
+    Defaults,
     Button,
     CardContent,
     CardDescription,
@@ -38,19 +40,22 @@ import { Avatar2 } from "./Avatar2";
 import { LinearToSRGB } from "three/src/math/ColorManagement.js";
 import {
     NoColorSpace,
+    ///
     Object3D,
     RenderTarget,
     WebGLRenderTarget,
     PerspectiveCamera,
     EquirectangularReflectionMapping,
+    ///
 } from "three";
 import { RTextureMat } from "./RTextureMat";
 import { AvatarMotion } from "./AvatarMotion";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
-const notifications = [
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-];
+
+// const notifications = [
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+// ];
 
 export function UIKitCard() {
     const openRef = useRef(false);
@@ -165,13 +170,14 @@ export function UIKitCard() {
                                     height={512 * 1.5}
                                     colorSpace={NoColorSpace}
                                     eventPriority={100}
+                                    position={[0, 1.7, 0.7]}
                                 >
                                     <>
                                         <ambientLight intensity={Math.PI} />
 
                                         <AvatarMotion
                                             avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                                            motionURL={`/avatar/waving.fbx`}
+                                            motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
                                         ></AvatarMotion>
 
                                         <Cloud position={[0, 0, -1]}></Cloud>

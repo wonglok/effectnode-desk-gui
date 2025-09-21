@@ -69,16 +69,16 @@ export function EnableDrag({
                 }}
             >
                 <primitive object={o3}></primitive>
-            </DragControls>
 
-            {ready &&
-                createPortal(
-                    <>
-                        {/*  */}
-                        {children}
-                    </>,
-                    o3,
-                )}
+                {ready &&
+                    createPortal(
+                        <>
+                            {/*  */}
+                            {children}
+                        </>,
+                        o3,
+                    )}
+            </DragControls>
         </>
     );
 }
