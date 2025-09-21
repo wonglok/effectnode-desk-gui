@@ -77,7 +77,6 @@ function Drags() {
                 </Suspense>
             </EnableDrag>
 
-            <AutoSync name="avasit"></AutoSync>
             <EnableDrag
                 name="p-1-card-page-1"
                 initPos={[-5.470102401240012, 4.413136522884997e-15, 0]}
@@ -123,41 +122,22 @@ function EnvirionmentContent() {
 
                 <Grid></Grid>
             </group>
+
             <MapControls
                 object-position={[0, 15, 6]}
                 object-rotation={[0, 0, 0]}
                 target={[0, 0, 0]}
                 makeDefault
             ></MapControls>
+
             <PerspectiveCamera
                 makeDefault
                 position={[0, 15, 6]}
             ></PerspectiveCamera>
+
             <Environment
                 files={[`/hdr/poly_haven_studio_1k.hdr`]}
             ></Environment>
-        </>
-    );
-}
-
-function AutoSync({ name = "avasit" }) {
-    let ref = useRef<any>(null);
-    // useFrame((_) => {
-    //     let avatarsits = _.scene.getObjectsByProperty("name", name);
-
-    //     avatarsits.forEach((ava) => {
-    //         ava.getWorldPosition(ref.current.position).multiplyScalar(1);
-    //         ava.getWorldQuaternion(ref.current.quaternion);
-    //     });
-    // });
-
-    return (
-        <>
-            <group ref={ref}>
-                <group position={[0, 0, 0]}>
-                    <AvatarMotion motionURL={`/avatar/lay.fbx`}></AvatarMotion>
-                </group>
-            </group>
         </>
     );
 }
