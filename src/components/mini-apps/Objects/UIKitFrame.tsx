@@ -111,16 +111,25 @@ export function UIKitFrame({ content }: any) {
                             height={400}
                             borderRadius={20}
                             borderBottomRadius={0}
-                            backgroundColor={"#bababa"}
+                            backgroundColor={"#8E89FF"}
                             flexDirection={"column"}
                             display={"flex"}
                         >
-                            {content}
+                            <Container
+                                flexDirection={"column"}
+                                display={"flex"}
+                                backgroundColor={"#ffffff"}
+                                height={"100%"}
+                                borderRadius={20}
+                                padding={20}
+                            >
+                                {content}
+                            </Container>
                         </Container>
                     </Suspense>
 
                     <Container
-                        backgroundColor={0xffffff}
+                        backgroundColor={"#110D70"}
                         dark={{ backgroundColor: 0x0 }}
                         flexDirection="row"
                         padding={28}
@@ -135,7 +144,7 @@ export function UIKitFrame({ content }: any) {
                                 fontSize={30}
                                 fontWeight="medium"
                                 letterSpacing={-0.4}
-                                color={colors.primary}
+                                color={"#ffffff"}
                                 defaultValue={"Thank you Jesus"}
                             />
 
@@ -143,7 +152,7 @@ export function UIKitFrame({ content }: any) {
                                 fontSize={20}
                                 fontWeight="medium"
                                 letterSpacing={-0.4}
-                                color={colors.primary}
+                                color={"#ffffff"}
                             >
                                 {`Prayer Time`}
                             </Text>

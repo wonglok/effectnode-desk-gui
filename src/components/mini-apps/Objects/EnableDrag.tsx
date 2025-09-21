@@ -30,7 +30,7 @@ export function EnableDrag({
                 clearTimeout(ttt);
                 ttt = setTimeout(() => {
                     inst.setItem(storeKey, value);
-                }, 100);
+                }, 10);
             },
             getItem: async (storeKey = "") => {
                 return await inst.getItem(storeKey);
@@ -48,7 +48,11 @@ export function EnableDrag({
                 );
             }
 
-            console.log(`initPos={[${o3.position.toArray()}]}`, name);
+            let v3 = new Vector3();
+
+            // matrix.compose(v3);
+
+            console.log(`initPos={[${v3.toArray()}}]}`, name);
             setReady(true);
         });
     }, []);
