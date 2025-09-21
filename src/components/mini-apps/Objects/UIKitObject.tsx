@@ -78,45 +78,52 @@ export function CardPage() {
                 flexDirection="column"
                 transformTranslateZ={translateZ}
             >
-                <Content
-                    transformTranslateZ={1}
-                    padding={14}
-                    keepAspectRatio={false}
-                    width="100%"
-                    height={400}
-                >
-                    <mesh geometry={cardGeometry}>
-                        <meshStandardMaterial emissive={"#ffffff"}>
-                            <RenderTexture
-                                attach={"emissiveMap"}
-                                width={1024}
-                                height={1024}
-                                colorSpace={NoColorSpace}
-                            >
-                                <color attach="background" args={["#bababa"]} />
-                                <ambientLight intensity={Math.PI} />
-                                <Environment
-                                    files={[
-                                        `/game-asset/hdr/brown_photostudio_02_1k.hdr`,
-                                    ]}
-                                />
-                                <Avatar2></Avatar2>
+                <Suspense fallback={null}>
+                    <Content
+                        transformTranslateZ={1}
+                        padding={14}
+                        keepAspectRatio={false}
+                        width="100%"
+                        height={400}
+                    >
+                        <mesh geometry={cardGeometry}>
+                            <meshStandardMaterial emissive={"#ffffff"}>
+                                <RenderTexture
+                                    attach={"emissiveMap"}
+                                    width={1024}
+                                    height={1024}
+                                    colorSpace={NoColorSpace}
+                                >
+                                    <color
+                                        attach="background"
+                                        args={["#bababa"]}
+                                    />
+                                    <ambientLight intensity={Math.PI} />
+                                    <Environment
+                                        files={[
+                                            `/game-asset/hdr/brown_photostudio_02_1k.hdr`,
+                                        ]}
+                                    />
 
-                                <Cloud position={[0, 0, -1]}></Cloud>
-                                <Sky rayleigh={0.1} azimuth={0.25}></Sky>
-                                <PerspectiveCamera
-                                    makeDefault
-                                    aspect={1}
-                                    near={0.01}
-                                    far={1000}
-                                    position={[0, 1.7, 0.75]}
-                                    rotation={[-0.1, 0, 0]}
-                                    fov={65}
-                                />
-                            </RenderTexture>
-                        </meshStandardMaterial>
-                    </mesh>
-                </Content>
+                                    <Avatar2></Avatar2>
+
+                                    <Cloud position={[0, 0, -1]}></Cloud>
+                                    <Sky rayleigh={0.1} azimuth={0.25}></Sky>
+                                    <PerspectiveCamera
+                                        makeDefault
+                                        aspect={1}
+                                        near={0.01}
+                                        far={1000}
+                                        position={[0, 1.7, 0.75]}
+                                        rotation={[-0.1, 0, 0]}
+                                        fov={65}
+                                    />
+                                </RenderTexture>
+                            </meshStandardMaterial>
+                        </mesh>
+                    </Content>
+                </Suspense>
+
                 <Container
                     backgroundColor={0xffffff}
                     dark={{ backgroundColor: 0x0 }}
