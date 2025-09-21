@@ -13,6 +13,8 @@ import { Grid } from "./Objects/Grid";
 import { StandUpText } from "./Objects/StandupText";
 import { NoToneMapping } from "three";
 import { Avatar } from "./Objects/Avatar";
+import { CardPage } from "./Objects/UIKitObject";
+import { EnableDrag } from "./Objects/EnableDrag";
 // import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
 
 export function MiniApps() {
@@ -41,6 +43,15 @@ export function MiniApps() {
                 })}
 
                 <Avatar></Avatar>
+
+                <EnableDrag>
+                    <group
+                        rotation={[Math.PI * -0.5, 0, 0]}
+                        position={[0, 0.5, 0]}
+                    >
+                        <CardPage></CardPage>
+                    </group>
+                </EnableDrag>
             </Canvas>
 
             {/*  */}
@@ -51,7 +62,7 @@ export function MiniApps() {
 function EnvirionmentContent() {
     return (
         <>
-            {/**/}
+            {/* * */}
 
             <Plane
                 scale={100}
@@ -66,7 +77,8 @@ function EnvirionmentContent() {
             <Grid></Grid>
 
             <MapControls
-                object-position={[0, 5, 2.0]}
+                object-position={[0, 5, 1.0]}
+                object-rotation={[0, 0, 0]}
                 target={[0, 0, 0]}
                 makeDefault
             ></MapControls>

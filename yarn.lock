@@ -538,6 +538,22 @@
     use-sync-external-store "^1.4.0"
     zustand "^5.0.3"
 
+"@react-three/uikit-default@^0.8.21":
+  version "0.8.21"
+  resolved "https://registry.yarnpkg.com/@react-three/uikit-default/-/uikit-default-0.8.21.tgz#9b4a533333043e7b9ba11a566fcd301eb6bba5c4"
+  integrity sha512-bC/1WnvE+JujG8gV6ovPwqxML8xkOzPbXXiljQle/yeaje6Fu6fHEkVuo80GL/B8v6yu0o9Jrml5M+uCp2XPkw==
+  dependencies:
+    "@react-three/uikit" "^0.8.21"
+    "@react-three/uikit-lucide" "^0.8.21"
+    tunnel-rat "^0.1.2"
+
+"@react-three/uikit-lucide@^0.8.21":
+  version "0.8.21"
+  resolved "https://registry.yarnpkg.com/@react-three/uikit-lucide/-/uikit-lucide-0.8.21.tgz#07048fc2bd0c8d6ab7bdc635b5a07c5a869b857a"
+  integrity sha512-T/dZEbVTP/5UsnAcGJv4+xMtV8RE5rka4ntrEol7J5TrWDykbqWX2YMNKuApknegwpHjTF7uXcVg1rL5pTy3QQ==
+  dependencies:
+    "@react-three/uikit" "^0.8.21"
+
 "@react-three/uikit@^0.8.21":
   version "0.8.21"
   resolved "https://registry.yarnpkg.com/@react-three/uikit/-/uikit-0.8.21.tgz#395e2f7a36ce836df6b8a506962ea5cda41feaa3"

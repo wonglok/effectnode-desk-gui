@@ -1,21 +1,10 @@
 "use client";
 import { Suspense, useEffect, useRef } from "react";
 import { useMiniApps, type WindowType } from "./useMiniApps";
-import {
-    Box,
-    Center,
-    DragControls,
-    Gltf,
-    Html,
-    MeshTransmissionMaterial,
-    RoundedBox,
-    Text,
-    Text3D,
-    useEnvironment,
-    useTexture,
-} from "@react-three/drei";
+
 import { Object3D } from "three";
-import { Fullscreen, Container, Root, Content } from "@react-three/uikit";
+import { Fullscreen, Container, Root, Text, Content } from "@react-three/uikit";
+import { CardPage } from "./Objects/UIKitObject";
 
 export function OneWindow({ win }: { win: WindowType }) {
     let ref = useRef<Object3D>(null);
@@ -35,7 +24,7 @@ export function OneWindow({ win }: { win: WindowType }) {
         <>
             {/*  */}
             <group position={[0, 0, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
-                <Root
+                {/* <Root
                     backgroundColor="red"
                     sizeX={8}
                     sizeY={4}
@@ -47,14 +36,16 @@ export function OneWindow({ win }: { win: WindowType }) {
                         margin={32}
                         backgroundColor="green"
                         borderRadius={20}
-                    ></Container>
+                    >
+                        <Text>{`Ppap`}</Text>
+                    </Container>
                     <Container
                         flexGrow={1}
                         margin={32}
                         backgroundColor="blue"
                         borderRadius={20}
                     />
-                </Root>
+                </Root> */}
             </group>
 
             {/*  */}
