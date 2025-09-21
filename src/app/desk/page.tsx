@@ -3,8 +3,6 @@
 import { LogoutButton } from "@/components/buttons/LogoutButton";
 import { launchCoder } from "@/components/mini-apps/appMethods";
 import { MiniApps } from "@/components/mini-apps/MiniApps";
-import { Box } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
 import { useEffect } from "react";
 export default function Home() {
     useEffect(() => {
@@ -32,7 +30,6 @@ export default function Home() {
                 >
                     {/*  */}
                     <MiniApps></MiniApps>
-
                     {/*  */}
                 </div>
 

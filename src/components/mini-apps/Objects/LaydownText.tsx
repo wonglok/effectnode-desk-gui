@@ -12,10 +12,10 @@ import font from "./_fonts/fonts/helvetiker_regular.typeface.json";
 export function LaydownText({ text = "hi" }) {
     let controls: any = useThree((r) => r.controls);
     let env = useEnvironment({
+        colorSpace: "srgb",
         files: [`/hdr/aerodynamics_workshop_1k.hdr`],
     });
     env.mapping = EquirectangularReflectionMapping;
-
     return (
         <>
             <DragControls
@@ -50,7 +50,7 @@ export function LaydownText({ text = "hi" }) {
 
                         <meshStandardMaterial
                             color={"#ffffff"}
-                            roughness={0}
+                            roughness={0.2}
                             metalness={1}
                             envMap={env}
                             envMapIntensity={1.5}
