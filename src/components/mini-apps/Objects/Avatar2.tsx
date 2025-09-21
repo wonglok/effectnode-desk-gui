@@ -5,7 +5,7 @@ import { AnimationClip, AnimationMixer } from "three";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
 export function Avatar2() {
-    let avatarRaw = useGLTF("/avatar/sweater.glb");
+    let avatarRaw = useGLTF("/avatar/angel.glb");
     let motion = useFBX(
         `/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`,
     );
