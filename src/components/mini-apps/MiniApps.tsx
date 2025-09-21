@@ -68,6 +68,9 @@ function Drags() {
                 </Suspense>
             </EnableDrag>
 
+            {/*  */}
+            {/*  */}
+
             <EnableDrag
                 name="p-1-avatar"
                 initPos={[-1.0884924105567535, -2.7824964554667986e-14, 0]}
