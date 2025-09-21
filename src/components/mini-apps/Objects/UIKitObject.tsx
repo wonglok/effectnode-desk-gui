@@ -18,6 +18,7 @@ import {
     setPreferredColorScheme,
     Content,
     Fullscreen,
+    Input,
 } from "@react-three/uikit";
 import { BellRing, Check } from "@react-three/uikit-lucide";
 import {
@@ -106,9 +107,11 @@ export function CardPage() {
                                 <PerspectiveCamera
                                     makeDefault
                                     aspect={1}
-                                    position={[0, 0.5, 2]}
+                                    near={0.01}
+                                    far={1000}
+                                    position={[0, 1.7, 1]}
                                     rotation={[0, 0, 0]}
-                                    fov={50}
+                                    fov={65}
                                 />
                             </RenderTexture>
                         </meshStandardMaterial>
@@ -126,13 +129,14 @@ export function CardPage() {
                     castShadow
                 >
                     <Container flexDirection="column" gap={8}>
-                        <Text
-                            fontWeight="normal"
-                            fontSize={24}
-                            lineHeight="100%"
-                        >
-                            VanArsdel Marketing
-                        </Text>
+                        <Input
+                            fontSize={30}
+                            fontWeight="medium"
+                            letterSpacing={-0.4}
+                            color={colors.primary}
+                            defaultValue={"Im loklok"}
+                        />
+
                         <Text
                             fontSize={20}
                             fontWeight="medium"

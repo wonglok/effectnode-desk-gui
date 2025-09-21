@@ -2,11 +2,23 @@ import { useFBX, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { useEffect, useMemo } from "react";
 import { AnimationClip, AnimationMixer } from "three";
+import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
 export function Avatar2() {
-    let avatar = useGLTF("/avatar/sweater.glb");
-    let motion = useFBX(`/avatar/sit.fbx`);
+    let avatarRaw = useGLTF("/avatar/sweater.glb");
+    let motion = useFBX(
+        `/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`,
+    );
 
+    let avatar = useMemo(() => {
+        let s = clone(avatarRaw.scene);
+        s.traverse((i) => {
+            i.frustumCulled = false;
+        });
+        return {
+            scene: s,
+        };
+    }, [avatarRaw]);
     let mixer = useMemo(() => {
         return new AnimationMixer(avatar.scene);
     }, [avatar.scene]);
