@@ -68,6 +68,7 @@ export function UIKitFrame({ content }: any) {
         );
 
         //
+
         easing.damp(
             translateY,
             "value",
@@ -75,6 +76,8 @@ export function UIKitFrame({ content }: any) {
             0.2,
             delta,
         );
+
+        //
 
         easing.damp(
             translateZ,
@@ -87,6 +90,8 @@ export function UIKitFrame({ content }: any) {
 
     return (
         <>
+            {/*  */}
+            {/*  */}
             <Root flexDirection="column" pixelSize={0.01} sizeX={4.4}>
                 <Container
                     backgroundColor={0xffffff}
