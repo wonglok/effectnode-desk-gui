@@ -128,6 +128,7 @@ function EnvirionmentContent() {
                 object-rotation={[0, 0, 0]}
                 target={[0, 0, 0]}
                 makeDefault
+                enableRotate={false}
             ></MapControls>
 
             <PerspectiveCamera
