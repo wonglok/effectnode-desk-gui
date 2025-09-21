@@ -35,7 +35,7 @@ export function AvatarMotion({
             .play();
         //
         //
-    }, [avatar.scene]);
+    }, [avatar.scene, motion]);
 
     return (
         <>

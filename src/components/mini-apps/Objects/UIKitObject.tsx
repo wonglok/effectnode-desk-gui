@@ -169,7 +169,9 @@ export function UIKitObject() {
                                     <>
                                         <ambientLight intensity={Math.PI} />
 
-                                        <AvatarMotion></AvatarMotion>
+                                        <AvatarMotion
+                                            motionURL={`/avatar/formal-salute.fbx`}
+                                        ></AvatarMotion>
 
                                         <Cloud position={[0, 0, -1]}></Cloud>
                                         <Sky
@@ -213,6 +215,7 @@ export function UIKitObject() {
                         </Container>
 
                         <Container flexDirection="row">
+                            {/*  */}
                             <Avatar width={40} src="/avatar-icon/ava1.png" />
                             <Avatar
                                 marginLeft={-6}
