@@ -25,7 +25,7 @@ export function OneWindow({ win }: { win: WindowType }) {
 
     return (
         <>
-            <EnableDrag name={`_${win._id}`} initPos={win.position}>
+            <EnableDrag name={`${win._id}`} initPos={win.position}>
                 <UIKitFrame
                     content={
                         <>
