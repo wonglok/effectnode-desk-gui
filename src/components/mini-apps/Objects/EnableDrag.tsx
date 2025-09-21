@@ -14,12 +14,8 @@ export function EnableDrag({
     let controls: any = useThree((r) => r.controls);
 
     let [o3] = useState(new Object3D());
-    let [d3] = useState(new Object3D());
+    let [matrix] = useState(new Matrix4());
     let [ready, setReady] = useState(false);
-
-    // let [store] = useState(() => {
-    //     return ;
-    // });
 
     let [store] = useState(() => {
         let keyname = `${name}_${md5(`${process.env.APP_NAME}`)}_${JSON.stringify(initPos)}`;
@@ -69,7 +65,15 @@ export function EnableDrag({
 
                     o3.updateMatrixWorld(true);
 
-                    store.setItem("matrix", o3.matrixWorld.toArray());
+                    let v3 = new Vector3();
+
+                    o3.getWorldPosition(v3);
+
+                    matrix.compose(v3, o3.quaternion, o3.scale);
+
+                    store.setItem("matrix", matrix);
+
+                    console.log("save", name, v3.toArray());
                 }}
             >
                 <primitive object={o3}></primitive>
