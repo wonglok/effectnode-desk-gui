@@ -31,9 +31,8 @@ export default function Home() {
                     // }}
                 >
                     {/*  */}
-                    <Canvas>
-                        <MiniApps></MiniApps>
-                    </Canvas>
+                    <MiniApps></MiniApps>
+
                     {/*  */}
                 </div>
 
