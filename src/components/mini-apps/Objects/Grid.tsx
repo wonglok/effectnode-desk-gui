@@ -4,7 +4,7 @@ export const Grid = ({ number = 23, lineWidth = 0.036, height = 0.5 }) => (
     // Renders a grid and crosses as instances
     <Instances position={[0, 0.0, 0]}>
         <planeGeometry args={[lineWidth, height]} />
-        <meshBasicMaterial color="#77f" />
+        <meshBasicMaterial color="#77c" />
 
         {Array.from({ length: number }, (_, y) =>
             Array.from({ length: number }, (_, x) => (
@@ -21,9 +21,6 @@ export const Grid = ({ number = 23, lineWidth = 0.036, height = 0.5 }) => (
                 </group>
             )),
         )}
-        <gridHelper
-            args={[100, 100, "#ccf", "#ccf"]}
-            position={[0, -0.01, 0]}
-        />
+        <gridHelper args={[50, 50, "#ccf", "#ccf"]} position={[0, -0.01, 0]} />
     </Instances>
 );

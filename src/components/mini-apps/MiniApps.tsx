@@ -1,6 +1,6 @@
 import { OneMiniApp } from "./OneMiniApp";
 import { useMiniApps } from "./useMiniApps";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
     AccumulativeShadows,
     Environment,
@@ -19,9 +19,11 @@ import { Avatar } from "./Objects/Avatar";
 import { UIKitObject } from "./Objects/UIKitObject";
 import { EnableDrag } from "./Objects/EnableDrag";
 import { InsideCamera } from "./Objects/InsideCamera";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import { UIKitFrame } from "./Objects/UIKitFrame";
 import { UIKitCard } from "./Objects/UIKitCard";
+import { createPortal } from "react-dom";
+import { AvatarMotion } from "./Objects/AvatarMotion";
 // import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
 
 export function MiniApps() {
@@ -75,13 +77,14 @@ function Drags() {
                 </Suspense>
             </EnableDrag>
 
+            <AutoSync name="avasit"></AutoSync>
             <EnableDrag
                 name="p-1-card-page-1"
                 initPos={[-5.470102401240012, 4.413136522884997e-15, 0]}
             >
                 <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
                     <Suspense fallback={null}>
-                        <UIKitObject></UIKitObject>
+                        <UIKitObject name={"avasit"}></UIKitObject>
                     </Suspense>
                 </group>
             </EnableDrag>
@@ -108,17 +111,19 @@ function EnvirionmentContent() {
         <>
             {/* * */}
 
-            <Plane
-                scale={100}
-                rotation={[-Math.PI * 0.5, 0, 0]}
-                position={[0, -0.1, 0]}
-                receiveShadow
-                castShadow
-            >
-                <meshBasicMaterial color={0xfbfbfb}></meshBasicMaterial>
-            </Plane>
+            <group scale={1}>
+                <Plane
+                    scale={50}
+                    rotation={[-Math.PI * 0.5, 0, 0]}
+                    position={[0, -0.1, 0]}
+                    receiveShadow
+                    castShadow
+                >
+                    <meshBasicMaterial color={0xfbfbfb}></meshBasicMaterial>
+                </Plane>
 
-            <Grid></Grid>
+                <Grid></Grid>
+            </group>
 
             <MapControls
                 object-position={[0, 15, 6]}
@@ -135,6 +140,27 @@ function EnvirionmentContent() {
             <Environment
                 files={[`/hdr/poly_haven_studio_1k.hdr`]}
             ></Environment>
+        </>
+    );
+}
+
+function AutoSync({ name = "avasit" }) {
+    let ref = useRef<any>(null);
+    useFrame((_) => {
+        let avatarsits = _.scene.getObjectsByProperty("name", name);
+
+        avatarsits.forEach((ava) => {
+            ava.getWorldPosition(ref.current.position).multiplyScalar(1);
+        });
+    });
+
+    return (
+        <>
+            <group ref={ref}>
+                <AvatarMotion
+                    motionURL={`/avatar/formal-salute.fbx`}
+                ></AvatarMotion>
+            </group>
         </>
     );
 }

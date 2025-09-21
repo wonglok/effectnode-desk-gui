@@ -2,6 +2,8 @@ import { easing, geometry } from "maath";
 import { Suspense, useEffect, useMemo, useRef } from "react";
 import { signal } from "@preact/signals-core";
 import {
+    Box,
+    Center,
     Cloud,
     Environment,
     MeshPortalMaterial,
@@ -11,7 +13,13 @@ import {
     useEnvironment,
     useGLTF,
 } from "@react-three/drei";
-import { Canvas, createPortal, extend, useFrame } from "@react-three/fiber";
+import {
+    Canvas,
+    createPortal,
+    extend,
+    useFrame,
+    useThree,
+} from "@react-three/fiber";
 import {
     Root,
     Container,
@@ -52,7 +60,7 @@ const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
 
-export function UIKitObject() {
+export function UIKitObject({ name = "avasit" }) {
     const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
@@ -354,7 +362,7 @@ export function UIKitObject() {
                                 ))}
                             </Container>
                         </CardContent>
-                        <CardFooter>
+                        <CardFooter name={name}>
                             <Button
                                 onClick={(e) => {
                                     e.stopPropagation();

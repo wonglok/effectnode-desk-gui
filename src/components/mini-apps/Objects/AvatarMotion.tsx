@@ -21,6 +21,7 @@ export function AvatarMotion({
             scene: s,
         };
     }, [avatarRaw]);
+
     let mixer = useMemo(() => {
         return new AnimationMixer(avatar.scene);
     }, [avatar.scene]);
