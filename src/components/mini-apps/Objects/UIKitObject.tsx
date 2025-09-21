@@ -44,55 +44,12 @@ import {
     PerspectiveCamera,
     EquirectangularReflectionMapping,
 } from "three";
+import { RTextureMat } from "./RTextureMat";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
-
-function RTextureMat({ children, width = 1024, height = 1024 }: any) {
-    let env = useEnvironment({
-        files: [`/game-asset/hdr/brown_photostudio_02_1k.hdr`],
-    });
-    env.mapping = EquirectangularReflectionMapping;
-
-    let ref = useRef<any>(null);
-
-    let o3 = useMemo(() => {
-        return new Object3D();
-    }, []);
-    let rtt = useMemo(() => {
-        return new WebGLRenderTarget(width, height);
-    }, []);
-
-    let cam = useMemo(() => {
-        return new PerspectiveCamera(65, width / height, 0.01, 500);
-    }, []);
-
-    useFrame((st) => {
-        cam.position.y = 1.7;
-        cam.position.z = 0.75;
-        cam.rotation.x = -0.1;
-        cam.aspect = 1;
-        cam.updateMatrixWorld();
-        cam.updateProjectionMatrix();
-
-        st.gl.setRenderTarget(rtt);
-        ref.current.environment = env;
-        st.gl.render(ref.current, cam);
-        st.gl.setRenderTarget(null);
-    });
-
-    return (
-        <>
-            <meshStandardMaterial
-                emissive={"#ffffff"}
-                emissiveMap={rtt.texture}
-            ></meshStandardMaterial>
-            {createPortal(<scene ref={ref}>{children}</scene>, o3)}
-        </>
-    );
-}
 
 export function CardPage() {
     const openRef = useRef(false);
