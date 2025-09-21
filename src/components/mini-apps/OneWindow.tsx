@@ -4,9 +4,11 @@ import { useMiniApps, type WindowType } from "./useMiniApps";
 
 import { Object3D } from "three";
 import { Fullscreen, Container, Root, Text, Content } from "@react-three/uikit";
+import { UIKitFrame } from "./Objects/UIKitFrame";
+import { EnableDrag } from "./Objects/EnableDrag";
 
 export function OneWindow({ win }: { win: WindowType }) {
-    let ref = useRef<Object3D>(null);
+    // let ref = useRef<Object3D>(null);
     useEffect(() => {
         //
         // useMiniApps.subscribe((now, before) => {
@@ -19,33 +21,25 @@ export function OneWindow({ win }: { win: WindowType }) {
         //
     }, [win._id]);
 
+    console.log(win);
+
     return (
         <>
+            <EnableDrag name={win._id} initPos={win.position}>
+                <UIKitFrame
+                    content={
+                        <Container>
+                            <Container>
+                                <Text>{win.name}</Text>
+                            </Container>
+                            <Container>
+                                <Text>{win.appID}</Text>
+                            </Container>
+                        </Container>
+                    }
+                ></UIKitFrame>
+            </EnableDrag>
             {/*  */}
-            <group position={[0, 0, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
-                {/* <Root
-                    backgroundColor="red"
-                    sizeX={8}
-                    sizeY={4}
-                    flexDirection="row"
-                    borderRadius={20}
-                >
-                    <Container
-                        flexGrow={1}
-                        margin={32}
-                        backgroundColor="green"
-                        borderRadius={20}
-                    >
-                        <Text>{`Ppap`}</Text>
-                    </Container>
-                    <Container
-                        flexGrow={1}
-                        margin={32}
-                        backgroundColor="blue"
-                        borderRadius={20}
-                    />
-                </Root> */}
-            </group>
 
             {/*  */}
             {/*  */}

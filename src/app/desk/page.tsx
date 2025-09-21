@@ -31,7 +31,6 @@ export default function Home() {
                 >
                     {/*  */}
                     <WebGLArea></WebGLArea>
-                    <MiniApps></MiniApps>
                 </div>
 
                 <div className="absolute top-0 left-0 h-[53px] w-full border-b border-gray-300 bg-white">

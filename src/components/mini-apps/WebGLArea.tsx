@@ -24,6 +24,7 @@ import { UIKitFrame } from "./Objects/UIKitFrame";
 import { UIKitCard } from "./Objects/UIKitCard";
 import { createPortal } from "react-dom";
 import { AvatarMotion } from "./Objects/AvatarMotion";
+import { MiniApps } from "./MiniApps";
 // import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
 
 export function WebGLArea() {
@@ -41,6 +42,7 @@ export function WebGLArea() {
 
                 <EnvirionmentContent></EnvirionmentContent>
                 <Drags></Drags>
+                <MiniApps></MiniApps>
             </Canvas>
 
             {/*  */}

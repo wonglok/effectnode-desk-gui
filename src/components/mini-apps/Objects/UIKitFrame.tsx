@@ -4,6 +4,7 @@ import { signal } from "@preact/signals-core";
 import {
     Cloud,
     Environment,
+    Html,
     MeshPortalMaterial,
     RenderTexture,
     Sky,
@@ -23,9 +24,11 @@ import {
 } from "@react-three/uikit";
 import { BellRing, Check } from "@react-three/uikit-lucide";
 import {
-    Defaults,
+    ///
     colors,
     Avatar,
+    ///
+    Defaults,
     Button,
     CardContent,
     CardDescription,
@@ -34,45 +37,22 @@ import {
     CardTitle,
     Switch,
 } from "@react-three/uikit-default";
-import { Avatar2 } from "./Avatar2";
-import { LinearToSRGB } from "three/src/math/ColorManagement.js";
 import {
     NoColorSpace,
-    Object3D,
-    RenderTarget,
-    WebGLRenderTarget,
-    PerspectiveCamera,
-    EquirectangularReflectionMapping,
+
+    ///
 } from "three";
 import { RTextureMat } from "./RTextureMat";
 import { AvatarMotion } from "./AvatarMotion";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
-const notifications = [
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-];
 
-export function UIKitFrame() {
-    const openRef = useRef(false);
-    const rotationX = useMemo(() => signal(0), []);
-    const translateY = useMemo(() => signal(0), []);
-    const translateZ = useMemo(() => signal(0), []);
+// const notifications = [
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+// ];
 
-    useFrame((_, delta) => {
-        //
-        easing.damp(rotationX, "value", openRef.current ? 35 : 0, 0.2, delta);
-
-        //
-        easing.damp(
-            translateY,
-            "value",
-            openRef.current ? 0 : -460,
-            0.2,
-            delta,
-        );
-
-        easing.damp(translateZ, "value", openRef.current ? 0 : 0, 0.2, delta);
-    });
+export function UIKitFrame({ content }: any) {
+    const openRef = useRef(true);
 
     const settings = {
         translateX: useMemo(() => signal(0), []),
@@ -89,21 +69,21 @@ export function UIKitFrame() {
         easing.damp(
             settings.translateX,
             "value",
-            !openRef.current ? -500 : 0,
+            !openRef.current ? 0 : 0,
             0.2,
             delta,
         );
         easing.damp(
             settings.translateY,
             "value",
-            !openRef.current ? 0 : 0,
+            !openRef.current ? 0 : -200,
             0.2,
             delta,
         );
         easing.damp(
             settings.translateZ,
             "value",
-            !openRef.current ? 0 : 0,
+            !openRef.current ? 0 : 200,
             0.2,
             delta,
         );
@@ -112,7 +92,7 @@ export function UIKitFrame() {
         easing.damp(
             settings.rotationX,
             "value",
-            !openRef.current ? 35 : 35,
+            !openRef.current ? -30 : -30,
             0.2,
             delta,
         );
@@ -147,39 +127,24 @@ export function UIKitFrame() {
                     }}
                     cursor="pointer"
                     flexDirection="column"
-                    transformTranslateZ={translateZ}
+                    transformTranslateX={settings.translateX}
+                    transformTranslateY={settings.translateY}
+                    transformTranslateZ={settings.translateZ}
+                    transformRotateX={settings.rotationX}
+                    transformRotateY={settings.rotationY}
+                    transformRotateZ={settings.rotationZ}
+                    //
                     transformOriginY={"bottom"}
-                    transformRotateX={rotationX}
                 >
                     <Suspense fallback={null}>
-                        <Content
+                        <Container
                             transformTranslateZ={1}
                             padding={14}
-                            keepAspectRatio={false}
                             width="100%"
                             height={400}
                         >
-                            <mesh geometry={cardGeometry}>
-                                <RTextureMat
-                                    width={512 * 1.5}
-                                    height={512 * 1.5}
-                                    colorSpace={NoColorSpace}
-                                    eventPriority={100}
-                                >
-                                    <>
-                                        <ambientLight intensity={Math.PI} />
-
-                                        <AvatarMotion></AvatarMotion>
-
-                                        <Cloud position={[0, 0, -1]}></Cloud>
-                                        <Sky
-                                            rayleigh={0.1}
-                                            azimuth={0.25}
-                                        ></Sky>
-                                    </>
-                                </RTextureMat>
-                            </mesh>
-                        </Content>
+                            {content}
+                        </Container>
                     </Suspense>
 
                     <Container
@@ -199,7 +164,7 @@ export function UIKitFrame() {
                                 fontWeight="medium"
                                 letterSpacing={-0.4}
                                 color={colors.primary}
-                                defaultValue={"Im loklok"}
+                                defaultValue={"Thank you Jesus"}
                             />
 
                             <Text
@@ -208,8 +173,11 @@ export function UIKitFrame() {
                                 letterSpacing={-0.4}
                                 color={colors.primary}
                             >
-                                1 activities for you
+                                {`Prayer Time`}
                             </Text>
+
+                            {/*  */}
+                            {/*  */}
                         </Container>
                         <Container flexDirection="row">
                             <Avatar
@@ -228,122 +196,6 @@ export function UIKitFrame() {
                                 src="/avatar-icon/ava3.png"
                             />
                         </Container>
-                    </Container>
-                </Container>
-
-                <Container
-                    flexDirection="column"
-                    overflow={"hidden"}
-                    paddingTop={40}
-                    transformTranslateX={"100%"}
-                    transformTranslateY={"-150%"}
-                    transformTranslateZ={0}
-                >
-                    <Container
-                        backgroundColor={colors.secondary}
-                        borderRadius={20}
-                        flexDirection="column"
-                        //
-                        transformTranslateX={settings.translateX}
-                        transformTranslateY={settings.translateY}
-                        transformTranslateZ={settings.translateZ}
-                        transformRotateX={settings.rotationX}
-                        transformRotateY={settings.rotationY}
-                        transformRotateZ={settings.rotationZ}
-                    >
-                        <CardHeader>
-                            <CardTitle>
-                                <Text>Notifications</Text>
-                            </CardTitle>
-                            <CardDescription>
-                                <Text>You have 3 unread messages.</Text>
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent flexDirection="column" gap={16}>
-                            <Container
-                                flexDirection="row"
-                                alignItems="center"
-                                gap={16}
-                                borderRadius={6}
-                                borderWidth={1}
-                                padding={16}
-                            >
-                                <BellRing />
-                                <Container flexDirection="column" gap={4}>
-                                    <Text fontSize={14} lineHeight="100%">
-                                        Push Notifications
-                                    </Text>
-                                    <Text
-                                        fontSize={14}
-                                        lineHeight={20}
-                                        color={colors.mutedForeground}
-                                    >
-                                        Send notifications to device.
-                                    </Text>
-                                </Container>
-                                <Container flexGrow={1} />
-                                <Switch />
-                            </Container>
-                            <Container flexDirection="column">
-                                {notifications.map((notification, index) => (
-                                    <Container
-                                        key={index}
-                                        marginBottom={
-                                            index === notifications.length - 1
-                                                ? 0
-                                                : 16
-                                        }
-                                        paddingBottom={
-                                            index === notifications.length - 1
-                                                ? 0
-                                                : 16
-                                        }
-                                        alignItems="flex-start"
-                                        flexDirection="row"
-                                        gap={17}
-                                    >
-                                        <Container
-                                            height={8}
-                                            width={8}
-                                            transformTranslateY={4}
-                                            borderRadius={1000}
-                                            backgroundColor={colors.primary}
-                                        />
-                                        <Container
-                                            gap={4}
-                                            flexDirection="column"
-                                        >
-                                            <Text
-                                                fontSize={14}
-                                                lineHeight="100%"
-                                            >
-                                                {notification.title}
-                                            </Text>
-                                            <Text
-                                                fontSize={14}
-                                                lineHeight={20}
-                                                color={colors.mutedForeground}
-                                            >
-                                                {notification.description}
-                                            </Text>
-                                        </Container>
-                                    </Container>
-                                ))}
-                            </Container>
-                        </CardContent>
-                        <CardFooter>
-                            <Button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    openRef.current = !openRef.current;
-                                }}
-                                flexDirection="row"
-                                width="100%"
-                            >
-                                <Check marginRight={8} height={16} width={16} />
-                                <Text>Mark all as read</Text>
-                            </Button>
-                        </CardFooter>
                     </Container>
                 </Container>
             </Root>
