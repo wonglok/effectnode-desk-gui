@@ -16,18 +16,18 @@ export function EnableDrag({ name = "drag", children }: any) {
     // });
 
     let [store] = useState(() => {
-        let namespace = `${name}_${md5(`${process.env.APP_NAME}`)}`;
+        let keyname = `${name}_${md5(`${process.env.APP_NAME}`)}`;
 
         let inst = createInstance({
-            name: `${namespace}`,
+            name: `${keyname}`,
         });
 
         return {
-            setItem: async (name = "", value: any) => {
-                await inst.setItem(name, value);
+            setItem: async (storeKey = "", value: any) => {
+                await inst.setItem(storeKey, value);
             },
-            getItem: async (name = "") => {
-                return await inst.getItem(name);
+            getItem: async (storeKey = "") => {
+                return await inst.getItem(storeKey);
             },
         };
     });

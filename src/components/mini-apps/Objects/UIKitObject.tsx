@@ -1,10 +1,14 @@
 import { easing, geometry } from "maath";
-import { useMemo, useRef } from "react";
+import { Suspense, useMemo, useRef } from "react";
 import { signal } from "@preact/signals-core";
 import {
+    Cloud,
     Environment,
     MeshPortalMaterial,
     PerspectiveCamera,
+    RenderTexture,
+    Sky,
+    Sphere,
 } from "@react-three/drei";
 import { Canvas, extend, useFrame } from "@react-three/fiber";
 import {
@@ -28,6 +32,9 @@ import {
     CardTitle,
     Switch,
 } from "@react-three/uikit-default";
+import { Avatar2 } from "./Avatar2";
+import { LinearToSRGB } from "three/src/math/ColorManagement.js";
+import { NoColorSpace } from "three";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
@@ -78,20 +85,33 @@ export function CardPage() {
                     height={400}
                 >
                     <mesh geometry={cardGeometry}>
-                        <MeshPortalMaterial
-                            resolution={1024}
-                            blur={0}
-                            transparent
-                        >
-                            <color attach="background" args={["#bababa"]} />
-                            <ambientLight intensity={Math.PI} />
-                            <Environment preset="city" />
-                            <PerspectiveCamera
-                                makeDefault
-                                position={[0, 0, 10]}
-                                fov={50}
-                            />
-                        </MeshPortalMaterial>
+                        <meshStandardMaterial emissive={"#ffffff"}>
+                            <RenderTexture
+                                attach={"emissiveMap"}
+                                width={1024}
+                                height={1024}
+                                colorSpace={NoColorSpace}
+                            >
+                                <color attach="background" args={["#bababa"]} />
+                                <ambientLight intensity={Math.PI} />
+                                <Environment
+                                    files={[
+                                        `/game-asset/hdr/brown_photostudio_02_1k.hdr`,
+                                    ]}
+                                />
+                                <Avatar2></Avatar2>
+
+                                <Cloud position={[0, -2.5, 0]}></Cloud>
+                                <Sky></Sky>
+                                <PerspectiveCamera
+                                    makeDefault
+                                    aspect={1}
+                                    position={[0, 0.5, 2]}
+                                    rotation={[0, 0, 0]}
+                                    fov={50}
+                                />
+                            </RenderTexture>
+                        </meshStandardMaterial>
                     </mesh>
                 </Content>
                 <Container
