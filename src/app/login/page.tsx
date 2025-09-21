@@ -1,3 +1,4 @@
+"use client";
 import {
     AxeIcon,
     GalleryVerticalEnd,
