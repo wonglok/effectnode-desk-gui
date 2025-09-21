@@ -4,7 +4,6 @@ import { useMiniApps, type WindowType } from "./useMiniApps";
 
 import { Object3D } from "three";
 import { Fullscreen, Container, Root, Text, Content } from "@react-three/uikit";
-import { CardPage } from "./Objects/UIKitObject";
 
 export function OneWindow({ win }: { win: WindowType }) {
     let ref = useRef<Object3D>(null);

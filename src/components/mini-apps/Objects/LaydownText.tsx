@@ -22,7 +22,7 @@ export function LaydownText({ text = "hi" }) {
                 <Text3D
                     castShadow
                     bevelEnabled
-                    scale={2}
+                    scale={2.5}
                     letterSpacing={-0.03}
                     height={0.25}
                     bevelSize={0.01}
