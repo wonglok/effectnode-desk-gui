@@ -57,6 +57,7 @@ export function UIKitObject() {
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
     const translateZ = useMemo(() => signal(0), []);
+    const groupMoveZ = useMemo(() => signal(0), []);
 
     useFrame((_, delta) => {
         //
@@ -72,6 +73,14 @@ export function UIKitObject() {
         );
 
         easing.damp(translateZ, "value", openRef.current ? 0 : 0, 0.2, delta);
+
+        easing.damp(
+            groupMoveZ,
+            "value",
+            openRef.current ? -100 : 0,
+            0.2,
+            delta,
+        );
     });
 
     const settings = {
@@ -136,7 +145,12 @@ export function UIKitObject() {
 
     return (
         <>
-            <Root flexDirection="column" pixelSize={0.01} sizeX={4.4}>
+            <Root
+                transformTranslateY={groupMoveZ}
+                flexDirection="column"
+                pixelSize={0.01}
+                sizeX={4.4}
+            >
                 <Container
                     backgroundColor={0xffffff}
                     dark={{ backgroundColor: 0x0 }}
