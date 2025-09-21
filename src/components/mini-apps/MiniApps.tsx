@@ -92,11 +92,7 @@ function Drags() {
                 name="p-1-card-page-2"
                 initPos={[8.84911023890157, -1.0644263248593688e-14, 0]}
             >
-                <group
-                    position={[0, 0.1, 0]}
-                    rotation={[Math.PI * -0.5, 0, 0]}
-                    // position={[0, 0.5, 0]}
-                >
+                <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
                     <Suspense fallback={null}>
                         <UIKitCard></UIKitCard>
                     </Suspense>

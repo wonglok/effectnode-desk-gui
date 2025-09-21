@@ -36,15 +36,9 @@ import {
     CardTitle,
     Switch,
 } from "@react-three/uikit-default";
-import { Avatar2 } from "./Avatar2";
-import { LinearToSRGB } from "three/src/math/ColorManagement.js";
 import {
     NoColorSpace,
-    ///
-    Object3D,
-    RenderTarget,
-    WebGLRenderTarget,
-    EquirectangularReflectionMapping,
+
     ///
 } from "three";
 import { RTextureMat } from "./RTextureMat";
