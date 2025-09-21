@@ -54,14 +54,13 @@ import {
 } from "three";
 import { RTextureMat } from "./RTextureMat";
 import { AvatarMotion } from "./AvatarMotion";
-import { MagicMirror } from "./MagicMirror";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
 
-export function UIKitObject({ name = "avasit" }) {
+export function UIKitObject({}) {
     const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);

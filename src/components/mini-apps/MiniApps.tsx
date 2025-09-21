@@ -83,7 +83,7 @@ function Drags() {
             >
                 <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
                     <Suspense fallback={null}>
-                        <UIKitObject name={"avasit"}></UIKitObject>
+                        <UIKitObject></UIKitObject>
                     </Suspense>
                 </group>
             </EnableDrag>
