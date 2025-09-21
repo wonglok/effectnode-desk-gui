@@ -44,11 +44,15 @@ export function MiniApps() {
                 })}
 
                 <EnableDrag name="cta">
-                    <LaydownText text="Desk"></LaydownText>
+                    <Suspense fallback={null}>
+                        <LaydownText text="Desk"></LaydownText>
+                    </Suspense>
                 </EnableDrag>
 
                 <EnableDrag name="avatar">
-                    <Avatar></Avatar>
+                    <Suspense fallback={null}>
+                        <Avatar></Avatar>
+                    </Suspense>
                 </EnableDrag>
 
                 <EnableDrag name="card-page">
