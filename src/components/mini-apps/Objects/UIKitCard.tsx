@@ -177,9 +177,15 @@ export function UIKitCard() {
                                     ></AvatarMotion>
 
                                     {/* <Cloud position={[0, 0, 0]}></Cloud> */}
+
                                     <ambientLight intensity={Math.PI * 0.5} />
 
-                                    <Sky rayleigh={0.1} azimuth={0.5}></Sky>
+                                    <Sky
+                                        turbidity={0.5}
+                                        inclination={1}
+                                        rayleigh={0.1}
+                                        azimuth={0.5}
+                                    ></Sky>
                                 </>
                             </RTextureMat>
                         </Content>
