@@ -30,11 +30,14 @@ export function AvatarMotion({
     });
     useEffect(() => {
         //
-        mixer
+        let act = mixer
             .clipAction(motion.animations[0] as AnimationClip, avatar.scene)
             .play();
         //
         //
+        return () => {
+            act.stop();
+        };
     }, [avatar.scene, motion]);
 
     return (

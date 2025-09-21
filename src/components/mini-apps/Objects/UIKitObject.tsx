@@ -150,6 +150,7 @@ export function UIKitObject() {
                     transformTranslateZ={translateZ}
                     transformOriginY={"bottom"}
                     transformRotateX={rotationX}
+                    castShadow
                 >
                     <Suspense fallback={null}>
                         <Content
@@ -158,6 +159,7 @@ export function UIKitObject() {
                             keepAspectRatio={false}
                             width="100%"
                             height={400}
+                            castShadow
                         >
                             <mesh geometry={cardGeometry}>
                                 <RTextureMat
@@ -170,6 +172,7 @@ export function UIKitObject() {
                                         <ambientLight intensity={Math.PI} />
 
                                         <AvatarMotion
+                                            avatarURL={`/avatar/angel.glb`}
                                             motionURL={`/avatar/formal-salute.fbx`}
                                         ></AvatarMotion>
 
@@ -216,7 +219,11 @@ export function UIKitObject() {
 
                         <Container flexDirection="row">
                             {/*  */}
-                            <Avatar width={40} src="/avatar-icon/ava1.png" />
+                            <Avatar
+                                //
+                                width={40}
+                                src="/avatar-icon/ava1.png"
+                            />
                             <Avatar
                                 marginLeft={-6}
                                 width={40}
@@ -236,6 +243,7 @@ export function UIKitObject() {
                     overflow={"hidden"}
                     paddingTop={40}
                     transformTranslateZ={0}
+                    castShadow
                 >
                     <Container
                         backgroundColor={colors.secondary}

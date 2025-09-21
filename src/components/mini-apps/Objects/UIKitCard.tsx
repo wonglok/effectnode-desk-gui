@@ -75,11 +75,11 @@ export function UIKitCard() {
     });
 
     const settings = {
-        translateX: useMemo(() => signal(0), []),
+        translateX: useMemo(() => signal(-500), []),
         translateY: useMemo(() => signal(0), []),
         translateZ: useMemo(() => signal(0), []),
 
-        rotationX: useMemo(() => signal(0), []),
+        rotationX: useMemo(() => signal(35), []),
         rotationY: useMemo(() => signal(0), []),
         rotationZ: useMemo(() => signal(0), []),
     };
@@ -169,9 +169,13 @@ export function UIKitCard() {
                                     <>
                                         <ambientLight intensity={Math.PI} />
 
-                                        <AvatarMotion></AvatarMotion>
+                                        <AvatarMotion
+                                            avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
+                                            motionURL={`/avatar/waving.fbx`}
+                                        ></AvatarMotion>
 
                                         <Cloud position={[0, 0, -1]}></Cloud>
+
                                         <Sky
                                             rayleigh={0.1}
                                             azimuth={0.25}
@@ -213,18 +217,19 @@ export function UIKitCard() {
                         </Container>
                         <Container flexDirection="row">
                             <Avatar
+                                //
                                 width={40}
-                                src="https://avatar.iran.liara.run/public/boy?username=Peter"
+                                src="/avatar-icon/ava1.png"
                             />
                             <Avatar
                                 marginLeft={-6}
                                 width={40}
-                                src="https://avatar.iran.liara.run/public/boy?username=Paul"
+                                src="/avatar-icon/ava2.png"
                             />
                             <Avatar
                                 marginLeft={-6}
                                 width={40}
-                                src="https://avatar.iran.liara.run/public/boy?username=Mary"
+                                src="/avatar-icon/ava3.png"
                             />
                         </Container>
                     </Container>

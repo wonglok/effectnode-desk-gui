@@ -213,18 +213,19 @@ export function UIKitFrame() {
                         </Container>
                         <Container flexDirection="row">
                             <Avatar
+                                //
                                 width={40}
-                                src="https://avatar.iran.liara.run/public/boy?username=Peter"
+                                src="/avatar-icon/ava1.png"
                             />
                             <Avatar
                                 marginLeft={-6}
                                 width={40}
-                                src="https://avatar.iran.liara.run/public/boy?username=Paul"
+                                src="/avatar-icon/ava2.png"
                             />
                             <Avatar
                                 marginLeft={-6}
                                 width={40}
-                                src="https://avatar.iran.liara.run/public/boy?username=Mary"
+                                src="/avatar-icon/ava3.png"
                             />
                         </Container>
                     </Container>

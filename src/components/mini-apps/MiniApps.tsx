@@ -2,11 +2,13 @@ import { OneMiniApp } from "./OneMiniApp";
 import { useMiniApps } from "./useMiniApps";
 import { Canvas } from "@react-three/fiber";
 import {
+    AccumulativeShadows,
     Environment,
     Gltf,
     MapControls,
     PerspectiveCamera,
     Plane,
+    RandomizedLight,
     RoundedBox,
 } from "@react-three/drei";
 import { LaydownText } from "./Objects/LaydownText";
@@ -35,55 +37,14 @@ export function MiniApps() {
                 }}
                 shadows
             >
-                <EnvirionmentContent></EnvirionmentContent>
-                {/* 
-                <directionalLight
-                    position={[0, 5, 5]}
-                    intensity={5}
-                    castShadow
-                /> */}
-
                 {/* <StandUpText text="Praise the LORD"></StandUpText> */}
 
                 {apps.map((app) => {
                     return <OneMiniApp key={app._id} app={app}></OneMiniApp>;
                 })}
 
-                <EnableDrag name="cta">
-                    <Suspense fallback={null}>
-                        <LaydownText text="Desk"></LaydownText>
-                    </Suspense>
-                </EnableDrag>
-
-                <EnableDrag name="avatar" initPos={[0, 5, 0]}>
-                    <Suspense fallback={null}>
-                        <Avatar></Avatar>
-                    </Suspense>
-                </EnableDrag>
-
-                <EnableDrag name="card-page-1" initPos={[-5, 0, 5]}>
-                    <group
-                        position={[0, 0.1, 0]}
-                        rotation={[Math.PI * -0.5, 0, 0]}
-                        // position={[0, 0.5, 0]}
-                    >
-                        <Suspense fallback={null}>
-                            <UIKitObject></UIKitObject>
-                        </Suspense>
-                    </group>
-                </EnableDrag>
-
-                <EnableDrag name="card-2" initPos={[-5, 0, 5]}>
-                    <group
-                        position={[0, 0.1, 0]}
-                        rotation={[Math.PI * -0.5, 0, 0]}
-                        // position={[0, 0.5, 0]}
-                    >
-                        <Suspense fallback={null}>
-                            <UIKitCard></UIKitCard>
-                        </Suspense>
-                    </group>
-                </EnableDrag>
+                <EnvirionmentContent></EnvirionmentContent>
+                <Drags></Drags>
             </Canvas>
 
             {/*  */}
@@ -91,6 +52,50 @@ export function MiniApps() {
     );
 }
 
+function Drags() {
+    return (
+        <>
+            <directionalLight
+                position={[0, 15, 15]}
+                intensity={5}
+                castShadow
+                receiveShadow
+            />
+
+            <EnableDrag name="cta">
+                <Suspense fallback={null}>
+                    <LaydownText text="Desk"></LaydownText>
+                </Suspense>
+            </EnableDrag>
+
+            <EnableDrag name="avatar" initPos={[0, 5, 0]}>
+                <Suspense fallback={null}>
+                    <Avatar></Avatar>
+                </Suspense>
+            </EnableDrag>
+
+            <EnableDrag name="card-page-1" initPos={[-5, 0, 5]}>
+                <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
+                    <Suspense fallback={null}>
+                        <UIKitObject></UIKitObject>
+                    </Suspense>
+                </group>
+            </EnableDrag>
+
+            <EnableDrag name="card-2" initPos={[-5, 0, 5]}>
+                <group
+                    position={[0, 0.1, 0]}
+                    rotation={[Math.PI * -0.5, 0, 0]}
+                    // position={[0, 0.5, 0]}
+                >
+                    <Suspense fallback={null}>
+                        <UIKitCard></UIKitCard>
+                    </Suspense>
+                </group>
+            </EnableDrag>
+        </>
+    );
+}
 function EnvirionmentContent() {
     return (
         <>
