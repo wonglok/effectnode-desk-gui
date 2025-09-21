@@ -24,9 +24,13 @@ export function EnableDrag({
             name: `${keyname}`,
         });
 
+        let ttt: any = 0;
         return {
             setItem: async (storeKey = "", value: any) => {
-                await inst.setItem(storeKey, value);
+                clearTimeout(ttt);
+                ttt = setTimeout(() => {
+                    inst.setItem(storeKey, value);
+                }, 100);
             },
             getItem: async (storeKey = "") => {
                 return await inst.getItem(storeKey);
@@ -37,11 +41,11 @@ export function EnableDrag({
     useEffect(() => {
         store.getItem("matrix").then((matrixArray) => {
             if (matrixArray instanceof Array) {
-                let m4 = new Matrix4();
-                m4.fromArray(matrixArray);
-                o3.position.setFromMatrixPosition(m4);
+                matrix.fromArray(matrixArray);
             } else {
-                o3.position.fromArray(initPos);
+                matrix.copy(
+                    matrix.makeTranslation(new Vector3().fromArray(initPos)),
+                );
             }
 
             console.log(`initPos={[${o3.position.toArray()}]}`, name);
@@ -52,40 +56,25 @@ export function EnableDrag({
     return (
         <>
             <DragControls
+                matrix={matrix}
                 axisLock="y"
                 onDragStart={() => {
                     if (controls) {
                         controls.enabled = false;
                     }
                 }}
+                onDrag={() => {
+                    store.setItem("matrix", matrix.toArray());
+                }}
                 onDragEnd={() => {
                     if (controls) {
                         controls.enabled = true;
                     }
 
-                    o3.updateMatrixWorld(true);
-
-                    let v3 = new Vector3();
-
-                    o3.getWorldPosition(v3);
-
-                    matrix.compose(v3, o3.quaternion, o3.scale);
-
-                    store.setItem("matrix", matrix);
-
-                    console.log("save", name, v3.toArray());
+                    store.setItem("matrix", matrix.toArray());
                 }}
             >
-                <primitive object={o3}></primitive>
-
-                {ready &&
-                    createPortal(
-                        <>
-                            {/*  */}
-                            {children}
-                        </>,
-                        o3,
-                    )}
+                {children}
             </DragControls>
         </>
     );
