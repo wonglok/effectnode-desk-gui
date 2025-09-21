@@ -46,6 +46,8 @@ export function EnableDrag({
                 o3.position.setFromMatrixPosition(m4);
 
                 console.log(`initPos={[${o3.position.toArray()}]}`, name);
+            } else {
+                o3.position.fromArray(initPos);
             }
             setReady(true);
         });

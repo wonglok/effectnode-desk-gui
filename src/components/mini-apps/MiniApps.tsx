@@ -55,10 +55,10 @@ function Drags() {
     return (
         <>
             <EnableDrag
-                name="cta"
+                name="p-1-cta"
                 initPos={[
-                    1.813950721276176, 2.1260770921571748e-14,
-                    -6.010966669614811,
+                    1.7824280292933643, 2.0698720515355262e-14,
+                    0.3820235632324256,
                 ]}
             >
                 <Suspense fallback={null}>
@@ -67,11 +67,8 @@ function Drags() {
             </EnableDrag>
 
             <EnableDrag
-                name="avatar"
-                initPos={[
-                    -1.0884924105567535, -2.7824964554667986e-14,
-                    -6.433399772550491,
-                ]}
+                name="p-1-avatar"
+                initPos={[-1.0884924105567535, -2.7824964554667986e-14, 0]}
             >
                 <Suspense fallback={null}>
                     <Avatar></Avatar>
@@ -79,11 +76,8 @@ function Drags() {
             </EnableDrag>
 
             <EnableDrag
-                name="card-page-1"
-                initPos={[
-                    -5.470102401240012, 4.413136522884997e-15,
-                    -4.8063050618900025,
-                ]}
+                name="p-1-card-page-1"
+                initPos={[-5.470102401240012, 4.413136522884997e-15, 0]}
             >
                 <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
                     <Suspense fallback={null}>
@@ -93,11 +87,8 @@ function Drags() {
             </EnableDrag>
 
             <EnableDrag
-                name="card-page-2"
-                initPos={[
-                    8.84911023890157, -1.0644263248593688e-14,
-                    -6.874954929038775,
-                ]}
+                name="p-1-card-page-2"
+                initPos={[8.84911023890157, -1.0644263248593688e-14, 0]}
             >
                 <group
                     position={[0, 0.1, 0]}
