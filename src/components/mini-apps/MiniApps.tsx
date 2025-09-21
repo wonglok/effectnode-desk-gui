@@ -14,10 +14,12 @@ import { Grid } from "./Objects/Grid";
 import { StandUpText } from "./Objects/StandupText";
 import { NoToneMapping } from "three";
 import { Avatar } from "./Objects/Avatar";
-import { CardPage } from "./Objects/UIKitObject";
+import { UIKitObject } from "./Objects/UIKitObject";
 import { EnableDrag } from "./Objects/EnableDrag";
 import { InsideCamera } from "./Objects/InsideCamera";
 import { Suspense } from "react";
+import { UIKitFrame } from "./Objects/UIKitFrame";
+import { UIKitCard } from "./Objects/UIKitCard";
 // import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
 
 export function MiniApps() {
@@ -26,7 +28,11 @@ export function MiniApps() {
         <>
             {/*  */}
             <Canvas
-                gl={{ toneMapping: NoToneMapping, toneMappingExposure: 1 }}
+                gl={{
+                    toneMapping: NoToneMapping,
+                    toneMappingExposure: 1,
+                    localClippingEnabled: true,
+                }}
                 shadows
             >
                 <EnvirionmentContent></EnvirionmentContent>
@@ -49,32 +55,32 @@ export function MiniApps() {
                     </Suspense>
                 </EnableDrag>
 
-                <EnableDrag name="avatar">
+                <EnableDrag name="avatar" initPos={[0, 5, 0]}>
                     <Suspense fallback={null}>
                         <Avatar></Avatar>
                     </Suspense>
                 </EnableDrag>
 
-                <EnableDrag name="card-page" initPos={[5, 0, 5]}>
+                <EnableDrag name="card-page-1" initPos={[-5, 0, 5]}>
                     <group
-                        position={[0, 2, 0]}
-                        rotation={[Math.PI * -0.4, 0, 0]}
+                        position={[0, 0.1, 0]}
+                        rotation={[Math.PI * -0.5, 0, 0]}
                         // position={[0, 0.5, 0]}
                     >
                         <Suspense fallback={null}>
-                            <CardPage></CardPage>
+                            <UIKitObject></UIKitObject>
                         </Suspense>
                     </group>
                 </EnableDrag>
 
-                <EnableDrag name="card-page-2" initPos={[-5, 0, 5]}>
+                <EnableDrag name="card-2" initPos={[-5, 0, 5]}>
                     <group
-                        position={[0, 2, 0]}
-                        rotation={[Math.PI * -0.4, 0, 0]}
+                        position={[0, 0.1, 0]}
+                        rotation={[Math.PI * -0.5, 0, 0]}
                         // position={[0, 0.5, 0]}
                     >
                         <Suspense fallback={null}>
-                            <CardPage></CardPage>
+                            <UIKitCard></UIKitCard>
                         </Suspense>
                     </group>
                 </EnableDrag>
@@ -97,15 +103,10 @@ function EnvirionmentContent() {
                 receiveShadow
                 castShadow
             >
-                <meshBasicMaterial></meshBasicMaterial>
+                <meshBasicMaterial color={0xfbfbfb}></meshBasicMaterial>
             </Plane>
 
             <Grid></Grid>
-
-            <PerspectiveCamera
-                makeDefault
-                position={[0, 15, 6]}
-            ></PerspectiveCamera>
 
             <MapControls
                 object-position={[0, 15, 6]}
@@ -113,6 +114,11 @@ function EnvirionmentContent() {
                 target={[0, 0, 0]}
                 makeDefault
             ></MapControls>
+
+            <PerspectiveCamera
+                makeDefault
+                position={[0, 15, 6]}
+            ></PerspectiveCamera>
 
             <Environment
                 files={[`/hdr/poly_haven_studio_1k.hdr`]}

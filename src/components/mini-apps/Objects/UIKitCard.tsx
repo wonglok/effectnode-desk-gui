@@ -52,7 +52,7 @@ const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
 
-export function UIKitObject() {
+export function UIKitCard() {
     const openRef = useRef(false);
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
@@ -89,14 +89,14 @@ export function UIKitObject() {
         easing.damp(
             settings.translateX,
             "value",
-            !openRef.current ? 0 : 0,
+            !openRef.current ? -500 : 0,
             0.2,
             delta,
         );
         easing.damp(
             settings.translateY,
             "value",
-            !openRef.current ? -400 : 0,
+            !openRef.current ? 0 : 0,
             0.2,
             delta,
         );
@@ -112,7 +112,7 @@ export function UIKitObject() {
         easing.damp(
             settings.rotationX,
             "value",
-            !openRef.current ? 0 : 0,
+            !openRef.current ? 35 : 35,
             0.2,
             delta,
         );
@@ -211,134 +211,22 @@ export function UIKitObject() {
                                 1 activities for you
                             </Text>
                         </Container>
-
                         <Container flexDirection="row">
-                            <Avatar width={40} src="/avatar-icon/ava1.png" />
                             <Avatar
-                                marginLeft={-6}
                                 width={40}
-                                src="/avatar-icon/ava2.png"
+                                src="https://avatar.iran.liara.run/public/boy?username=Peter"
                             />
                             <Avatar
                                 marginLeft={-6}
                                 width={40}
-                                src="/avatar-icon/ava3.png"
+                                src="https://avatar.iran.liara.run/public/boy?username=Paul"
+                            />
+                            <Avatar
+                                marginLeft={-6}
+                                width={40}
+                                src="https://avatar.iran.liara.run/public/boy?username=Mary"
                             />
                         </Container>
-                    </Container>
-                </Container>
-
-                <Container
-                    flexDirection="column"
-                    overflow={"hidden"}
-                    paddingTop={40}
-                    transformTranslateZ={0}
-                >
-                    <Container
-                        backgroundColor={colors.secondary}
-                        borderRadius={20}
-                        flexDirection="column"
-                        //
-                        transformTranslateX={settings.translateX}
-                        transformTranslateY={settings.translateY}
-                        transformTranslateZ={settings.translateZ}
-                        transformRotateX={settings.rotationX}
-                        transformRotateY={settings.rotationY}
-                        transformRotateZ={settings.rotationZ}
-                    >
-                        <CardHeader>
-                            <CardTitle>
-                                <Text>Notifications</Text>
-                            </CardTitle>
-                            <CardDescription>
-                                <Text>You have 3 unread messages.</Text>
-                            </CardDescription>
-                        </CardHeader>
-                        <CardContent flexDirection="column" gap={16}>
-                            <Container
-                                flexDirection="row"
-                                alignItems="center"
-                                gap={16}
-                                borderRadius={6}
-                                borderWidth={1}
-                                padding={16}
-                            >
-                                <BellRing />
-                                <Container flexDirection="column" gap={4}>
-                                    <Text fontSize={14} lineHeight="100%">
-                                        Push Notifications
-                                    </Text>
-                                    <Text
-                                        fontSize={14}
-                                        lineHeight={20}
-                                        color={colors.mutedForeground}
-                                    >
-                                        Send notifications to device.
-                                    </Text>
-                                </Container>
-                                <Container flexGrow={1} />
-                                <Switch />
-                            </Container>
-                            <Container flexDirection="column">
-                                {notifications.map((notification, index) => (
-                                    <Container
-                                        key={index}
-                                        marginBottom={
-                                            index === notifications.length - 1
-                                                ? 0
-                                                : 16
-                                        }
-                                        paddingBottom={
-                                            index === notifications.length - 1
-                                                ? 0
-                                                : 16
-                                        }
-                                        alignItems="flex-start"
-                                        flexDirection="row"
-                                        gap={17}
-                                    >
-                                        <Container
-                                            height={8}
-                                            width={8}
-                                            transformTranslateY={4}
-                                            borderRadius={1000}
-                                            backgroundColor={colors.primary}
-                                        />
-                                        <Container
-                                            gap={4}
-                                            flexDirection="column"
-                                        >
-                                            <Text
-                                                fontSize={14}
-                                                lineHeight="100%"
-                                            >
-                                                {notification.title}
-                                            </Text>
-                                            <Text
-                                                fontSize={14}
-                                                lineHeight={20}
-                                                color={colors.mutedForeground}
-                                            >
-                                                {notification.description}
-                                            </Text>
-                                        </Container>
-                                    </Container>
-                                ))}
-                            </Container>
-                        </CardContent>
-                        <CardFooter>
-                            <Button
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    openRef.current = !openRef.current;
-                                }}
-                                flexDirection="row"
-                                width="100%"
-                            >
-                                <Check marginRight={8} height={16} width={16} />
-                                <Text>Mark all as read</Text>
-                            </Button>
-                        </CardFooter>
                     </Container>
                 </Container>
             </Root>

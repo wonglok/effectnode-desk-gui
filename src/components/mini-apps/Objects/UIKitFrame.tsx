@@ -52,7 +52,7 @@ const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
 
-export function UIKitObject() {
+export function UIKitFrame() {
     const openRef = useRef(false);
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
@@ -89,14 +89,14 @@ export function UIKitObject() {
         easing.damp(
             settings.translateX,
             "value",
-            !openRef.current ? 0 : 0,
+            !openRef.current ? -500 : 0,
             0.2,
             delta,
         );
         easing.damp(
             settings.translateY,
             "value",
-            !openRef.current ? -400 : 0,
+            !openRef.current ? 0 : 0,
             0.2,
             delta,
         );
@@ -112,7 +112,7 @@ export function UIKitObject() {
         easing.damp(
             settings.rotationX,
             "value",
-            !openRef.current ? 0 : 0,
+            !openRef.current ? 35 : 35,
             0.2,
             delta,
         );
@@ -211,18 +211,20 @@ export function UIKitObject() {
                                 1 activities for you
                             </Text>
                         </Container>
-
                         <Container flexDirection="row">
-                            <Avatar width={40} src="/avatar-icon/ava1.png" />
                             <Avatar
-                                marginLeft={-6}
                                 width={40}
-                                src="/avatar-icon/ava2.png"
+                                src="https://avatar.iran.liara.run/public/boy?username=Peter"
                             />
                             <Avatar
                                 marginLeft={-6}
                                 width={40}
-                                src="/avatar-icon/ava3.png"
+                                src="https://avatar.iran.liara.run/public/boy?username=Paul"
+                            />
+                            <Avatar
+                                marginLeft={-6}
+                                width={40}
+                                src="https://avatar.iran.liara.run/public/boy?username=Mary"
                             />
                         </Container>
                     </Container>
@@ -232,6 +234,8 @@ export function UIKitObject() {
                     flexDirection="column"
                     overflow={"hidden"}
                     paddingTop={40}
+                    transformTranslateX={"100%"}
+                    transformTranslateY={"-150%"}
                     transformTranslateZ={0}
                 >
                     <Container

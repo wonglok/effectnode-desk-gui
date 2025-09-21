@@ -1,8 +1,9 @@
 import { DragControls } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import { useEffect, useState } from "react";
-import { Matrix4, Vector3 } from "three";
+import { createPortal, useThree } from "@react-three/fiber";
+import { useEffect, useRef, useState } from "react";
+import { Matrix4, Object3D, Vector3 } from "three";
 import { createInstance } from "localforage";
+import { DragControls as DragControls3 } from "three/examples/jsm/controls/DragControls.js";
 import md5 from "md5";
 
 export function EnableDrag({
@@ -12,10 +13,9 @@ export function EnableDrag({
 }: any) {
     let controls: any = useThree((r) => r.controls);
 
+    let [o3] = useState(new Object3D());
+    let [d3] = useState(new Object3D());
     let [ready, setReady] = useState(false);
-    let [matrix, setMatrix] = useState(
-        new Matrix4().setPosition(new Vector3().fromArray(initPos)),
-    );
 
     // let [store] = useState(() => {
     //     return ;
@@ -40,9 +40,10 @@ export function EnableDrag({
 
     useEffect(() => {
         store.getItem("matrix").then((matrixArray) => {
-            console.log(matrixArray);
             if (matrixArray instanceof Array) {
-                setMatrix(new Matrix4().fromArray(matrixArray));
+                let m4 = new Matrix4();
+                m4.fromArray(matrixArray);
+                o3.position.setFromMatrixPosition(m4);
             }
             setReady(true);
         });
@@ -50,28 +51,34 @@ export function EnableDrag({
 
     return (
         <>
-            {ready && (
-                <DragControls
-                    matrix={matrix}
-                    // matrix={matrix}
-                    axisLock="y"
-                    onDragStart={() => {
-                        if (controls) {
-                            controls.enabled = false;
-                        }
-                    }}
-                    onDrag={(lm, dlm, wm, dwm) => {
-                        store.setItem("matrix", lm.toArray());
-                    }}
-                    onDragEnd={() => {
-                        if (controls) {
-                            controls.enabled = true;
-                        }
-                    }}
-                >
-                    {children}
-                </DragControls>
-            )}
+            <DragControls
+                axisLock="y"
+                onDragStart={() => {
+                    if (controls) {
+                        controls.enabled = false;
+                    }
+                }}
+                onDragEnd={() => {
+                    if (controls) {
+                        controls.enabled = true;
+                    }
+
+                    o3.updateMatrixWorld(true);
+
+                    store.setItem("matrix", o3.matrixWorld.toArray());
+                }}
+            >
+                <primitive object={o3}></primitive>
+            </DragControls>
+
+            {ready &&
+                createPortal(
+                    <>
+                        {/*  */}
+                        {children}
+                    </>,
+                    o3,
+                )}
         </>
     );
 }
