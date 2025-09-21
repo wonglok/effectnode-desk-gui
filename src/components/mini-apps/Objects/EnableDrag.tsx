@@ -1,6 +1,6 @@
 import { DragControls } from "@react-three/drei";
 import { createPortal, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Matrix4, Object3D, Vector3 } from "three";
 import { createInstance } from "localforage";
 import { DragControls as DragControls3 } from "three/examples/jsm/controls/DragControls.js";
@@ -13,73 +13,95 @@ export function EnableDrag({
 }: any) {
     let controls: any = useThree((r) => r.controls);
 
-    let [o3] = useState(new Object3D());
     let [matrix] = useState(new Matrix4());
     let [ready, setReady] = useState(false);
 
-    let [store] = useState(() => {
-        let keyname = `${name}_${md5(`${process.env.APP_NAME}`)}_${JSON.stringify(initPos)}`;
+    let store = useMemo(() => {
+        let keyname = `position_store_${md5(`${process.env.APP_NAME}`)}}`;
 
         let inst = createInstance({
             name: `${keyname}`,
         });
 
         let ttt: any = 0;
+
         return {
+            inst: inst,
             setItem: async (storeKey = "", value: any) => {
                 clearTimeout(ttt);
                 ttt = setTimeout(() => {
                     inst.setItem(storeKey, value);
-                }, 10);
+                }, 50);
             },
             getItem: async (storeKey = "") => {
-                return await inst.getItem(storeKey);
+                return inst.getItem(storeKey);
             },
         };
-    });
+    }, [name]);
 
     useEffect(() => {
-        store.getItem("matrix").then((matrixArray) => {
-            if (matrixArray instanceof Array) {
-                matrix.fromArray(matrixArray);
+        //
+        //
+        //
+
+        let prom = new Promise((resolve) => {
+            let ttt = setInterval(async () => {
+                let data = await store.getItem(name);
+                if (data instanceof Array) {
+                    resolve(data);
+                    clearInterval(ttt);
+                }
+            });
+        });
+
+        prom.then((val) => {
+            //
+            if (val instanceof Array) {
+                matrix.fromArray(val);
             } else {
+                //
                 matrix.copy(
                     matrix.makeTranslation(new Vector3().fromArray(initPos)),
                 );
             }
-
-            let v3 = new Vector3();
-
-            // matrix.compose(v3);
-
-            console.log(`initPos={[${v3.toArray()}}]}`, name);
+            //
+        }).finally(() => {
             setReady(true);
         });
-    }, []);
 
+        //
+        //
+        //
+    }, [name, store]);
+
+    let isDown = useRef(false);
     return (
         <>
-            <DragControls
-                matrix={matrix}
-                axisLock="y"
-                onDragStart={() => {
-                    if (controls) {
-                        controls.enabled = false;
-                    }
-                }}
-                onDrag={() => {
-                    store.setItem("matrix", matrix.toArray());
-                }}
-                onDragEnd={() => {
-                    if (controls) {
-                        controls.enabled = true;
-                    }
-
-                    store.setItem("matrix", matrix.toArray());
-                }}
-            >
-                {children}
-            </DragControls>
+            {ready && (
+                <DragControls
+                    matrix={matrix}
+                    axisLock="y"
+                    onDragStart={() => {
+                        if (controls) {
+                            controls.enabled = false;
+                        }
+                        isDown.current = true;
+                    }}
+                    onDrag={() => {
+                        if (isDown.current) {
+                            store.setItem(name, matrix.toArray());
+                        }
+                    }}
+                    onDragEnd={() => {
+                        if (controls) {
+                            controls.enabled = true;
+                        }
+                        isDown.current = false;
+                    }}
+                >
+                    {children}
+                </DragControls>
+            )}
         </>
     );
 }

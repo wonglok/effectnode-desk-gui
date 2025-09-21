@@ -142,7 +142,6 @@ export function UIKitFrame({ content }: any) {
                         alignItems="center"
                         justifyContent="space-between"
                         borderBottomRadius={20}
-                        castShadow
                     >
                         <Container flexDirection="column" gap={8}>
                             <Input
