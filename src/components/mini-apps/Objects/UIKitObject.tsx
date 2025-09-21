@@ -51,7 +51,7 @@ export function CardPage() {
             delta,
         );
 
-        easing.damp(translateZ, "value", openRef.current ? 200 : 0, 0.2, delta);
+        easing.damp(translateZ, "value", openRef.current ? 50 : 0, 0.2, delta);
     });
 
     //
@@ -125,17 +125,17 @@ export function CardPage() {
                     <Container flexDirection="row">
                         <Avatar
                             width={40}
-                            src="https://avatar.iran.liara.run/public/boy?username=Scot"
-                        />
-                        <Avatar
-                            marginLeft={-6}
-                            width={40}
-                            src="https://avatar.iran.liara.run/public/boy?username=Theo"
+                            src="https://avatar.iran.liara.run/public/boy?username=Peter"
                         />
                         <Avatar
                             marginLeft={-6}
                             width={40}
                             src="https://avatar.iran.liara.run/public/boy?username=Paul"
+                        />
+                        <Avatar
+                            marginLeft={-6}
+                            width={40}
+                            src="https://avatar.iran.liara.run/public/boy?username=Mary"
                         />
                     </Container>
                 </Container>

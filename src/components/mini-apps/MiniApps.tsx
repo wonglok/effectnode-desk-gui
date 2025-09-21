@@ -5,6 +5,7 @@ import {
     Environment,
     Gltf,
     MapControls,
+    PerspectiveCamera,
     Plane,
     RoundedBox,
 } from "@react-three/drei";
@@ -15,6 +16,8 @@ import { NoToneMapping } from "three";
 import { Avatar } from "./Objects/Avatar";
 import { CardPage } from "./Objects/UIKitObject";
 import { EnableDrag } from "./Objects/EnableDrag";
+import { InsideCamera } from "./Objects/InsideCamera";
+import { Suspense } from "react";
 // import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
 
 export function MiniApps() {
@@ -34,22 +37,29 @@ export function MiniApps() {
                     castShadow
                 /> */}
 
-                <LaydownText text="Desk"></LaydownText>
-
                 {/* <StandUpText text="Praise the LORD"></StandUpText> */}
 
                 {apps.map((app) => {
                     return <OneMiniApp key={app._id} app={app}></OneMiniApp>;
                 })}
 
-                <Avatar></Avatar>
+                <EnableDrag name="cta">
+                    <LaydownText text="Desk"></LaydownText>
+                </EnableDrag>
 
-                <EnableDrag>
+                <EnableDrag name="avatar">
+                    <Avatar></Avatar>
+                </EnableDrag>
+
+                <EnableDrag name="card-page">
                     <group
+                        position={[5, 1, 0]}
                         rotation={[Math.PI * -0.5, 0, 0]}
-                        position={[0, 0.5, 0]}
+                        // position={[0, 0.5, 0]}
                     >
-                        <CardPage></CardPage>
+                        <Suspense fallback={null}>
+                            <CardPage></CardPage>
+                        </Suspense>
                     </group>
                 </EnableDrag>
             </Canvas>
@@ -76,8 +86,13 @@ function EnvirionmentContent() {
 
             <Grid></Grid>
 
+            <PerspectiveCamera
+                makeDefault
+                position={[0, 15, 6]}
+            ></PerspectiveCamera>
+
             <MapControls
-                object-position={[0, 5, 1.0]}
+                object-position={[0, 15, 6]}
                 object-rotation={[0, 0, 0]}
                 target={[0, 0, 0]}
                 makeDefault
