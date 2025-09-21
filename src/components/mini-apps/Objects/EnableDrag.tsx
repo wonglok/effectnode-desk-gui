@@ -10,10 +10,26 @@ export function EnableDrag({ name = "drag", children }: any) {
 
     let [ready, setReady] = useState(false);
     let [matrix, setMatrix] = useState(new Matrix4());
+
+    // let [store] = useState(() => {
+    //     return ;
+    // });
+
     let [store] = useState(() => {
-        return createInstance({
-            name: `${name}_${md5(`${process.env.APP_NAME}`)}`,
+        let namespace = `${name}_${md5(`${process.env.APP_NAME}`)}`;
+
+        let inst = createInstance({
+            name: `${namespace}`,
         });
+
+        return {
+            setItem: async (name = "", value: any) => {
+                await inst.setItem(name, value);
+            },
+            getItem: async (name = "") => {
+                return await inst.getItem(name);
+            },
+        };
     });
 
     useEffect(() => {

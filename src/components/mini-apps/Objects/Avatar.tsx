@@ -5,7 +5,7 @@ import { AnimationClip, AnimationMixer } from "three";
 
 export function Avatar() {
     let avatar = useGLTF("/avatar/sweater.glb");
-    let motion = useFBX(`/avatar/sit.fbx`);
+    let motion = useFBX(`/avatar/lay.fbx`);
 
     let mixer = useMemo(() => {
         return new AnimationMixer(avatar.scene);
