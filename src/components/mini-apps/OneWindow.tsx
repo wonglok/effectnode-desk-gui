@@ -28,14 +28,14 @@ export function OneWindow({ win }: { win: WindowType }) {
             <EnableDrag name={win._id} initPos={win.position}>
                 <UIKitFrame
                     content={
-                        <Container>
+                        <>
                             <Container>
                                 <Text>{win.name}</Text>
                             </Container>
                             <Container>
                                 <Text>{win.appID}</Text>
                             </Container>
-                        </Container>
+                        </>
                     }
                 ></UIKitFrame>
             </EnableDrag>

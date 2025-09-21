@@ -53,66 +53,37 @@ const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 
 export function UIKitFrame({ content }: any) {
     const openRef = useRef(true);
-
-    const settings = {
-        translateX: useMemo(() => signal(0), []),
-        translateY: useMemo(() => signal(0), []),
-        translateZ: useMemo(() => signal(0), []),
-
-        rotationX: useMemo(() => signal(0), []),
-        rotationY: useMemo(() => signal(0), []),
-        rotationZ: useMemo(() => signal(0), []),
-    };
+    const rotationX = useMemo(() => signal(0), []);
+    const translateY = useMemo(() => signal(0), []);
+    const translateZ = useMemo(() => signal(0), []);
 
     useFrame((_, delta) => {
         //
         easing.damp(
-            settings.translateX,
+            rotationX,
             "value",
-            !openRef.current ? 0 : 0,
-            0.2,
-            delta,
-        );
-        easing.damp(
-            settings.translateY,
-            "value",
-            !openRef.current ? 0 : -200,
-            0.2,
-            delta,
-        );
-        easing.damp(
-            settings.translateZ,
-            "value",
-            !openRef.current ? 0 : 200,
+            openRef.current ? -90 : -90 + 25,
             0.2,
             delta,
         );
 
         //
         easing.damp(
-            settings.rotationX,
+            translateY,
             "value",
-            !openRef.current ? -30 : -30,
+            openRef.current ? -290 : -290,
             0.2,
             delta,
         );
+
         easing.damp(
-            settings.rotationY,
+            translateZ,
             "value",
-            !openRef.current ? 0 : 0,
-            0.2,
-            delta,
-        );
-        easing.damp(
-            settings.rotationZ,
-            "value",
-            !openRef.current ? 0 : 0,
+            openRef.current ? 0.05 : 0.05,
             0.2,
             delta,
         );
     });
-
-    //
 
     return (
         <>
@@ -127,21 +98,22 @@ export function UIKitFrame({ content }: any) {
                     }}
                     cursor="pointer"
                     flexDirection="column"
-                    transformTranslateX={settings.translateX}
-                    transformTranslateY={settings.translateY}
-                    transformTranslateZ={settings.translateZ}
-                    transformRotateX={settings.rotationX}
-                    transformRotateY={settings.rotationY}
-                    transformRotateZ={settings.rotationZ}
-                    //
+                    transformTranslateY={translateY}
+                    transformTranslateZ={translateZ}
                     transformOriginY={"bottom"}
+                    transformRotateX={rotationX}
                 >
                     <Suspense fallback={null}>
                         <Container
                             transformTranslateZ={1}
-                            padding={14}
+                            padding={20}
                             width="100%"
                             height={400}
+                            borderRadius={20}
+                            borderBottomRadius={0}
+                            backgroundColor={"#bababa"}
+                            flexDirection={"column"}
+                            display={"flex"}
                         >
                             {content}
                         </Container>
