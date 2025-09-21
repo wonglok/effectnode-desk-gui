@@ -159,6 +159,7 @@ export function UIKitObject({ name = "avasit" }) {
                 pixelSize={0.01}
                 sizeX={4.4}
             >
+                {/*  */}
                 <Container
                     backgroundColor={0xffffff}
                     dark={{ backgroundColor: 0x0 }}
@@ -190,23 +191,20 @@ export function UIKitObject({ name = "avasit" }) {
                                     colorSpace={NoColorSpace}
                                     eventPriority={100}
                                 >
-                                    <>
-                                        {/* <ambientLight intensity={Math.PI} /> */}
-                                        <directionalLight
-                                            intensity={1}
-                                            position={[0, 5, 5]}
-                                        ></directionalLight>
-                                        <AvatarMotion
-                                            avatarURL={`/avatar/angel.glb`}
-                                            motionURL={`/avatar/formal-salute.fbx`}
-                                        ></AvatarMotion>
+                                    {/* <ambientLight intensity={Math.PI} /> */}
 
-                                        <Cloud position={[0, 0, -1]}></Cloud>
-                                        <Sky
-                                            rayleigh={0.1}
-                                            azimuth={0.25}
-                                        ></Sky>
-                                    </>
+                                    <directionalLight
+                                        intensity={1}
+                                        position={[0, 5, 5]}
+                                    ></directionalLight>
+
+                                    <AvatarMotion
+                                        avatarURL={`/avatar/angel.glb`}
+                                        motionURL={`/avatar/formal-salute.fbx`}
+                                    ></AvatarMotion>
+
+                                    <Cloud position={[0, 0, -1]}></Cloud>
+                                    <Sky rayleigh={0.1} azimuth={0.25}></Sky>
                                 </RTextureMat>
                             </mesh>
                         </Content>
@@ -263,14 +261,6 @@ export function UIKitObject({ name = "avasit" }) {
                     </Container>
                 </Container>
 
-                <group rotation={[Math.PI * 0.5, 0, 0]}>
-                    <group
-                        position={[3, 0, 0]}
-                        name={name}
-                        rotation={[0, -0.3, 0]}
-                        userData={{ openRef: openRef }}
-                    ></group>
-                </group>
                 <Container
                     flexDirection="column"
                     overflow={"hidden"}

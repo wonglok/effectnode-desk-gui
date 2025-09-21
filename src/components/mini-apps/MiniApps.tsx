@@ -110,7 +110,6 @@ function EnvirionmentContent() {
     return (
         <>
             {/* * */}
-
             <group scale={1}>
                 <Plane
                     scale={50}
@@ -124,19 +123,16 @@ function EnvirionmentContent() {
 
                 <Grid></Grid>
             </group>
-
             <MapControls
                 object-position={[0, 15, 6]}
                 object-rotation={[0, 0, 0]}
                 target={[0, 0, 0]}
                 makeDefault
             ></MapControls>
-
             <PerspectiveCamera
                 makeDefault
                 position={[0, 15, 6]}
             ></PerspectiveCamera>
-
             <Environment
                 files={[`/hdr/poly_haven_studio_1k.hdr`]}
             ></Environment>
@@ -146,21 +142,21 @@ function EnvirionmentContent() {
 
 function AutoSync({ name = "avasit" }) {
     let ref = useRef<any>(null);
-    useFrame((_) => {
-        let avatarsits = _.scene.getObjectsByProperty("name", name);
+    // useFrame((_) => {
+    //     let avatarsits = _.scene.getObjectsByProperty("name", name);
 
-        avatarsits.forEach((ava) => {
-            ava.getWorldPosition(ref.current.position).multiplyScalar(1);
-            ava.getWorldQuaternion(ref.current.quaternion);
-        });
-    });
+    //     avatarsits.forEach((ava) => {
+    //         ava.getWorldPosition(ref.current.position).multiplyScalar(1);
+    //         ava.getWorldQuaternion(ref.current.quaternion);
+    //     });
+    // });
 
     return (
         <>
             <group ref={ref}>
-                <AvatarMotion
-                    motionURL={`/avatar/formal-salute.fbx`}
-                ></AvatarMotion>
+                <group position={[0, 0, 0]}>
+                    <AvatarMotion motionURL={`/avatar/lay.fbx`}></AvatarMotion>
+                </group>
             </group>
         </>
     );
