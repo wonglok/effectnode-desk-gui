@@ -1,22 +1,28 @@
 import { DragControls } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 import { useEffect, useState } from "react";
-import { Matrix4 } from "three";
+import { Matrix4, Vector3 } from "three";
 import { createInstance } from "localforage";
 import md5 from "md5";
 
-export function EnableDrag({ name = "drag", children }: any) {
+export function EnableDrag({
+    name = "drag",
+    children,
+    initPos = [0, 0, 0],
+}: any) {
     let controls: any = useThree((r) => r.controls);
 
     let [ready, setReady] = useState(false);
-    let [matrix, setMatrix] = useState(new Matrix4());
+    let [matrix, setMatrix] = useState(
+        new Matrix4().setPosition(new Vector3().fromArray(initPos)),
+    );
 
     // let [store] = useState(() => {
     //     return ;
     // });
 
     let [store] = useState(() => {
-        let keyname = `${name}_${md5(`${process.env.APP_NAME}`)}`;
+        let keyname = `${name}_${md5(`${process.env.APP_NAME}`)}_${JSON.stringify(initPos)}`;
 
         let inst = createInstance({
             name: `${keyname}`,

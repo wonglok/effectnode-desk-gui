@@ -55,10 +55,22 @@ export function MiniApps() {
                     </Suspense>
                 </EnableDrag>
 
-                <EnableDrag name="card-page">
+                <EnableDrag name="card-page" initPos={[5, 0, 5]}>
                     <group
-                        position={[5, 1, 0]}
-                        rotation={[Math.PI * -0.45, 0, 0]}
+                        position={[0, 2, 0]}
+                        rotation={[Math.PI * -0.4, 0, 0]}
+                        // position={[0, 0.5, 0]}
+                    >
+                        <Suspense fallback={null}>
+                            <CardPage></CardPage>
+                        </Suspense>
+                    </group>
+                </EnableDrag>
+
+                <EnableDrag name="card-page-2" initPos={[-5, 0, 5]}>
+                    <group
+                        position={[0, 2, 0]}
+                        rotation={[Math.PI * -0.4, 0, 0]}
                         // position={[0, 0.5, 0]}
                     >
                         <Suspense fallback={null}>

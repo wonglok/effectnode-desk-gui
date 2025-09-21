@@ -45,6 +45,7 @@ import {
     EquirectangularReflectionMapping,
 } from "three";
 import { RTextureMat } from "./RTextureMat";
+import { AvatarMotion } from "./AvatarMotion";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
@@ -105,7 +106,7 @@ export function CardPage() {
                                     />
                                     <ambientLight intensity={Math.PI} />
 
-                                    <Avatar2></Avatar2>
+                                    <AvatarMotion></AvatarMotion>
 
                                     <Cloud position={[0, 0, -1]}></Cloud>
                                     <Sky rayleigh={0.1} azimuth={0.25}></Sky>
