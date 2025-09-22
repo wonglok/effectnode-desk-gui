@@ -21,7 +21,7 @@ export function OneWindow({ win }: { win: WindowType }) {
         //
     }, [win._id]);
 
-    console.log(win);
+    // console.log(win);
 
     return (
         <>

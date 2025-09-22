@@ -103,13 +103,13 @@ export function RTextureMat({
         cam.updateMatrixWorld();
         cam.updateProjectionMatrix();
 
-        cam.aspect = 1;
+        cam.aspect = width / height;
 
-        // composer.render(dt);
-
+        st.gl.autoClear = true;
         st.gl.setRenderTarget(rtt);
         st.gl.render(myScene, cam);
         st.gl.setRenderTarget(null);
+        st.gl.autoClear = true;
     });
 
     return (

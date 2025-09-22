@@ -1,11 +1,10 @@
 import md5 from "md5";
 import { useMiniApps, type MiniAppType, type WindowType } from "./useMiniApps";
-import { v4 } from "uuid";
 
 export function launchCoder({ args = {} }) {
     let state = useMiniApps.getState();
     let newApp: MiniAppType = {
-        _id: `${md5("app")}`,
+        _id: `${md5("app_coder")}`,
         name: `App Coder`,
         args: {
             ...args,
@@ -13,7 +12,7 @@ export function launchCoder({ args = {} }) {
     };
 
     let nodeWin: WindowType = {
-        _id: `${md5("ppap1")}`,
+        _id: `${md5("node_window")}`,
         appID: newApp._id,
         name: `Node Window`,
         args: {
@@ -25,7 +24,7 @@ export function launchCoder({ args = {} }) {
     };
 
     let previewWin: WindowType = {
-        _id: `${md5("ppap2")}`,
+        _id: `${md5("private window")}`,
         appID: newApp._id,
         name: `Preview Window`,
         args: {
@@ -35,8 +34,6 @@ export function launchCoder({ args = {} }) {
         scale: [1, 1, 1],
         quaternion: [0, 0, 0, 1],
     };
-
-    //
 
     useMiniApps.setState({
         //
