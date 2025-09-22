@@ -85,6 +85,12 @@ export function EnableDrag({
                     onDragStart={() => {
                         if (!isDown.current) {
                             isDown.current = myRand;
+
+                            lt.position.multiplyScalar(0);
+                            dt.position.multiplyScalar(0);
+                            st.position.multiplyScalar(0);
+                            nt.position.multiplyScalar(0);
+                            at.position.multiplyScalar(0);
                         }
 
                         st.position.copy(o3API.o3.position);
@@ -99,7 +105,6 @@ export function EnableDrag({
                         if (isDown.current === myRand) {
                             lm.decompose(nt.position, nt.quaternion, nt.scale);
 
-                            console.log(nt.position);
                             if (lt.position.length() === 0) {
                                 lt.position.copy(nt.position);
                             }
