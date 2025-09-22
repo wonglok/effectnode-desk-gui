@@ -5,8 +5,9 @@ import { Matrix4, Object3D, Vector3 } from "three";
 import md5 from "md5";
 import { v4 } from "uuid";
 import { vanilla } from "@/trpc/react";
+import { useParams } from "next/navigation";
 
-let keyname = `position_store_${md5(`${process.env.APP_NAME}`)}}`;
+let keyname = `position__store__`;
 let isDown: any = { current: "" };
 
 let st = new Object3D();
@@ -20,6 +21,8 @@ export function EnableDrag({
     children,
     initPos = [0, 0, 0],
 }: any) {
+    let params = useParams();
+    let workspaceID = params.workspaceID;
     let myRand = useMemo(() => {
         return `${v4()}`;
     }, []);
@@ -35,31 +38,62 @@ export function EnableDrag({
     let [ready, setReady] = useState(false);
     let store = useMemo(() => {
         let tt: any;
+
         return {
             setItem: async (name: string, val: any) => {
                 //
                 clearTimeout(tt);
                 tt = setTimeout(() => {
                     //
-                    vanilla;
+                    vanilla.object.write.mutate({
+                        workspaceID: `${workspaceID}`,
+                        type: "movement",
+                        key: `_${`${workspaceID}_${name}`}`,
+                        value: val,
+                    });
                     //
                 }, 500);
             },
             getItem: async (name: string) => {
                 //
+
+                console.log(name);
+                return await vanilla.object.readOneByKey
+                    .mutate({
+                        workspaceID: `${workspaceID}`,
+                        key: `_${`${workspaceID}_${name}`}`,
+                    })
+                    .then((v) => {
+                        console.log(v);
+                        return v;
+                    });
             },
             ready: async () => {},
         };
-    }, []);
+    }, [workspaceID]);
 
     //
     useEffect(() => {
+        if (!workspaceID) {
+            return;
+        }
+
+        if (!name) {
+            return;
+        }
         let run = async () => {
             //
 
-            await store.ready();
+            let val = await store.getItem(`${name}`);
 
-            let val = await store.getItem(name);
+            console.log(val);
+
+            if (val?.value) {
+                o3API.o3.position.fromArray(val?.value);
+            } else {
+                o3API.o3.position.fromArray(initPos);
+            }
+
             //
         };
 
@@ -68,7 +102,7 @@ export function EnableDrag({
         }); //
         //
         //
-    }, [name]);
+    }, [name, workspaceID]);
 
     //
 
@@ -115,7 +149,7 @@ export function EnableDrag({
                     }}
                     onDragEnd={() => {
                         store.setItem(
-                            name,
+                            `${keyname}${name}`,
                             JSON.parse(
                                 JSON.stringify(o3API.o3.position.toArray()),
                             ),

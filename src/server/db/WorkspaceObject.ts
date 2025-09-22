@@ -25,7 +25,7 @@ const WorkspaceObjectSchema = new Schema<WorkspaceObjectInterface>(
             },
         },
         key: String,
-        value: String,
+        value: {},
     },
     {
         timestamps: true,

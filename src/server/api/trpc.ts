@@ -11,6 +11,7 @@ import superjson from "superjson";
 import { ZodError } from "zod";
 
 import { auth } from "@/server/auth";
+import { WorkspaceACLModel } from "../db/WorkspaceACL";
 
 /**
  * 1. CONTEXT
@@ -27,8 +28,40 @@ import { auth } from "@/server/auth";
 export const createTRPCContext = async (opts: { headers: Headers }) => {
     const session = await auth();
 
+    let adminSpaces = await WorkspaceACLModel.find({
+        members: {
+            $elemMatch: {
+                role: "admin",
+                userID: `${session?.user?._id}`,
+            },
+        },
+    }); //.then((r) => r.map((d) => d._doc));
+
+    let editorSpaces = await WorkspaceACLModel.find({
+        members: {
+            $elemMatch: {
+                role: "editor",
+                userID: `${session?.user?._id}`,
+            },
+        },
+    }); //.then((r) => r.map((d) => d._doc));
+
+    let viewerSpaces = await WorkspaceACLModel.find({
+        members: {
+            $elemMatch: {
+                role: "viewer",
+                userID: `${session?.user?._id}`,
+            },
+        },
+    }); //.then((r) => r.map((d) => d._doc));
+
     return {
         session,
+        ...{
+            adminSpaces,
+            editorSpaces,
+            viewerSpaces,
+        },
         ...opts,
     };
 };
@@ -119,7 +152,7 @@ export const publicProcedure = t.procedure.use(timingMiddleware);
  */
 export const protectedProcedure = t.procedure
     .use(timingMiddleware)
-    .use(({ ctx, next }) => {
+    .use(async ({ ctx, next }) => {
         if (!ctx.session?.user) {
             throw new TRPCError({ code: "UNAUTHORIZED" });
         }

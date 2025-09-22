@@ -21,11 +21,27 @@ export const workspaceACLRouter = createTRPCRouter({
     //         };
     //     }),
 
+    listMy: protectedProcedure
+        .input(z.object({}))
+        .mutation(async ({ input, ctx }) => {
+            //
+            let mySpaces = await WorkspaceACLModel.find({
+                members: {
+                    $elemMatch: {
+                        userID: `${ctx.session?.user?._id}`,
+                    },
+                },
+            });
+
+            //
+
+            return mySpaces.map((r) => r._doc);
+        }),
     create: protectedProcedure
         .input(z.object({ name: z.string() }))
         .mutation(async ({ input, ctx }) => {
             //
-            await WorkspaceACLModel.create({
+            let object = await WorkspaceACLModel.create({
                 name: input.name,
                 members: [
                     {
@@ -37,6 +53,7 @@ export const workspaceACLRouter = createTRPCRouter({
                 ],
             });
 
+            return object._doc;
             // post = { id: post.id + 1, name: input.name };
             // return post;
         }),

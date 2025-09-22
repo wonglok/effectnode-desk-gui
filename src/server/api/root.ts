@@ -1,5 +1,7 @@
 // import { postRouter } from "@/server/api/routers/post";
 import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
+import { workspaceACLRouter } from "./routers/workspaceACL";
+import { workspaceObjectRouter } from "./routers/workspaceObject";
 // import { userDataRouter } from "./routers/UserData";
 
 /**
@@ -9,9 +11,11 @@ import { createCallerFactory, createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
     //
-    // post: postRouter,
-    // userData: userDataRouter,
     //
+    //
+    acl: workspaceACLRouter,
+    //
+    object: workspaceObjectRouter,
     //
     //
     //

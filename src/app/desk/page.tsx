@@ -33,8 +33,10 @@ import { Canvas } from "@react-three/fiber";
 // } from "lucide-react";
 
 import Link from "next/link";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Laptop } from "@/components/login/Laptop";
+import { api, vanilla } from "@/trpc/react";
+import { Loader } from "lucide-react";
 
 export default function Page() {
     return (
@@ -104,6 +106,11 @@ export default function Page() {
 //
 
 function CardDemo() {
+    let [value, setValue] = useState("my new desk");
+    let listMy = api.acl.listMy.useMutation({});
+    useEffect(() => {
+        listMy.mutateAsync({});
+    }, []);
     return (
         <Card className="w-full max-w-sm bg-[rgb(255,255,255,0.6)] backdrop-blur-xl">
             <CardHeader>
@@ -116,15 +123,29 @@ function CardDemo() {
                 </CardAction>
             </CardHeader>
             <CardContent className="flex-col gap-2">
-                <Input className="mb-2 bg-white"></Input>
+                <Input
+                    value={value}
+                    onChange={(ev) => {
+                        setValue(ev.target.value);
+                    }}
+                    placeholder="my new desk"
+                    className="mb-2 bg-white"
+                ></Input>
                 <Button
                     className="w-full cursor-pointer bg-lime-600 text-white hover:bg-green-500 hover:text-green-800"
                     variant={"outline"}
                     onClick={() => {
                         //
+                        vanilla.acl.create
+                            .mutate({
+                                name: `${value}`,
+                            })
+                            .then((data) => {
+                                console.log(data);
+                            });
                     }}
                 >
-                    Create new Desk
+                    Create New Desk
                 </Button>
                 {/* <Button variant="outline" className="w-full">
                     Login with Google
@@ -134,17 +155,125 @@ function CardDemo() {
                 <div>
                     <div className="flex flex-col gap-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Your Desks</Label>
-                            <div className="flex w-full">
-                                <Button
-                                    className="w-full cursor-pointer bg-gradient-to-tr from-white to-gray-300 text-center shadow-inner"
-                                    variant={"outline"}
-                                ></Button>
+                            <Label htmlFor="email">Your Admin Desks</Label>
+
+                            {listMy?.isSuccess &&
+                                listMy?.data?.filter((li) => {
+                                    return li.members.some(
+                                        (r) => r.role === "admin",
+                                    );
+                                }).length === 0 && <>Please add some items</>}
+
+                            {listMy?.isPending && (
+                                <>
+                                    <div className="flex w-full justify-center">
+                                        <Loader className="animate-spin duration-500"></Loader>
+                                    </div>
+                                </>
+                            )}
+
+                            {listMy?.data
+                                ?.filter((li) => {
+                                    return li.members.some(
+                                        (r) => r.role === "admin",
+                                    );
+                                })
+                                ?.map((li) => {
+                                    return (
+                                        <div
+                                            className="flex w-full"
+                                            key={li._id}
+                                        >
+                                            <Link
+                                                href={`/desk/workspace/${li._id}`}
+                                            >
+                                                <Button
+                                                    className="w-full cursor-pointer bg-gradient-to-tr from-white to-gray-300 text-center shadow-inner"
+                                                    variant={"outline"}
+                                                >
+                                                    {li.name}
+                                                </Button>
+                                            </Link>
+                                        </div>
+                                    );
+                                })}
+                        </div>
+
+                        {listMy?.data?.some((li) => {
+                            return li.members.some((r) => r.role === "editor");
+                        }) && (
+                            <div className="grid gap-2">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="email">
+                                        Shared Editor Desks
+                                    </Label>
+                                </div>
+
+                                {listMy?.data
+                                    ?.filter((li) => {
+                                        return li.members.some(
+                                            (r) => r.role === "editor",
+                                        );
+                                    })
+                                    ?.map((li) => {
+                                        return (
+                                            <div
+                                                className="flex w-full"
+                                                key={li._id}
+                                            >
+                                                <Link
+                                                    href={`/desk/workspace/${li._id}`}
+                                                >
+                                                    <Button
+                                                        className="w-full cursor-pointer bg-gradient-to-tr from-white to-gray-300 text-center shadow-inner"
+                                                        variant={"outline"}
+                                                    >
+                                                        {li.name}
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        );
+                                    })}
                             </div>
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="email">Shared Desks</Label>
-                        </div>
+                        )}
+
+                        {listMy?.data?.some((li) => {
+                            return li.members.some((r) => r.role === "viewer");
+                        }) && (
+                            <div className="grid gap-2">
+                                <div className="grid gap-2">
+                                    <Label htmlFor="email">
+                                        Shared Viewer Desks
+                                    </Label>
+                                </div>
+
+                                {listMy?.data
+                                    ?.filter((li) => {
+                                        return li.members.some(
+                                            (r) => r.role === "viewer",
+                                        );
+                                    })
+                                    ?.map((li) => {
+                                        return (
+                                            <div
+                                                className="flex w-full"
+                                                key={li._id}
+                                            >
+                                                <Link
+                                                    href={`/desk/workspace/${li._id}`}
+                                                >
+                                                    <Button
+                                                        className="w-full cursor-pointer bg-gradient-to-tr from-white to-gray-300 text-center shadow-inner"
+                                                        variant={"outline"}
+                                                    >
+                                                        {li.name}
+                                                    </Button>
+                                                </Link>
+                                            </div>
+                                        );
+                                    })}
+                            </div>
+                        )}
                     </div>
                 </div>
             </CardContent>
