@@ -5,6 +5,7 @@ import { Matrix4, Object3D, Vector3 } from "three";
 import md5 from "md5";
 
 let keyname = `position_store_${md5(`${process.env.APP_NAME}`)}}`;
+let isDown = { current: false };
 
 export function EnableDrag({
     name = "drag",
@@ -59,7 +60,6 @@ export function EnableDrag({
         //
     }, [name]);
 
-    let isDown = useRef(false);
     return (
         <>
             {ready && matrix && (

@@ -42,9 +42,12 @@ export default function Page() {
             <div className="relative h-full w-full">
                 <div className="absolute top-0 left-0 h-full w-full">
                     <Canvas>
+                        {/*  */}
+
                         <EffectComposer>
                             <Bloom></Bloom>
                         </EffectComposer>
+
                         <Sky rayleigh={0.1} azimuth={-0.5 * Math.PI}></Sky>
 
                         <ambientLight intensity={Math.PI}></ambientLight>
@@ -97,6 +100,8 @@ export default function Page() {
         </>
     );
 }
+
+//
 
 function CardDemo() {
     return (
