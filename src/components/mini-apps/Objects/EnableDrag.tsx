@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Matrix4, Object3D, Vector3 } from "three";
 import md5 from "md5";
 import { v4 } from "uuid";
+import { vanilla } from "@/trpc/react";
 
 let keyname = `position_store_${md5(`${process.env.APP_NAME}`)}}`;
 let isDown: any = { current: "" };
@@ -40,12 +41,14 @@ export function EnableDrag({
                 clearTimeout(tt);
                 tt = setTimeout(() => {
                     //
+                    vanilla;
                     //
-                }, 100);
+                }, 500);
             },
             getItem: async (name: string) => {
                 //
             },
+            ready: async () => {},
         };
     }, []);
 
@@ -53,19 +56,10 @@ export function EnableDrag({
     useEffect(() => {
         let run = async () => {
             //
-            // let m4 = new Matrix4().makeTranslation(
-            //     new Vector3().fromArray(initPos),
-            // );
-            // setMatrix(m4);
-            // await store.ready((err) => {
-            //     console.log(err);
-            // });
-            // let val = await store.getItem(name);
-            // console.log(name, "val", val);
-            // if (val instanceof Array) {
-            //     let m5 = new Matrix4().fromArray(val);
-            //     setMatrix(m5);
-            // }
+
+            await store.ready();
+
+            let val = await store.getItem(name);
             //
         };
 
@@ -75,6 +69,8 @@ export function EnableDrag({
         //
         //
     }, [name]);
+
+    //
 
     return (
         <>

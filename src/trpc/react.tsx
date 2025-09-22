@@ -75,7 +75,7 @@ export function TRPCReactProvider(props: { children: React.ReactNode }) {
     );
 }
 
-export const vanilla = createTRPCClient({
+export const vanilla = createTRPCClient<AppRouter>({
     links: [
         loggerLink({
             enabled: (op) =>
