@@ -13,7 +13,6 @@ import {
 } from "@react-three/uikit";
 import { UIKitFrame } from "./UIkitObjects/UIKitFrame";
 import { EnableDrag } from "./Objects/EnableDrag";
-import { UIKitCard } from "./Objects/UIKitCard";
 import { UIKitObject } from "./UIkitObjects/UIKitObject";
 import { colors } from "@react-three/uikit-default";
 

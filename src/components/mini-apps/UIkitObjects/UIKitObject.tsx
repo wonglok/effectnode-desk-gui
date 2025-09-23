@@ -52,7 +52,7 @@ import {
     PerspectiveCamera,
     EquirectangularReflectionMapping,
 } from "three";
-import { RTextureMat } from "../Objects/RTextureMat";
+import { RenderPlane } from "../Objects/RenderPlane";
 import { AvatarMotion } from "../Objects/AvatarMotion";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
@@ -189,7 +189,7 @@ export function UIKitObject({
                                 height={400}
                                 castShadow
                             >
-                                <RTextureMat
+                                <RenderPlane
                                     width={512 * 1.5}
                                     height={512 * 1.5}
                                     colorSpace={NoColorSpace}
@@ -197,26 +197,34 @@ export function UIKitObject({
                                 >
                                     {/* <ambientLight intensity={Math.PI} /> */}
 
-                                    <group position={[-0.25, 0, 0]}>
+                                    <group
+                                        rotation={[0, Math.PI * 0.15, 0]}
+                                        position={[-0.3, 0, 0]}
+                                    >
                                         <AvatarMotion
                                             avatarURL={`/avatar/angel.glb`}
                                             motionURL={`/avatar/formal-salute.fbx`}
                                         ></AvatarMotion>
                                     </group>
 
-                                    <group position={[0.25, 0, 0]}>
+                                    <group
+                                        rotation={[0, Math.PI * -0.15, 0]}
+                                        position={[0.3, 0, 0]}
+                                    >
                                         <AvatarMotion
                                             avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
                                             motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
                                         ></AvatarMotion>
                                     </group>
 
+                                    {/*  */}
+
                                     <ambientLight intensity={Math.PI * 0.5} />
                                     <Sky rayleigh={0.1} azimuth={0.5}></Sky>
                                     {/* <Cloud position={[0, 0, -1]}></Cloud> */}
                                     {/*  */}
                                     {/*  */}
-                                </RTextureMat>
+                                </RenderPlane>
                             </Content>
                         </Suspense>
 

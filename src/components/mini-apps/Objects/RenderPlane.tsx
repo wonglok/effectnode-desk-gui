@@ -32,14 +32,15 @@ import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 
-export function RTextureMat({
+export function RenderPlane({
     children,
     width = 1024,
     height = 1024,
     position = [-0.1, 1.7, 0.75],
+    hdr = `/game-asset/hdr/brown_photostudio_02_1k.hdr`,
 }: any) {
     let env = useEnvironment({
-        files: [`/game-asset/hdr/brown_photostudio_02_1k.hdr`],
+        files: [hdr],
     });
     env.mapping = EquirectangularReflectionMapping;
 
@@ -59,6 +60,8 @@ export function RTextureMat({
     }, []);
 
     let rpass = useMemo(() => {
+        //
+
         myScene.environment = env;
         myScene.environmentIntensity = 1.0;
 

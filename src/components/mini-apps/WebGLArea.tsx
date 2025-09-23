@@ -117,7 +117,7 @@ function EnvirionmentContent() {
             </group>
 
             <MapControls
-                object-position={[0, 15, 6]}
+                object-position={[0, 10, 5]}
                 object-rotation={[0, 0, 0]}
                 target={[0, 0, 0]}
                 makeDefault
@@ -126,7 +126,7 @@ function EnvirionmentContent() {
 
             <PerspectiveCamera
                 makeDefault
-                position={[0, 15, 6]}
+                position={[0, 10, 5]}
             ></PerspectiveCamera>
 
             <Environment
