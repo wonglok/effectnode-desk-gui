@@ -3,9 +3,19 @@ import { Suspense, useEffect, useRef } from "react";
 import { useMiniApps, type WinObject } from "./useMiniApps";
 
 import { Object3D } from "three";
-import { Fullscreen, Container, Root, Text, Content } from "@react-three/uikit";
+import {
+    Fullscreen,
+    Container,
+    Root,
+    Text,
+    Content,
+    Input,
+} from "@react-three/uikit";
 import { UIKitFrame } from "./UIkitObjects/UIKitFrame";
 import { EnableDrag } from "./Objects/EnableDrag";
+import { UIKitCard } from "./Objects/UIKitCard";
+import { UIKitObject } from "./UIkitObjects/UIKitObject";
+import { colors } from "@react-three/uikit-default";
 
 export function OneWindow({ win }: { win: WinObject }) {
     let ref = useRef<Object3D>(null);
@@ -30,8 +40,7 @@ export function OneWindow({ win }: { win: WinObject }) {
     return (
         <>
             <EnableDrag win={win}>
-                <group ref={ref}>
-                    <UIKitFrame
+                {/* <UIKitFrame
                         content={
                             <>
                                 <Container>
@@ -42,8 +51,29 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 </Container>
                             </>
                         }
-                    ></UIKitFrame>
-                </group>
+                    ></UIKitFrame> */}
+                <UIKitObject
+                    content={
+                        <>
+                            <Input
+                                fontSize={30}
+                                fontWeight="medium"
+                                letterSpacing={-0.4}
+                                color={colors.primary}
+                                defaultValue={"Im loklok"}
+                            />
+
+                            <Text
+                                fontSize={20}
+                                fontWeight="medium"
+                                letterSpacing={-0.4}
+                                color={colors.primary}
+                            >
+                                1 activities for you
+                            </Text>
+                        </>
+                    }
+                ></UIKitObject>
             </EnableDrag>
             {/*  */}
 

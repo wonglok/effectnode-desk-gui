@@ -1,11 +1,11 @@
 "use client";
 
 import { LogoutButton } from "@/components/buttons/LogoutButton";
+import { RemoveButton } from "@/components/buttons/RemoveButton";
 import { launchCoder } from "@/components/mini-apps/appMethods";
 import { MiniApps } from "@/components/mini-apps/MiniApps";
 import { useMiniApps } from "@/components/mini-apps/useMiniApps";
 import { WebGLArea } from "@/components/mini-apps/WebGLArea";
-import { Button } from "@/components/ui/button";
 import { vanilla } from "@/trpc/react";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -50,26 +50,9 @@ export default function Home() {
                     <div className="flex h-full w-full items-center justify-between">
                         <div className="ml-4">111</div>
                         <div className="mr-4">
-                            <Button
-                                onClick={async () => {
-                                    if (window.confirm("remove all?")) {
-                                        await vanilla.object.removeAll.mutate({
-                                            workspaceID: `${params.workspaceID}`,
-                                        });
-                                        await vanilla.object.readAll
-                                            .mutate({
-                                                workspaceID: `${params.workspaceID}`,
-                                            })
-                                            .then((objects) => {
-                                                useMiniApps.setState({
-                                                    objects: objects,
-                                                });
-                                            });
-                                    }
-                                }}
-                            >
-                                Remove All
-                            </Button>
+                            <RemoveButton
+                                workspaceID={params?.workspaceID as string}
+                            ></RemoveButton>
                         </div>
                     </div>
                 </div>
@@ -81,6 +64,11 @@ export default function Home() {
 
                     <div className="flex h-full w-full items-center justify-between">
                         <div className="ml-4"></div>
+                        <div className="mx-1 flex w-1/3 items-center justify-center">
+                            {/* <AddCard
+                                workspaceID={params?.workspaceID as string}
+                            ></AddCard> */}
+                        </div>
                         <div className="mr-4">
                             <LogoutButton></LogoutButton>
                         </div>
