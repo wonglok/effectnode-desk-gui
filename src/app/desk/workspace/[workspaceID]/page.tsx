@@ -52,18 +52,20 @@ export default function Home() {
                         <div className="mr-4">
                             <Button
                                 onClick={async () => {
-                                    await vanilla.object.removeAll.mutate({
-                                        workspaceID: `${params.workspaceID}`,
-                                    });
-                                    await vanilla.object.readAll
-                                        .mutate({
+                                    if (window.confirm("remove all?")) {
+                                        await vanilla.object.removeAll.mutate({
                                             workspaceID: `${params.workspaceID}`,
-                                        })
-                                        .then((objects) => {
-                                            useMiniApps.setState({
-                                                objects: objects,
-                                            });
                                         });
+                                        await vanilla.object.readAll
+                                            .mutate({
+                                                workspaceID: `${params.workspaceID}`,
+                                            })
+                                            .then((objects) => {
+                                                useMiniApps.setState({
+                                                    objects: objects,
+                                                });
+                                            });
+                                    }
                                 }}
                             >
                                 Remove All
