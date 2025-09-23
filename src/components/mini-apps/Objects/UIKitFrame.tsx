@@ -52,10 +52,10 @@ const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 // ];
 
 export function UIKitFrame({ content }: any) {
-    const openRef = useRef(true);
-    const rotationX = useMemo(() => signal(0), []);
-    const translateY = useMemo(() => signal(0), []);
-    const translateZ = useMemo(() => signal(0), []);
+    const openRef = useRef(false);
+    const rotationX = useMemo(() => signal(-90), []);
+    const translateY = useMemo(() => signal(-290), []);
+    const translateZ = useMemo(() => signal(0.05), []);
 
     useFrame((_, delta) => {
         //
