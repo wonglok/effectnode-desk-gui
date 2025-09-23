@@ -37,19 +37,141 @@ export const workspaceObjectRouter = createTRPCRouter({
             //
 
             //
-            await WorkspaceObjectModel.create({
+            return await WorkspaceObjectModel.findOneAndUpdate(
+                {
+                    //
+                    workspaceID: input.workspaceID,
+                    //
+                    type: input.type,
+                    //
+                    key: `${input.key}`,
+                    //
+                },
+                {
+                    //
+                    workspaceID: input.workspaceID,
+                    //
+                    type: input.type,
+                    //
+                    key: `${input.key}`,
+                    //
+                    value: input.value,
+                },
+                {
+                    upsert: true,
+                    new: true,
+                },
+            );
+
+            // post = { id: post.id + 1, name: input.name };
+            // return post;
+        }),
+
+    removeAll: protectedProcedure
+        .input(
+            z.object({
+                workspaceID: z.string(),
+            }),
+        )
+        .mutation(async ({ input, ctx }) => {
+            //
+
+            //
+            let ok = await canEditSpace({
+                adminSpaces: ctx.adminSpaces,
+                editorSpaces: ctx.editorSpaces,
+                viewerSpaces: ctx.viewerSpaces,
+                workspaceID: input.workspaceID,
+            });
+
+            if (!ok) {
+                throw new Error("not allow");
+            }
+
+            //
+            return await WorkspaceObjectModel.deleteMany({
                 //
                 workspaceID: input.workspaceID,
-                //
-                type: input.type,
-                //
-                key: `${input.key}`,
-                //
-                value: input.value,
             });
 
             // post = { id: post.id + 1, name: input.name };
             // return post;
+        }),
+
+    //
+    readAll: protectedProcedure
+        .input(
+            z.object({
+                workspaceID: z.string(),
+                // type: z.string(),
+                // type: z.string(),
+                // value: z.any(),
+            }),
+        )
+        .mutation(async ({ input, ctx }) => {
+            //
+
+            let ok = await canEditSpace({
+                adminSpaces: ctx.adminSpaces,
+                editorSpaces: ctx.editorSpaces,
+                viewerSpaces: ctx.viewerSpaces,
+                workspaceID: input.workspaceID,
+            });
+
+            if (!ok) {
+                throw new Error("not allow");
+            }
+
+            return await WorkspaceObjectModel.find({
+                //
+                //
+                workspaceID: `${input.workspaceID}`,
+                //
+                // type: input.type,
+                //
+                // key: `${input.key}`,
+                //
+                // value: input.value,
+            }).then((v) => {
+                return v?.map((r) => r._doc);
+            });
+        }),
+
+    readByType: protectedProcedure
+        .input(
+            z.object({
+                workspaceID: z.string(),
+                // type: z.string(),
+                type: z.string(),
+                // value: z.any(),
+            }),
+        )
+        .mutation(async ({ input, ctx }) => {
+            //
+
+            let ok = await canEditSpace({
+                adminSpaces: ctx.adminSpaces,
+                editorSpaces: ctx.editorSpaces,
+                viewerSpaces: ctx.viewerSpaces,
+                workspaceID: input.workspaceID,
+            });
+
+            if (!ok) {
+                throw new Error("not allow");
+            }
+
+            return await WorkspaceObjectModel.find({
+                //
+                workspaceID: `${input.workspaceID}`,
+                //
+                type: input.type,
+                //
+                // key: `${input.key}`,
+                //
+                // value: input.value,
+            }).then((v) => {
+                return v?.map((r) => r._doc);
+            });
         }),
 
     readOneByKey: protectedProcedure
@@ -71,27 +193,22 @@ export const workspaceObjectRouter = createTRPCRouter({
                 workspaceID: input.workspaceID,
             });
 
-            // await WorkspaceObjectModel.deleteMany({});
+            if (!ok) {
+                throw new Error("not allow");
+            }
 
-            // let data = await WorkspaceObjectModel.find({
-            //     workspaceID: input.workspaceID,
-            // });
-
-            return await WorkspaceObjectModel.find({
+            return await WorkspaceObjectModel.findOne({
                 //
                 workspaceID: `${input.workspaceID}`,
                 //
                 // type: input.type,
                 //
-                // key: `${input.key}`,
+                key: `${input.key}`,
                 //
                 // value: input.value,
-            }).then((r) => {
-                return r.find((r) => `${r.key}` === `${input.key}`);
+            }).then((v) => {
+                return v?._doc;
             });
-
-            // post = { id: post.id + 1, name: input.name };
-            // return post;
         }),
     // getLatest: protectedProcedure.query(() => {
     //     return post;

@@ -1,15 +1,20 @@
 import { OneWindow } from "./OneWindow";
-import { useMiniApps, type MiniAppType, type WindowType } from "./useMiniApps";
+import {
+    Use,
+    useMiniApps,
+    type AppObject,
+    type WinObject,
+} from "./useMiniApps";
 
-export function OneMiniApp({ app }: { app: MiniAppType }) {
-    let wins = useMiniApps((r) => r.wins);
+export function OneMiniApp({ app }: { app: AppObject }) {
+    let wins = Use.wins;
 
     return (
         <>
             {/*  */}
             {wins
-                .filter((win) => win.appID === app._id)
-                .map((win: WindowType) => {
+                .filter((win: WinObject) => win.value.appID === app.key)
+                .map((win: WinObject) => {
                     return <OneWindow key={win._id} win={win}></OneWindow>;
                 })}
             {/*  */}

@@ -1,31 +1,63 @@
+import type { WorkspaceObjectInterface } from "@/server/db/WorkspaceObject";
 import { create } from "zustand";
 
 export type IconType = { _id: string; name: string; url: string };
 
-export type MiniAppType = { _id: string; name: string; args: any };
+// export type WorkspaceObjectInterface = { _id: string; name: string; args: any };
 
-export type WindowType = {
-    _id: string;
-    args: any;
-    appID: string;
-    name: string;
-    quaternion: [number, number, number, number];
-    position: [number, number, number];
-    scale: [number, number, number];
+// export type WindowType = {
+//     _id: string;
+//     args: any;
+//     appID: string;
+//     name: string;
+//     quaternion: [number, number, number, number];
+//     position: [number, number, number];
+//     scale: [number, number, number];
+// };
+
+export type AppObject = Partial<WorkspaceObjectInterface> & {
+    value: {
+        appID: string;
+        metadata: {};
+    };
+};
+
+export type WinObject = Partial<WorkspaceObjectInterface> & {
+    value: {
+        appID: string;
+        metadata: {};
+        position: [number, number, number];
+        scale: [number, number, number];
+        quaternion: [number, number, number, number];
+    };
 };
 
 //
 
 export const useMiniApps = create<{
     //
-    icons: IconType[];
-    apps: MiniAppType[];
-    wins: WindowType[];
-}>(() => {
+    objects: WorkspaceObjectInterface[];
+    //
+    //
+}>((set, get) => {
+    //
     return {
         //
-        icons: [],
-        apps: [],
-        wins: [],
+        objects: [],
+
+        // icons: [],
+        // apps: [],
+        // wins: [],
     };
 });
+
+export const Use = {
+    get apps() {
+        let objects = useMiniApps((r) => r.objects);
+        return objects.filter((r) => r.type === "apps");
+    },
+    get wins() {
+        let objects = useMiniApps((r) => r.objects);
+        return objects.filter((r) => r.type === "wins");
+    },
+};

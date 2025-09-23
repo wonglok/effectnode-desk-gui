@@ -1,8 +1,8 @@
 import { OneMiniApp } from "./OneMiniApp";
-import { useMiniApps } from "./useMiniApps";
+import { Use } from "./useMiniApps";
 
 export function MiniApps() {
-    let apps = useMiniApps((r) => r.apps);
+    let apps = Use.apps;
 
     return (
         <>

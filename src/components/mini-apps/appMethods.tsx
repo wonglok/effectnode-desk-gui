@@ -1,46 +1,80 @@
-import md5 from "md5";
-import { useMiniApps, type MiniAppType, type WindowType } from "./useMiniApps";
+// import { useMiniApps, type MiniAppType, type WindowType } from "./useMiniApps";
+import { vanilla } from "@/trpc/react";
+import { useMiniApps } from "./useMiniApps";
 
-export function launchCoder({ args = {} }) {
-    let state = useMiniApps.getState();
-    let newApp: MiniAppType = {
-        _id: `${md5("app_coder")}`,
-        name: `App Coder`,
-        args: {
-            ...args,
-        },
-    };
-
-    let nodeWin: WindowType = {
-        _id: `${md5("node_window")}`,
-        appID: newApp._id,
-        name: `Node Window`,
-        args: {
-            ...args,
-        },
-        position: [0, 0, 0],
-        scale: [1, 1, 1],
-        quaternion: [0, 0, 0, 1],
-    };
-
-    let previewWin: WindowType = {
-        _id: `${md5("private window")}`,
-        appID: newApp._id,
-        name: `Preview Window`,
-        args: {
-            ...args,
-        },
-        position: [0, 0, 0],
-        scale: [1, 1, 1],
-        quaternion: [0, 0, 0, 1],
-    };
-
-    useMiniApps.setState({
-        //
-        apps: [...state.apps, newApp],
-        wins: [...state.wins, nodeWin, previewWin],
-        //
-    });
-
+export const nameSpace = (v: String) => {
+    return `${process.env.APP_NAME}_${v}`;
+};
+export async function launchCoder({ workspaceID = "", args = {} }) {
     //
+    {
+        let objects = await vanilla.object.readAll.mutate({
+            workspaceID: workspaceID,
+        });
+
+        useMiniApps.setState((st) => {
+            return {
+                ...st,
+                objects: objects,
+            };
+        });
+
+        if (!objects.some((r) => r.key === `${nameSpace("app_coder")}`)) {
+            await vanilla.object.write.mutate({
+                type: "apps",
+                workspaceID: `${workspaceID}`,
+                key: `${nameSpace("app_coder")}`,
+                value: {
+                    ...args,
+                    name: `App Coder`,
+                },
+            });
+        }
+
+        if (!objects.some((r) => r.key === `${nameSpace("node_window")}`)) {
+            await vanilla.object.write.mutate({
+                type: "wins",
+                workspaceID: `${workspaceID}`,
+                key: `${nameSpace("node_window")}`,
+                value: {
+                    ...args,
+                    appID: `${nameSpace("app_coder")}`,
+                    name: `Node Window`,
+                    position: [0, 0, 0],
+                    quaternion: [0, 0, 0, 1],
+                    scale: [1, 1, 1],
+                },
+            });
+        }
+        if (!objects.some((r) => r.key === `${nameSpace("preview_window")}`)) {
+            await vanilla.object.write.mutate({
+                type: "wins",
+                workspaceID: `${workspaceID}`,
+                key: `${nameSpace("preview_window")}`,
+                value: {
+                    ...args,
+                    appID: `${nameSpace("app_coder")}`,
+                    name: `Preview Window`,
+                    position: [0, 0, 0],
+                    quaternion: [0, 0, 0, 1],
+                    scale: [1, 1, 1],
+                },
+            });
+        }
+    }
+
+    {
+        let objects = await vanilla.object.readAll.mutate({
+            workspaceID: workspaceID,
+        });
+
+        console.log(objects);
+
+        useMiniApps.setState((st) => {
+            return {
+                ...st,
+                objects: objects,
+            };
+        });
+    }
 }

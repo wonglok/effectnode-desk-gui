@@ -1,29 +1,29 @@
-import { OneMiniApp } from "./OneMiniApp";
-import { useMiniApps } from "./useMiniApps";
+// import { OneMiniApp } from "./OneMiniApp";
+// import { useMiniApps } from "./useMiniApps";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
-    AccumulativeShadows,
+    // AccumulativeShadows,
     Environment,
-    Gltf,
+    // Gltf,
     MapControls,
     PerspectiveCamera,
     Plane,
-    RandomizedLight,
-    RoundedBox,
+    // RandomizedLight,
+    // RoundedBox,
 } from "@react-three/drei";
-import { LaydownText } from "./Objects/LaydownText";
+// import { LaydownText } from "./Objects/LaydownText";
 import { Grid } from "./Objects/Grid";
-import { StandUpText } from "./Objects/StandupText";
+// import { StandUpText } from "./Objects/StandupText";
 import { NoToneMapping } from "three";
-import { Avatar } from "./Objects/Avatar";
-import { UIKitObject } from "./Objects/UIKitObject";
-import { EnableDrag } from "./Objects/EnableDrag";
-import { InsideCamera } from "./Objects/InsideCamera";
-import { Suspense, useRef } from "react";
-import { UIKitFrame } from "./Objects/UIKitFrame";
-import { UIKitCard } from "./Objects/UIKitCard";
-import { createPortal } from "react-dom";
-import { AvatarMotion } from "./Objects/AvatarMotion";
+// import { Avatar } from "./Objects/Avatar";
+// import { UIKitObject } from "./Objects/UIKitObject";
+// import { EnableDrag } from "./Objects/EnableDrag";
+// import { InsideCamera } from "./Objects/InsideCamera";
+// import { Suspense, useRef } from "react";
+// import { UIKitFrame } from "./Objects/UIKitFrame";
+// import { UIKitCard } from "./Objects/UIKitCard";
+// import { createPortal } from "react-dom";
+// import { AvatarMotion } from "./Objects/AvatarMotion";
 import { MiniApps } from "./MiniApps";
 // import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
 
@@ -53,7 +53,7 @@ export function WebGLArea() {
 function Drags() {
     return (
         <>
-            <EnableDrag
+            {/* <EnableDrag
                 name="p-1-cta"
                 initPos={[
                     1.7824280292933643, 2.0698720515355262e-14,
@@ -94,7 +94,7 @@ function Drags() {
                         <UIKitCard></UIKitCard>
                     </Suspense>
                 </group>
-            </EnableDrag>
+            </EnableDrag> */}
         </>
     );
 }

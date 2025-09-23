@@ -1,11 +1,12 @@
 import { DragControls } from "@react-three/drei";
 import { createPortal, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
 import { Matrix4, Object3D, Vector3 } from "three";
 import md5 from "md5";
 import { v4 } from "uuid";
 import { vanilla } from "@/trpc/react";
 import { useParams } from "next/navigation";
+import type { WinObject } from "../useMiniApps";
 
 let keyname = `position__store__`;
 let isDown: any = { current: "" };
@@ -17,16 +18,19 @@ let dt = new Object3D();
 let at = new Object3D();
 
 export function EnableDrag({
-    name = "drag",
+    win,
     children,
     initPos = [0, 0, 0],
-}: any) {
+}: {
+    win: WinObject;
+    children?: ReactElement;
+    initPos?: [number, number, number];
+}) {
     let params = useParams();
     let workspaceID = params.workspaceID;
     let myRand = useMemo(() => {
         return `${v4()}`;
     }, []);
-    let controls: any = useThree((r) => r.controls);
 
     let [o3API, setO3] = useState(() => {
         let o3 = new Object3D();
@@ -35,80 +39,16 @@ export function EnableDrag({
             display: <primitive object={o3}></primitive>,
         };
     });
-    let [ready, setReady] = useState(false);
-    let store = useMemo(() => {
-        let tt: any;
 
-        return {
-            setItem: async (name: string, val: any) => {
-                //
-                clearTimeout(tt);
-                tt = setTimeout(() => {
-                    //
-                    vanilla.object.write.mutate({
-                        workspaceID: `${workspaceID}`,
-                        type: "movement",
-                        key: `_${`${workspaceID}_${name}`}`,
-                        value: val,
-                    });
-                    //
-                }, 500);
-            },
-            getItem: async (name: string) => {
-                //
-
-                console.log(name);
-                return await vanilla.object.readOneByKey
-                    .mutate({
-                        workspaceID: `${workspaceID}`,
-                        key: `_${`${workspaceID}_${name}`}`,
-                    })
-                    .then((v) => {
-                        console.log(v);
-                        return v;
-                    });
-            },
-            ready: async () => {},
-        };
-    }, [workspaceID]);
-
-    //
     useEffect(() => {
-        if (!workspaceID) {
-            return;
-        }
+        console.log(win.value.position);
+        o3API.o3.position.fromArray(win.value.position);
+    }, [win]);
 
-        if (!name) {
-            return;
-        }
-        let run = async () => {
-            //
-
-            let val = await store.getItem(`${name}`);
-
-            console.log(val);
-
-            if (val?.value) {
-                o3API.o3.position.fromArray(val?.value);
-            } else {
-                o3API.o3.position.fromArray(initPos);
-            }
-
-            //
-        };
-
-        run().finally(() => {
-            setReady(true);
-        }); //
-        //
-        //
-    }, [name, workspaceID]);
-
-    //
-
+    let controls: any = useThree((r) => r.controls);
     return (
         <>
-            {ready && (
+            {
                 <DragControls
                     autoTransform={false}
                     axisLock="y"
@@ -148,12 +88,22 @@ export function EnableDrag({
                         }
                     }}
                     onDragEnd={() => {
-                        store.setItem(
-                            `${keyname}${name}`,
-                            JSON.parse(
-                                JSON.stringify(o3API.o3.position.toArray()),
-                            ),
-                        );
+                        // store.setItem(
+                        //     `${keyname}${name}`,
+                        //     JSON.parse(
+                        //         JSON.stringify(o3API.o3.position.toArray()),
+                        //     ),
+                        // );
+
+                        if (win) {
+                            win.value.position = o3API.o3.position.toArray();
+                            vanilla.object.write.mutate({
+                                type: win.type as string,
+                                workspaceID: win.workspaceID as string,
+                                key: win.key as string,
+                                value: win.value as any,
+                            });
+                        }
 
                         lt.position.multiplyScalar(0);
                         dt.position.multiplyScalar(0);
@@ -170,7 +120,7 @@ export function EnableDrag({
                     {createPortal(<>{children}</>, o3API.o3)}
                     {o3API.display}
                 </DragControls>
-            )}
+            }
         </>
     );
 }
