@@ -42,8 +42,8 @@ import {
 
     ///
 } from "three";
-import { RTextureMat } from "./RTextureMat";
-import { AvatarMotion } from "./AvatarMotion";
+import { RTextureMat } from "../Objects/RTextureMat";
+import { AvatarMotion } from "../Objects/AvatarMotion";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 

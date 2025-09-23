@@ -4,7 +4,7 @@ import { useMiniApps, type WinObject } from "./useMiniApps";
 
 import { Object3D } from "three";
 import { Fullscreen, Container, Root, Text, Content } from "@react-three/uikit";
-import { UIKitFrame } from "./Objects/UIKitFrame";
+import { UIKitFrame } from "./UIkitObjects/UIKitFrame";
 import { EnableDrag } from "./Objects/EnableDrag";
 
 export function OneWindow({ win }: { win: WinObject }) {
