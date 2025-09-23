@@ -40,12 +40,16 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
                     ...args,
                     appID: `${nameSpace("app_coder")}`,
                     name: `Node Window`,
-                    position: [0, 0, 0],
+                    position: [
+                        -4.701895993811792, -5.329070518200751e-15,
+                        0.5448308777099706,
+                    ],
                     quaternion: [0, 0, 0, 1],
                     scale: [1, 1, 1],
                 },
             });
         }
+
         if (!objects.some((r) => r.key === `${nameSpace("preview_window")}`)) {
             await vanilla.object.write.mutate({
                 type: "wins",
@@ -55,7 +59,10 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
                     ...args,
                     appID: `${nameSpace("app_coder")}`,
                     name: `Preview Window`,
-                    position: [0, 0, 0],
+                    position: [
+                        3.7832277653659165, 3.552713678800501e-15,
+                        -0.3657834370979369,
+                    ],
                     quaternion: [0, 0, 0, 1],
                     scale: [1, 1, 1],
                 },
