@@ -51,13 +51,12 @@ export const useMiniApps = create<{
     };
 });
 
-export const Use = {
-    get apps() {
-        let objects = useMiniApps((r) => r.objects);
-        return objects.filter((r) => r.type === "apps");
-    },
-    get wins() {
-        let objects = useMiniApps((r) => r.objects);
-        return objects.filter((r) => r.type === "wins");
-    },
+export const useApps = () => {
+    let objects = useMiniApps((r) => r.objects);
+    return objects.filter((r) => r.type === "apps");
+};
+
+export const useWins = () => {
+    let objects = useMiniApps((r) => r.objects);
+    return objects.filter((r) => r.type === "wins");
 };

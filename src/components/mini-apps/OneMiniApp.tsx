@@ -1,13 +1,8 @@
 import { OneWindow } from "./OneWindow";
-import {
-    Use,
-    useMiniApps,
-    type AppObject,
-    type WinObject,
-} from "./useMiniApps";
+import { useWins, type AppObject, type WinObject } from "./useMiniApps";
 
 export function OneMiniApp({ app }: { app: AppObject }) {
-    let wins = Use.wins;
+    let wins = useWins();
 
     return (
         <>

@@ -3,7 +3,7 @@ import { vanilla } from "@/trpc/react";
 import { useMiniApps } from "./useMiniApps";
 
 export const nameSpace = (v: String) => {
-    return `${process.env.APP_NAME}_${v}`;
+    return `${process.env.NEXT_PUBLIC_APP_NAME}_${v}`;
 };
 export async function launchCoder({ workspaceID = "", args = {} }) {
     //

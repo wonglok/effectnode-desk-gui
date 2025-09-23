@@ -25,7 +25,7 @@ export const env = createEnv({
    */
   client: {
     // APP_NAME: z.string(),
-    // NEXT_PUBLIC_CLIENTVAR: z.string(),
+    NEXT_PUBLIC_APP_NAME: z.string(),
   },
 
   /**
@@ -41,7 +41,7 @@ export const env = createEnv({
     //
 
     NODE_ENV: process.env.NODE_ENV,
-    // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
+    NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

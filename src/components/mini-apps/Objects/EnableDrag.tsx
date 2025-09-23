@@ -41,7 +41,6 @@ export function EnableDrag({
     });
 
     useEffect(() => {
-        console.log(win.value.position);
         o3API.o3.position.fromArray(win.value.position);
     }, [win]);
 

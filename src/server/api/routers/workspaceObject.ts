@@ -34,9 +34,6 @@ export const workspaceObjectRouter = createTRPCRouter({
         .mutation(async ({ input, ctx }) => {
             //
 
-            //
-
-            //
             return await WorkspaceObjectModel.findOneAndUpdate(
                 {
                     //
@@ -48,13 +45,6 @@ export const workspaceObjectRouter = createTRPCRouter({
                     //
                 },
                 {
-                    //
-                    workspaceID: input.workspaceID,
-                    //
-                    type: input.type,
-                    //
-                    key: `${input.key}`,
-                    //
                     value: input.value,
                 },
                 {
