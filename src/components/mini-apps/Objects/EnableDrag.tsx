@@ -87,12 +87,14 @@ export function EnableDrag({
                         }
                     }}
                     onDragEnd={() => {
+                        //
                         // store.setItem(
                         //     `${keyname}${name}`,
                         //     JSON.parse(
                         //         JSON.stringify(o3API.o3.position.toArray()),
                         //     ),
                         // );
+                        //
 
                         if (win) {
                             win.value.position = o3API.o3.position.toArray();
