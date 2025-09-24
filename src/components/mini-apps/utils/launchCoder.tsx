@@ -1,6 +1,6 @@
 // import { useMiniApps, type MiniAppType, type WindowType } from "./useMiniApps";
 import { vanilla } from "@/trpc/react";
-import { useMiniApps } from "./useMiniApps";
+import { useMiniApps } from "../useMiniApps";
 
 export const nameSpace = (v: String) => {
     return `${process.env.NEXT_PUBLIC_APP_NAME}_${v}`;
@@ -40,6 +40,7 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
                     ...args,
                     appID: `${nameSpace("app_coder")}`,
                     name: `Node Window`,
+                    type: "app_node",
                     position: [
                         -4.701895993811792, -5.329070518200751e-15,
                         0.5448308777099706,
@@ -59,6 +60,7 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
                     ...args,
                     appID: `${nameSpace("app_coder")}`,
                     name: `Preview Window`,
+                    type: "app_preview",
                     position: [
                         3.7832277653659165, 3.552713678800501e-15,
                         -0.3657834370979369,

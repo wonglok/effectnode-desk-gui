@@ -31,9 +31,11 @@ import { useThree } from "@react-three/fiber";
 
 import { BellRing, Check } from "@react-three/uikit-lucide";
 import { RenderPlane } from "./Objects/RenderPlane";
+import { PreviewPlane } from "./UIkitObjects/RenderPlanes/PreviewPlane";
+import { NodePlane } from "./UIkitObjects/RenderPlanes/NodePlane";
 
 export function OneWindow({ win }: { win: WinObject }) {
-    let ref = useRef<Object3D>(null);
+    // let ref = useRef<Object3D>(null);
 
     // useEffect(() => {
     //     //
@@ -52,7 +54,7 @@ export function OneWindow({ win }: { win: WinObject }) {
     //     //
     // }, [win.key]);
 
-    console.log(win);
+    // console.log(win);
 
     let controls: any = useThree((r) => r.controls);
     return (
@@ -63,59 +65,12 @@ export function OneWindow({ win }: { win: WinObject }) {
                         <UIKitDrawer
                             portal={
                                 <>
-                                    <RenderPlane
-                                        width={512 * 1.5}
-                                        height={512 * 1.5}
-                                        colorSpace={NoColorSpace}
-                                        eventPriority={100}
-                                    >
-                                        <Suspense fallback={null}>
-                                            <group
-                                                rotation={[
-                                                    0,
-                                                    Math.PI * 0.15,
-                                                    0,
-                                                ]}
-                                                position={[-0.3, 0, 0]}
-                                            >
-                                                <AvatarMotion
-                                                    avatarURL={`/avatar/angel.glb`}
-                                                    motionURL={`/avatar/formal-salute.fbx`}
-                                                ></AvatarMotion>
-                                            </group>
-
-                                            <group
-                                                rotation={[
-                                                    0,
-                                                    Math.PI * -0.15,
-                                                    0,
-                                                ]}
-                                                position={[0.3, 0, 0]}
-                                            >
-                                                <AvatarMotion
-                                                    avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                                                    motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
-                                                ></AvatarMotion>
-                                            </group>
-
-                                            <ambientLight
-                                                intensity={Math.PI * 0.5}
-                                            />
-
-                                            <Sky
-                                                rayleigh={0.3}
-                                                azimuth={0.5}
-                                            ></Sky>
-
-                                            <Cloud
-                                                position={[0, 1, -2]}
-                                            ></Cloud>
-
-                                            <ambientLight
-                                                intensity={1}
-                                            ></ambientLight>
-                                        </Suspense>
-                                    </RenderPlane>
+                                    {win.value.type === "app_preview" && (
+                                        <PreviewPlane win={win}></PreviewPlane>
+                                    )}
+                                    {win.value.type === "app_node" && (
+                                        <NodePlane win={win}></NodePlane>
+                                    )}
                                 </>
                             }
                             content={

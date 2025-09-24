@@ -7,20 +7,26 @@ let primary = new Color("#00eeee").offsetHSL(0.0, 0.0, 0.05);
 let grid = new Color(primary).offsetHSL(0, 0, -0.3);
 let background = new Color(primary).offsetHSL(0, 0, -0.44);
 
-export const Grid = ({ number = 25, lineWidth = 0.036, height = 0.5 }) => {
+let colors = {
+    primary,
+    grid,
+    background,
+};
+
+export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
     // Renders a grid and crosses as instances
     let scene = useThree((r) => r.scene);
 
     useEffect(() => {
-        scene.background = background;
+        scene.background = colors.background;
     }, [background]);
 
     let insts = [];
 
-    for (let y = -number; y <= number; y++) {
-        for (let x = -number; x <= number; x++) {
+    for (let y = -Math.floor(num * 0.5); y <= Math.floor(num * 0.5); y++) {
+        for (let x = -Math.floor(num * 0.5); x <= Math.floor(num * 0.5); x++) {
             insts.push(
-                <group key={`${x}:${y}`} position={[x, 0, y]}>
+                <group key={`xx${x}-yy${y}`} position={[x * 2, 0.01, y * 2]}>
                     <Instance rotation={[-Math.PI / 2, 0, 0]} />
                     <Instance rotation={[-Math.PI / 2, 0, Math.PI / 2]} />
                 </group>,
@@ -30,14 +36,14 @@ export const Grid = ({ number = 25, lineWidth = 0.036, height = 0.5 }) => {
 
     return (
         <>
-            <Instances position={[0, 0.0, 0]}>
+            <Instances position={[0, 0.0, 0]} count={insts.length * 4}>
                 <planeGeometry args={[lineWidth, height]} />
-                <meshBasicMaterial color={primary} />
+                <meshBasicMaterial color={colors.primary} />
 
                 {insts}
 
                 <gridHelper
-                    args={[50, 50, grid, grid]}
+                    args={[50, 50, colors.grid, colors.grid]}
                     position={[0, -0.01, 0]}
                 />
             </Instances>
@@ -49,7 +55,9 @@ export const Grid = ({ number = 25, lineWidth = 0.036, height = 0.5 }) => {
                 receiveShadow
                 castShadow
             >
-                <meshBasicMaterial color={background}></meshBasicMaterial>
+                <meshBasicMaterial
+                    color={colors.background}
+                ></meshBasicMaterial>
             </Plane>
         </>
     );

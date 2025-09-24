@@ -19,13 +19,15 @@ import { suspend } from "suspend-react";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
 export function AvatarMotion({
+    lookAt = false,
     avatarURL = "/avatar/angel.glb",
     motionURL = `/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`,
-}) {
+}: any) {
     return (
         <>
             {/* <primitive object={avatar.scene}></primitive> */}
             <AvatarLoader
+                lookAt={lookAt}
                 motionURL={motionURL}
                 avatarURL={avatarURL}
             ></AvatarLoader>
@@ -33,7 +35,7 @@ export function AvatarMotion({
     );
 }
 
-function AvatarLoader({ avatarURL, motionURL }: any) {
+function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
     const [motion, glb] = suspend(async () => {
         let draco = new DRACOLoader();
         draco.setDecoderPath(`/libs/draco`);
@@ -67,6 +69,8 @@ function AvatarLoader({ avatarURL, motionURL }: any) {
     let [api, setAPI] = useState({
         func: (a: any, b: any) => {},
         o3d: new Object3D(),
+        motion: new Object3D(),
+        glbScene: new Object3D(),
         display: <group></group>,
     });
 
@@ -125,6 +129,9 @@ function AvatarLoader({ avatarURL, motionURL }: any) {
                     </>
                 ),
                 o3d: o3d,
+                motion: motion,
+                glbScene: glbScene,
+
                 func: (st: any, dt: any) => {
                     if (dt >= 1 / 30) {
                         dt = 1 / 30;
@@ -152,6 +159,12 @@ function AvatarLoader({ avatarURL, motionURL }: any) {
 
     useFrame((st, dt) => {
         api.func(st, dt);
+
+        if (lookAt) {
+            api.glbScene
+                .getObjectByName("Head")
+                ?.lookAt(new Vector3().fromArray(lookAt));
+        }
     });
 
     return (

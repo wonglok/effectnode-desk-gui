@@ -2,8 +2,8 @@
 
 import { BackButton } from "@/components/buttons/BackButton";
 import { LogoutButton } from "@/components/buttons/LogoutButton";
-import { RemoveButton } from "@/components/buttons/RemoveButton";
-import { launchCoder } from "@/components/mini-apps/appMethods";
+import { ResetButton } from "@/components/buttons/ResetButton";
+import { launchCoder } from "@/components/mini-apps/utils/launchCoder";
 import { WebGLArea } from "@/components/mini-apps/WebGLArea";
 import { vanilla } from "@/trpc/react";
 import { useParams } from "next/navigation";
@@ -53,9 +53,9 @@ export default function Home() {
                             ></BackButton>
                         </div>
                         <div className="mr-4">
-                            <RemoveButton
+                            <ResetButton
                                 workspaceID={params?.workspaceID as string}
-                            ></RemoveButton>
+                            ></ResetButton>
                         </div>
                     </div>
                 </div>
