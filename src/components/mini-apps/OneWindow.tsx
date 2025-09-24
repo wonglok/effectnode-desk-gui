@@ -131,6 +131,21 @@ export function OneWindow({ win }: { win: WinObject }) {
                             }
                             footer={null}
                         ></UIKitDrawer>
+
+                        {/* <group position={[5, 0, 5]}>
+                            <UIKitFrame
+                                content={
+                                    <>
+                                        <Container>
+                                            <Text>{win.value.name}</Text>
+                                        </Container>
+                                        <Container>
+                                            <Text>{win.value.appID}</Text>
+                                        </Container>
+                                    </>
+                                }
+                            ></UIKitFrame>
+                        </group> */}
                     </>
                 }
                 show={<></>}
@@ -153,18 +168,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                             >
                                 1 activities for you
                             </Text> */}
-                {/* <UIKitFrame
-                        content={
-                            <>
-                                <Container>
-                                    <Text>{win.value.name}</Text>
-                                </Container>
-                                <Container>
-                                    <Text>{win.value.appID}</Text>
-                                </Container>
-                            </>
-                        }
-                    ></UIKitFrame> */}
+                {/* */}
 
                 {/*  */}
             </EnableDrag>
