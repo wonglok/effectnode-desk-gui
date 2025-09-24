@@ -178,6 +178,11 @@ export function UIKitDrawer({
                 >
                     {/*  */}
                     <Container
+                        cursor="pointer"
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            onSetDrawer(!openDrawer);
+                        }}
                         backgroundColor={0xffffff}
                         dark={{ backgroundColor: 0x0 }}
                         borderRadius={20}
@@ -190,17 +195,12 @@ export function UIKitDrawer({
                     >
                         <Suspense fallback={null}>
                             <Content
-                                cursor="pointer"
                                 transformTranslateZ={1}
                                 padding={14}
                                 keepAspectRatio={false}
                                 width="100%"
                                 height={400}
                                 castShadow
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    onSetDrawer(!openDrawer);
-                                }}
                             >
                                 <>{portal}</>
                             </Content>

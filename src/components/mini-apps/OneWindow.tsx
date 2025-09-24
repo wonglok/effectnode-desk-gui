@@ -91,7 +91,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                             <UIKitDrawer
                                 openDrawer={openDrawer}
                                 onSetDrawer={(value) => {
-                                    //
                                     setOpen(value);
                                 }}
                                 portal={

@@ -102,6 +102,20 @@ export function EnableDrag({
 
     let controls: any = useThree((r) => r.controls);
 
+    useEffect(() => {
+        let hh = () => {
+            isDown.current = "";
+        };
+        window.addEventListener("blur", hh);
+        window.addEventListener("touchend", hh);
+        window.addEventListener("touchcancel", hh);
+        window.addEventListener("pointerup", hh);
+        window.addEventListener("mouseup", hh);
+        return () => {
+            window.removeEventListener("pointerup", hh);
+        };
+    }, []);
+
     return (
         <>
             <SomeContext.Provider value={grabAPI.o3}>
@@ -112,7 +126,7 @@ export function EnableDrag({
                         onDragStart={() => {
                             //
 
-                            if (!isDown.current) {
+                            if (isDown.current === "") {
                                 isDown.current = myRand;
 
                                 lt.position.multiplyScalar(0);
