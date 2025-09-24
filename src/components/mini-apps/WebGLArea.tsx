@@ -42,7 +42,9 @@ export function WebGLArea() {
 
                 <EnvirionmentContent></EnvirionmentContent>
                 <Drags></Drags>
-                <MiniApps></MiniApps>
+                <group position={[0, 0.01, 0]}>
+                    <MiniApps></MiniApps>
+                </group>
             </Canvas>
 
             {/*  */}

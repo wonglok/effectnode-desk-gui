@@ -79,9 +79,12 @@ function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
             let o3d = new Object3D();
 
             let glbScene = clone(glb.scene);
+            glbScene.visible = false;
 
             let mixer = new AnimationMixer(motion);
+            mixer.setTime(1 / 60);
             mixer.clipAction(motion.animations[0] as any).play();
+            mixer.setTime(2 / 60);
 
             let actions: any[] = [];
             motion.traverse((motionBone: any) => {
@@ -150,6 +153,8 @@ function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
                             it.material.depthWrite = true;
                         }
                     });
+
+                    glbScene.visible = true;
                 },
             });
 
