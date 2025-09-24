@@ -64,11 +64,9 @@ const notifications = [
 export function UIKitDrawer({
     content = null,
     portal = null,
-    footer = null,
 }: {
     content: ReactElement | null;
     portal: ReactElement | null;
-    footer: ReactElement | null;
 }) {
     const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
@@ -242,6 +240,7 @@ export function UIKitDrawer({
                         castShadow
                     >
                         <Container
+                            //
                             // borderWidth={0}
                             borderRadius={20}
                             flexDirection="column"
