@@ -83,6 +83,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         <ambientLight
                                             intensity={Math.PI * 0.5}
                                         />
+
                                         <Sky rayleigh={0.1} azimuth={0.5}></Sky>
                                     </Suspense>
                                 </>
@@ -102,27 +103,35 @@ export function OneWindow({ win }: { win: WinObject }) {
                                             document.body.style.cursor = "";
                                             //
                                         }}
-                                        onPointerDown={(ev) => {
-                                            ev.stopPropagation();
-
-                                            if (controls) {
-                                                controls.enabled = false;
-                                            }
-                                        }}
                                     >
-                                        <Input
+                                        <Text
                                             fontSize={30}
                                             fontWeight="medium"
                                             letterSpacing={-0.4}
                                             color={colors.primary}
-                                            defaultValue={"Let's Pray"}
-                                        />
+                                            onPointerDown={(ev) => {
+                                                ev.stopPropagation();
+
+                                                if (controls) {
+                                                    controls.enabled = false;
+                                                }
+                                            }}
+                                        >
+                                            {"Let's Pray"}
+                                        </Text>
 
                                         <Text
                                             fontSize={20}
                                             fontWeight="medium"
                                             letterSpacing={-0.4}
                                             color={colors.primary}
+                                            onPointerDown={(ev) => {
+                                                ev.stopPropagation();
+
+                                                if (controls) {
+                                                    controls.enabled = false;
+                                                }
+                                            }}
                                         >
                                             Thank you Jesus
                                         </Text>
