@@ -59,6 +59,11 @@ import { AvatarMotion } from "../Objects/AvatarMotion";
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
 
 export function UIKitDrawer({
@@ -80,7 +85,7 @@ export function UIKitDrawer({
         easing.damp(
             topCardBorderRadius,
             "value",
-            openRef.current ? 0 : 20,
+            openRef.current ? 0 : 50,
             0.2,
             delta,
         );
@@ -125,7 +130,7 @@ export function UIKitDrawer({
         easing.damp(
             settings.translateY,
             "value",
-            !openRef.current ? -400 : 0,
+            !openRef.current ? -400 + notifications.length * -100.0 : 0,
             0.2,
             delta,
         );
