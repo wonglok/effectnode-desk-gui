@@ -133,7 +133,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 }
                                             }}
                                         >
-                                            Thank you Jesus
+                                            {`Thank you Jesus`}
                                         </Text>
                                     </Container>
                                 </>
