@@ -72,8 +72,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         {/*  */}
                                         {/* <ambientLight intensity={Math.PI} /> */}
 
-                                        {/*  */}
-
                                         <Suspense fallback={null}>
                                             <group
                                                 rotation={[
