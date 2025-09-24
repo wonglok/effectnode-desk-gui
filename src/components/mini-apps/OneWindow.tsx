@@ -95,10 +95,12 @@ export function OneWindow({ win }: { win: WinObject }) {
                                             //
                                             document.body.style.cursor =
                                                 "crosshair";
+                                            //
                                         }}
                                         onPointerLeave={() => {
                                             //
                                             document.body.style.cursor = "";
+                                            //
                                         }}
                                         onPointerDown={(ev) => {
                                             ev.stopPropagation();

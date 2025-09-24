@@ -176,7 +176,7 @@ export function UIKitDrawer({
                         borderRadius={20}
                         onClick={(e) => {
                             e.stopPropagation();
-                            openRef.current = true;
+                            openRef.current = !openRef.current;
                         }}
                         cursor="pointer"
                         flexDirection="column"
