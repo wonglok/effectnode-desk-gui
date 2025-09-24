@@ -50,8 +50,8 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
     }
 
     let geo = useMemo(() => {
-        let box1 = new BoxGeometry(0.015, 0.015, 0.75);
-        let box2 = new BoxGeometry(0.75, 0.015, 0.015);
+        let box1 = new BoxGeometry(0.03, 0.03, 0.75);
+        let box2 = new BoxGeometry(0.75, 0.03, 0.03);
 
         let geo = mergeGeometries([box1, box2]);
 
@@ -60,14 +60,18 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
 
     return (
         <>
-            <Instances geometry={geo} count={insts.length * 2.0}>
+            <Instances
+                scale={[2, 1, 2]}
+                geometry={geo}
+                count={insts.length * 2.0}
+            >
                 {/* <icosahedronGeometry args={[0.25, 0]} /> */}
                 <meshBasicMaterial color={colors.primary} />
                 {insts}
             </Instances>
 
             <gridHelper
-                args={[50, 25, colors.grid, colors.grid]}
+                args={[100, 50, colors.grid, colors.grid]}
                 position={[0, -0.01, 0]}
             />
 
