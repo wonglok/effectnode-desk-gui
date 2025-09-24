@@ -14,10 +14,21 @@ import {
 import { UIKitFrame } from "./UIkitObjects/UIKitFrame";
 import { EnableDrag } from "./Objects/EnableDrag";
 import { UIKitDrawer } from "./UIkitObjects/UIKitDrawer";
-import { colors } from "@react-three/uikit-default";
+import {
+    Button,
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+    colors,
+    Switch,
+} from "@react-three/uikit-default";
 import { AvatarMotion } from "./Objects/AvatarMotion";
 import { Sky, Box } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
+import { BellRing, Check } from "@react-three/uikit-lucide";
 
 export function OneWindow({ win }: { win: WinObject }) {
     let ref = useRef<Object3D>(null);
@@ -44,11 +55,6 @@ export function OneWindow({ win }: { win: WinObject }) {
         <>
             <EnableDrag
                 grab={
-                    <>
-                        <Box></Box>
-                    </>
-                }
-                show={
                     <>
                         <UIKitDrawer
                             portal={
@@ -119,8 +125,18 @@ export function OneWindow({ win }: { win: WinObject }) {
                                             Thank you Jesus
                                         </Text>
                                     </Container>
-
-                                    {/* <Input
+                                </>
+                            }
+                            footer={null}
+                        ></UIKitDrawer>
+                    </>
+                }
+                show={<></>}
+                win={win}
+            >
+                {/*  */}
+                {/*  */}
+                {/* <Input
                                 fontSize={30}
                                 fontWeight="medium"
                                 letterSpacing={-0.4}
@@ -135,13 +151,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                             >
                                 1 activities for you
                             </Text> */}
-                                </>
-                            }
-                        ></UIKitDrawer>
-                    </>
-                }
-                win={win}
-            >
                 {/* <UIKitFrame
                         content={
                             <>

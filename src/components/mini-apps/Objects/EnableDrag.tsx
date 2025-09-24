@@ -57,6 +57,7 @@ export function EnableDrag({
     }, [win]);
 
     let controls: any = useThree((r) => r.controls);
+
     return (
         <>
             {

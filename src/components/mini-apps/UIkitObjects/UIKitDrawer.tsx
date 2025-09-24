@@ -41,6 +41,7 @@ import {
     CardHeader,
     CardTitle,
     Switch,
+    Card,
 } from "@react-three/uikit-default";
 import { Avatar2 } from "../Objects/Avatar2";
 import { LinearToSRGB } from "three/src/math/ColorManagement.js";
@@ -63,9 +64,11 @@ const notifications = [
 export function UIKitDrawer({
     content = null,
     portal = null,
+    footer = null,
 }: {
     content: ReactElement | null;
     portal: ReactElement | null;
+    footer: ReactElement | null;
 }) {
     const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
@@ -157,7 +160,6 @@ export function UIKitDrawer({
 
     //
 
-    let contorls = useThree((r) => r.controls);
     return (
         <>
             <group rotation={[Math.PI * -0.5, 0, 0]} position={[0, 0.05, 0]}>
@@ -200,20 +202,10 @@ export function UIKitDrawer({
                                 >
                                     {/* <ambientLight intensity={Math.PI} /> */}
                                     {portal}
-                                    {/* <Cloud position={[0, 0, -1]}></Cloud> */}
-                                    {/*  */}
                                     {/*  */}
                                 </RenderPlane>
                             </Content>
                         </Suspense>
-
-                        {/* <Container
-                            //
-                            paddingLeft={28}
-                            paddingRight={28}
-                        >
-                           
-                        </Container> */}
 
                         <Container
                             backgroundColor={0xffffff}
@@ -270,118 +262,124 @@ export function UIKitDrawer({
                             transformRotateY={settings.rotationY}
                             transformRotateZ={settings.rotationZ}
                         >
-                            <CardHeader>
-                                <CardTitle>
-                                    <Text>Notifications</Text>
-                                </CardTitle>
-                                <CardDescription>
-                                    <Text>You have 3 unread messages.</Text>
-                                </CardDescription>
-                            </CardHeader>
-                            <CardContent flexDirection="column" gap={16}>
-                                <Container
-                                    flexDirection="row"
-                                    alignItems="center"
-                                    gap={16}
-                                    borderRadius={6}
-                                    borderWidth={1}
-                                    padding={16}
-                                >
-                                    <BellRing />
-                                    <Container flexDirection="column" gap={4}>
-                                        <Text fontSize={14} lineHeight="100%">
-                                            Push Notifications
-                                        </Text>
-                                        <Text
-                                            fontSize={14}
-                                            lineHeight={20}
-                                            color={colors.mutedForeground}
+                            <Card backgroundColor={colors.secondary}>
+                                <CardHeader>
+                                    <CardTitle>
+                                        <Text>Notifications</Text>
+                                    </CardTitle>
+                                    <CardDescription>
+                                        <Text>You have 3 unread messages.</Text>
+                                    </CardDescription>
+                                </CardHeader>
+                                <CardContent flexDirection="column" gap={16}>
+                                    <Container
+                                        flexDirection="row"
+                                        alignItems="center"
+                                        gap={16}
+                                        borderRadius={6}
+                                        borderWidth={1}
+                                        padding={16}
+                                    >
+                                        <BellRing />
+                                        <Container
+                                            flexDirection="column"
+                                            gap={4}
                                         >
-                                            Send notifications to device.
-                                        </Text>
-                                    </Container>
-                                    <Container flexGrow={1} />
-                                    <Switch />
-                                </Container>
-                                <Container flexDirection="column">
-                                    {notifications.map(
-                                        (notification, index) => (
-                                            <Container
-                                                key={index}
-                                                marginBottom={
-                                                    index ===
-                                                    notifications.length - 1
-                                                        ? 0
-                                                        : 16
-                                                }
-                                                paddingBottom={
-                                                    index ===
-                                                    notifications.length - 1
-                                                        ? 0
-                                                        : 16
-                                                }
-                                                alignItems="flex-start"
-                                                flexDirection="row"
-                                                gap={17}
+                                            <Text
+                                                fontSize={14}
+                                                lineHeight="100%"
                                             >
+                                                Push Notifications
+                                            </Text>
+                                            <Text
+                                                fontSize={14}
+                                                lineHeight={20}
+                                                color={colors.mutedForeground}
+                                            >
+                                                Send notifications to device.
+                                            </Text>
+                                        </Container>
+                                        <Container flexGrow={1} />
+                                        <Switch />
+                                    </Container>
+                                    <Container flexDirection="column">
+                                        {notifications.map(
+                                            (notification, index) => (
                                                 <Container
-                                                    height={8}
-                                                    width={8}
-                                                    transformTranslateY={4}
-                                                    borderRadius={1000}
-                                                    backgroundColor={
-                                                        colors.primary
+                                                    key={index}
+                                                    marginBottom={
+                                                        index ===
+                                                        notifications.length - 1
+                                                            ? 0
+                                                            : 16
                                                     }
-                                                />
-                                                <Container
-                                                    gap={4}
-                                                    flexDirection="column"
+                                                    paddingBottom={
+                                                        index ===
+                                                        notifications.length - 1
+                                                            ? 0
+                                                            : 16
+                                                    }
+                                                    alignItems="flex-start"
+                                                    flexDirection="row"
+                                                    gap={17}
                                                 >
-                                                    <Text
-                                                        fontSize={14}
-                                                        lineHeight="100%"
-                                                    >
-                                                        {notification.title}
-                                                    </Text>
-                                                    <Text
-                                                        fontSize={14}
-                                                        lineHeight={20}
-                                                        color={
-                                                            colors.mutedForeground
+                                                    <Container
+                                                        height={8}
+                                                        width={8}
+                                                        transformTranslateY={4}
+                                                        borderRadius={1000}
+                                                        backgroundColor={
+                                                            colors.primary
                                                         }
+                                                    />
+                                                    <Container
+                                                        gap={4}
+                                                        flexDirection="column"
                                                     >
-                                                        {
-                                                            notification.description
-                                                        }
-                                                    </Text>
+                                                        <Text
+                                                            fontSize={14}
+                                                            lineHeight="100%"
+                                                        >
+                                                            {notification.title}
+                                                        </Text>
+                                                        <Text
+                                                            fontSize={14}
+                                                            lineHeight={20}
+                                                            color={
+                                                                colors.mutedForeground
+                                                            }
+                                                        >
+                                                            {
+                                                                notification.description
+                                                            }
+                                                        </Text>
+                                                    </Container>
                                                 </Container>
-                                            </Container>
-                                        ),
-                                    )}
-                                </Container>
-                            </CardContent>
-                            <CardFooter>
-                                <Button
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        openRef.current = false;
-                                    }}
-                                    flexDirection="row"
-                                    width="100%"
-                                >
-                                    <Check
-                                        marginRight={8}
-                                        height={16}
-                                        width={16}
-                                    />
-                                    <Text>Mark all as read</Text>
-                                </Button>
-                            </CardFooter>
+                                            ),
+                                        )}
+                                    </Container>
+                                </CardContent>
+                                <CardFooter>
+                                    <Button
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            openRef.current = false;
+                                        }}
+                                        flexDirection="row"
+                                        width="100%"
+                                    >
+                                        <Check
+                                            marginRight={8}
+                                            height={16}
+                                            width={16}
+                                        />
+                                        <Text>Mark all as read</Text>
+                                    </Button>
+                                </CardFooter>
+                            </Card>
                         </Container>
                     </Container>
                 </Root>
-
-                {/*  */}
 
                 {/*  */}
             </group>
