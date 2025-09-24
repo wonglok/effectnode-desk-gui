@@ -26,7 +26,7 @@ import {
     Switch,
 } from "@react-three/uikit-default";
 import { AvatarMotion } from "./Objects/AvatarMotion";
-import { Sky, Box } from "@react-three/drei";
+import { Sky, Box, Cloud } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
 
 import { BellRing, Check } from "@react-three/uikit-lucide";
@@ -69,9 +69,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         colorSpace={NoColorSpace}
                                         eventPriority={100}
                                     >
-                                        {/*  */}
-                                        {/* <ambientLight intensity={Math.PI} /> */}
-
                                         <Suspense fallback={null}>
                                             <group
                                                 rotation={[
@@ -106,12 +103,18 @@ export function OneWindow({ win }: { win: WinObject }) {
                                             />
 
                                             <Sky
-                                                rayleigh={0.1}
+                                                rayleigh={0.3}
                                                 azimuth={0.5}
                                             ></Sky>
-                                            {/*  */}
+
+                                            <Cloud
+                                                position={[0, 1, -2]}
+                                            ></Cloud>
+
+                                            <ambientLight
+                                                intensity={1}
+                                            ></ambientLight>
                                         </Suspense>
-                                        {/*  */}
                                     </RenderPlane>
                                 </>
                             }
@@ -165,7 +168,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                     </Container>
                                 </>
                             }
-                            footer={null}
                         ></UIKitDrawer>
                     </>
                 }
