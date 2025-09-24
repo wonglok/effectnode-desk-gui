@@ -58,7 +58,11 @@ import { AvatarMotion } from "../Objects/AvatarMotion";
 import { DragBlock } from "../Objects/EnableDrag";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
+
 const notifications = [
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
+    { title: "Your call has been confirmed.", description: "1 hour ago" },
     { title: "Your call has been confirmed.", description: "1 hour ago" },
     { title: "Your call has been confirmed.", description: "1 hour ago" },
     { title: "Your call has been confirmed.", description: "1 hour ago" },
@@ -218,7 +222,6 @@ export function UIKitDrawer({
                             </Container>
 
                             <Container flexDirection="row">
-                                {/*  */}
                                 <Avatar
                                     //
                                     width={40}
