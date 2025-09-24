@@ -194,16 +194,7 @@ export function UIKitDrawer({
                                     openRef.current = !openRef.current;
                                 }}
                             >
-                                <RenderPlane
-                                    width={512 * 1.5}
-                                    height={512 * 1.5}
-                                    colorSpace={NoColorSpace}
-                                    eventPriority={100}
-                                >
-                                    {/* <ambientLight intensity={Math.PI} /> */}
-                                    {portal}
-                                    {/*  */}
-                                </RenderPlane>
+                                {portal}
                             </Content>
                         </Suspense>
 

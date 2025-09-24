@@ -2,7 +2,7 @@
 import { Suspense, useEffect, useRef } from "react";
 import { useMiniApps, type WinObject } from "./useMiniApps";
 
-import { Object3D } from "three";
+import { NoColorSpace, Object3D } from "three";
 import {
     Fullscreen,
     Container,
@@ -28,7 +28,9 @@ import {
 import { AvatarMotion } from "./Objects/AvatarMotion";
 import { Sky, Box } from "@react-three/drei";
 import { useThree } from "@react-three/fiber";
+
 import { BellRing, Check } from "@react-three/uikit-lucide";
+import { RenderPlane } from "./Objects/RenderPlane";
 
 export function OneWindow({ win }: { win: WinObject }) {
     let ref = useRef<Object3D>(null);
@@ -50,6 +52,8 @@ export function OneWindow({ win }: { win: WinObject }) {
     //     //
     // }, [win.key]);
 
+    console.log(win);
+
     let controls: any = useThree((r) => r.controls);
     return (
         <>
@@ -59,33 +63,58 @@ export function OneWindow({ win }: { win: WinObject }) {
                         <UIKitDrawer
                             portal={
                                 <>
-                                    <Suspense fallback={null}>
-                                        <group
-                                            rotation={[0, Math.PI * 0.15, 0]}
-                                            position={[-0.3, 0, 0]}
-                                        >
-                                            <AvatarMotion
-                                                avatarURL={`/avatar/angel.glb`}
-                                                motionURL={`/avatar/formal-salute.fbx`}
-                                            ></AvatarMotion>
-                                        </group>
+                                    <RenderPlane
+                                        width={512 * 1.5}
+                                        height={512 * 1.5}
+                                        colorSpace={NoColorSpace}
+                                        eventPriority={100}
+                                    >
+                                        {/*  */}
+                                        {/* <ambientLight intensity={Math.PI} /> */}
 
-                                        <group
-                                            rotation={[0, Math.PI * -0.15, 0]}
-                                            position={[0.3, 0, 0]}
-                                        >
-                                            <AvatarMotion
-                                                avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                                                motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
-                                            ></AvatarMotion>
-                                        </group>
+                                        {/*  */}
 
-                                        <ambientLight
-                                            intensity={Math.PI * 0.5}
-                                        />
+                                        <Suspense fallback={null}>
+                                            <group
+                                                rotation={[
+                                                    0,
+                                                    Math.PI * 0.15,
+                                                    0,
+                                                ]}
+                                                position={[-0.3, 0, 0]}
+                                            >
+                                                <AvatarMotion
+                                                    avatarURL={`/avatar/angel.glb`}
+                                                    motionURL={`/avatar/formal-salute.fbx`}
+                                                ></AvatarMotion>
+                                            </group>
 
-                                        <Sky rayleigh={0.1} azimuth={0.5}></Sky>
-                                    </Suspense>
+                                            <group
+                                                rotation={[
+                                                    0,
+                                                    Math.PI * -0.15,
+                                                    0,
+                                                ]}
+                                                position={[0.3, 0, 0]}
+                                            >
+                                                <AvatarMotion
+                                                    avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
+                                                    motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
+                                                ></AvatarMotion>
+                                            </group>
+
+                                            <ambientLight
+                                                intensity={Math.PI * 0.5}
+                                            />
+
+                                            <Sky
+                                                rayleigh={0.1}
+                                                azimuth={0.5}
+                                            ></Sky>
+                                            {/*  */}
+                                        </Suspense>
+                                        {/*  */}
+                                    </RenderPlane>
                                 </>
                             }
                             content={
@@ -117,7 +146,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 }
                                             }}
                                         >
-                                            {"Let's Pray"}
+                                            {win?.value?.name}
                                         </Text>
 
                                         <Text
@@ -133,7 +162,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 }
                                             }}
                                         >
-                                            {`Thank you Jesus`}
+                                            {win?.value?.name}
                                         </Text>
                                     </Container>
                                 </>

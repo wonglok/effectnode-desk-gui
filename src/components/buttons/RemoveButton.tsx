@@ -21,6 +21,7 @@ export function RemoveButton({ workspaceID = "" }) {
                         });
                 }
             }}
+            variant={"destructive"}
         >
             Remove All
         </Button>

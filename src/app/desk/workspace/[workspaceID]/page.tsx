@@ -1,5 +1,6 @@
 "use client";
 
+import { BackButton } from "@/components/buttons/BackButton";
 import { LogoutButton } from "@/components/buttons/LogoutButton";
 import { RemoveButton } from "@/components/buttons/RemoveButton";
 import { launchCoder } from "@/components/mini-apps/appMethods";
@@ -48,7 +49,11 @@ export default function Home() {
                     {/*  */}
                     {/*  */}
                     <div className="flex h-full w-full items-center justify-between">
-                        <div className="ml-4">111</div>
+                        <div className="ml-4">
+                            <BackButton
+                                workspaceID={params?.workspaceID as string}
+                            ></BackButton>
+                        </div>
                         <div className="mr-4">
                             <RemoveButton
                                 workspaceID={params?.workspaceID as string}
@@ -63,15 +68,15 @@ export default function Home() {
                     {/*  */}
 
                     <div className="flex h-full w-full items-center justify-between">
-                        <div className="ml-4"></div>
+                        <div className="ml-4">
+                            <LogoutButton></LogoutButton>
+                        </div>
                         <div className="mx-1 flex w-1/3 items-center justify-center">
                             {/* <AddCard
                                 workspaceID={params?.workspaceID as string}
                             ></AddCard> */}
                         </div>
-                        <div className="mr-4">
-                            <LogoutButton></LogoutButton>
-                        </div>
+                        <div className="mr-4"></div>
                     </div>
 
                     {/*  */}
