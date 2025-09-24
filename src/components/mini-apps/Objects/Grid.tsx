@@ -1,8 +1,8 @@
 import { Instance, Instances, Plane } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
-import { useEffect } from "react";
-import { Color } from "three";
-
+import { useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef } from "react";
+import { BoxGeometry, Color, Object3D } from "three";
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 let primary = new Color("#00eeee").offsetHSL(0.0, 0.0, 0.05);
 let grid = new Color(primary).offsetHSL(0, 0, -0.3);
 let background = new Color(primary).offsetHSL(0, 0, -0.44);
@@ -14,9 +14,16 @@ let colors = {
 };
 
 function OneTile({ x, y }: any) {
+    let ref = useRef<Object3D>(null);
+    useFrame((st, dt) => {
+        if (ref.current) {
+            // ref.current.rotation.x += dt * 0.1;
+        }
+    });
+
     return (
-        <group position={[x * 2, 0.03, y * 2]}>
-            <Instance />
+        <group position={[x * 2, -0.01, y * 2]}>
+            <Instance ref={ref} />
             {/*  */}
             {/* <Instance rotation={[-Math.PI / 2, 0, 0]} /> */}
             {/* <Instance rotation={[-Math.PI / 2, 0, Math.PI / 2]} /> */}
@@ -42,10 +49,19 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
         }
     }
 
+    let geo = useMemo(() => {
+        let box1 = new BoxGeometry(0.01, 0.01, 0.75);
+        let box2 = new BoxGeometry(0.75, 0.01, 0.01);
+
+        let geo = mergeGeometries([box1, box2]);
+
+        return geo;
+    }, []);
+
     return (
         <>
-            <Instances count={insts.length * 5.0}>
-                <boxGeometry args={[0.5, 0.02, 0.5]} />
+            <Instances geometry={geo} count={insts.length * 2.0}>
+                {/* <icosahedronGeometry args={[0.25, 0]} /> */}
                 <meshBasicMaterial color={colors.primary} />
                 {insts}
             </Instances>
