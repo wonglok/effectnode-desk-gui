@@ -140,50 +140,18 @@ export function OneWindow({ win }: { win: WinObject }) {
                             }
                             footer={null}
                         ></UIKitDrawer>
-
-                        {/* <group position={[5, 0, 5]}>
-                            <UIKitFrame
-                                content={
-                                    <>
-                                        <Container>
-                                            <Text>{win.value.name}</Text>
-                                        </Container>
-                                        <Container>
-                                            <Text>{win.value.appID}</Text>
-                                        </Container>
-                                    </>
-                                }
-                            ></UIKitFrame>
-                        </group> */}
                     </>
                 }
-                show={<></>}
+                show={
+                    <>
+                        {/*  */}
+
+                        {/*  */}
+                    </>
+                }
                 win={win}
-            >
-                {/*  */}
-                {/*  */}
-                {/* <Input
-                                fontSize={30}
-                                fontWeight="medium"
-                                letterSpacing={-0.4}
-                                color={colors.primary}
-                                defaultValue={"Im loklok"}
-                            />
-                            <Text
-                                fontSize={20}
-                                fontWeight="medium"
-                                letterSpacing={-0.4}
-                                color={colors.primary}
-                            >
-                                1 activities for you
-                            </Text> */}
-                {/* */}
+            ></EnableDrag>
 
-                {/*  */}
-            </EnableDrag>
-            {/*  */}
-
-            {/*  */}
             {/*  */}
         </>
     );
