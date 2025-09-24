@@ -58,6 +58,8 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
         return geo;
     }, []);
 
+    //
+
     return (
         <>
             <Instances
