@@ -1,11 +1,18 @@
 import { DragControls } from "@react-three/drei";
-import { createPortal, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
-import { Matrix4, Object3D, Vector3 } from "three";
+import { createPortal, useFrame, useThree } from "@react-three/fiber";
+import {
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+    type ReactElement,
+} from "react";
+import { Box3, BoxGeometry, Matrix4, Mesh, Object3D, Vector3 } from "three";
 import md5 from "md5";
 import { v4 } from "uuid";
 import { vanilla } from "@/trpc/react";
-import { useParams } from "next/navigation";
 import type { WinObject } from "../useMiniApps";
 
 let keyname = `position__store__`;
@@ -17,20 +24,57 @@ let nt = new Object3D();
 let dt = new Object3D();
 let at = new Object3D();
 
+const SomeContext = createContext(new Object3D());
+
+export function DragBlock({ children = null }: any) {
+    let grab = useContext<Object3D>(SomeContext);
+
+    let ref = useRef<any>(null);
+
+    let box = useMemo(() => {
+        return new Box3();
+    }, []);
+
+    let size = useMemo(() => {
+        return new Vector3();
+    }, []);
+
+    let drag = useMemo(() => {
+        let o3 = new Mesh(new BoxGeometry(1, 1, 1));
+        return {
+            o3: o3,
+            display: <primitive object={o3}></primitive>,
+        };
+    }, []);
+
+    useFrame(() => {
+        if (ref.current) {
+            box.makeEmpty();
+            box.setFromObject(ref.current);
+            box.getSize(size);
+
+            ref.current.getWorldQuaternion(drag.o3.quaternion);
+        }
+    });
+
+    return (
+        <>
+            {drag.display}
+            <group ref={ref}>{children}</group>
+        </>
+    );
+}
+
 export function EnableDrag({
     win,
-    show = null,
-    grab = null,
-    initPos = [0, 0, 0],
+    show = (v: any) => <></>,
+    grab = (v: any) => <></>,
 }: {
     children?: ReactElement | null;
-    show?: ReactElement | null;
-    grab?: ReactElement | null;
+    show?: ({ o3 }: any) => ReactElement;
+    grab?: ({ o3 }: any) => ReactElement;
     win: WinObject;
-    initPos?: [number, number, number];
 }) {
-    let params = useParams();
-    // let workspaceID = params.workspaceID;
     let myRand = useMemo(() => {
         return `${v4()}`;
     }, []);
@@ -60,85 +104,97 @@ export function EnableDrag({
 
     return (
         <>
-            {
-                <DragControls
-                    autoTransform={false}
-                    axisLock="y"
-                    onDragStart={() => {
-                        if (!isDown.current) {
-                            isDown.current = myRand;
+            <SomeContext.Provider value={grabAPI.o3}>
+                {
+                    <DragControls
+                        autoTransform={false}
+                        axisLock="y"
+                        onDragStart={() => {
+                            //
+
+                            if (!isDown.current) {
+                                isDown.current = myRand;
+
+                                lt.position.multiplyScalar(0);
+                                dt.position.multiplyScalar(0);
+                                st.position.multiplyScalar(0);
+                                nt.position.multiplyScalar(0);
+                                at.position.multiplyScalar(0);
+                            }
+
+                            st.position.copy(grabAPI.o3.position);
+
+                            if (controls) {
+                                controls.enabled = false;
+                            }
+                        }}
+                        onDrag={(lm, dlm, wm, dwm) => {
+                            // store.setItem(name, JSON.parse(JSON.stringify(lm)));
+
+                            if (isDown.current === myRand) {
+                                lm.decompose(
+                                    nt.position,
+                                    nt.quaternion,
+                                    nt.scale,
+                                );
+
+                                if (lt.position.length() === 0) {
+                                    lt.position.copy(nt.position);
+                                }
+                                dt.position.copy(nt.position).sub(lt.position);
+
+                                lt.position.copy(nt.position);
+
+                                at.position.add(dt.position);
+
+                                grabAPI.o3.position.add(dt.position);
+                                showAPI.o3.position.add(dt.position);
+                            }
+                        }}
+                        onDragEnd={() => {
+                            //
+                            // store.setItem(
+                            //     `${keyname}${name}`,
+                            //     JSON.parse(
+                            //         JSON.stringify(grabAPI.o3.position.toArray()),
+                            //     ),
+                            // );
+                            //
+
+                            if (win) {
+                                win.value.position =
+                                    grabAPI.o3.position.toArray();
+                                vanilla.object.write.mutate({
+                                    type: win.type as string,
+                                    workspaceID: win.workspaceID as string,
+                                    key: win.key as string,
+                                    value: win.value as any,
+                                });
+                            }
 
                             lt.position.multiplyScalar(0);
                             dt.position.multiplyScalar(0);
                             st.position.multiplyScalar(0);
                             nt.position.multiplyScalar(0);
                             at.position.multiplyScalar(0);
-                        }
 
-                        st.position.copy(grabAPI.o3.position);
-
-                        if (controls) {
-                            controls.enabled = false;
-                        }
-                    }}
-                    onDrag={(lm, dlm, wm, dwm) => {
-                        // store.setItem(name, JSON.parse(JSON.stringify(lm)));
-
-                        if (isDown.current === myRand) {
-                            lm.decompose(nt.position, nt.quaternion, nt.scale);
-
-                            if (lt.position.length() === 0) {
-                                lt.position.copy(nt.position);
+                            if (controls) {
+                                controls.enabled = true;
                             }
-                            dt.position.copy(nt.position).sub(lt.position);
+                            isDown.current = "";
+                        }}
+                    >
+                        {createPortal(
+                            <>{grab({ o3: grabAPI.o3 })}</>,
+                            grabAPI.o3,
+                        )}
+                        {grabAPI.display}
+                    </DragControls>
+                }
 
-                            lt.position.copy(nt.position);
-
-                            at.position.add(dt.position);
-
-                            grabAPI.o3.position.add(dt.position);
-                            showAPI.o3.position.add(dt.position);
-                        }
-                    }}
-                    onDragEnd={() => {
-                        //
-                        // store.setItem(
-                        //     `${keyname}${name}`,
-                        //     JSON.parse(
-                        //         JSON.stringify(grabAPI.o3.position.toArray()),
-                        //     ),
-                        // );
-                        //
-
-                        if (win) {
-                            win.value.position = grabAPI.o3.position.toArray();
-                            vanilla.object.write.mutate({
-                                type: win.type as string,
-                                workspaceID: win.workspaceID as string,
-                                key: win.key as string,
-                                value: win.value as any,
-                            });
-                        }
-
-                        lt.position.multiplyScalar(0);
-                        dt.position.multiplyScalar(0);
-                        st.position.multiplyScalar(0);
-                        nt.position.multiplyScalar(0);
-                        at.position.multiplyScalar(0);
-
-                        if (controls) {
-                            controls.enabled = true;
-                        }
-                        isDown.current = "";
-                    }}
-                >
-                    {createPortal(<>{grab}</>, grabAPI.o3)}
-                    {grabAPI.display}
-                </DragControls>
-            }
-
-            {createPortal(<>{show}</>, showAPI.o3)}
-            {showAPI.display}
+                {createPortal(<>{show({ o3: grabAPI.o3 })}</>, showAPI.o3)}
+                {showAPI.display}
+            </SomeContext.Provider>
         </>
     );
 }

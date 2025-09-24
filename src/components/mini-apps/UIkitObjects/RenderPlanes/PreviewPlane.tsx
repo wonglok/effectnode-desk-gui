@@ -65,7 +65,7 @@ export function PreviewPlane({ win }: { win: WinObject }) {
 
                 <Sky rayleigh={0.3} azimuth={0.5}></Sky>
 
-                <Cloud position={[0, 0, -2]}></Cloud>
+                <Cloud seed={1} position={[0, -1, -2]}></Cloud>
 
                 <ambientLight intensity={1}></ambientLight>
             </Suspense>

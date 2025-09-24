@@ -1,8 +1,23 @@
 "use client";
-import { Suspense, useEffect, useRef } from "react";
+import {
+    Suspense,
+    useContext,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from "react";
 import { useMiniApps, type WinObject } from "./useMiniApps";
 
-import { NoColorSpace, Object3D } from "three";
+import {
+    Box3,
+    BoxGeometry,
+    Mesh,
+    MeshBasicMaterial,
+    NoColorSpace,
+    Object3D,
+    Vector3,
+} from "three";
 import {
     Fullscreen,
     Container,
@@ -27,7 +42,7 @@ import {
 } from "@react-three/uikit-default";
 import { AvatarMotion } from "./Objects/AvatarMotion";
 import { Sky, Box, Cloud } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { createPortal, useFrame, useThree } from "@react-three/fiber";
 
 import { BellRing, Check } from "@react-three/uikit-lucide";
 import { RenderPlane } from "./Objects/RenderPlane";
@@ -57,82 +72,94 @@ export function OneWindow({ win }: { win: WinObject }) {
     // console.log(win);
 
     let controls: any = useThree((r) => r.controls);
+    let [openDrawer, setOpen] = useState(false);
+
     return (
         <>
             <EnableDrag
-                grab={
-                    <>
-                        <UIKitDrawer
-                            portal={
-                                <>
-                                    {win.value.type === "app_preview" && (
-                                        <PreviewPlane win={win}></PreviewPlane>
-                                    )}
-                                    {win.value.type === "app_node" && (
-                                        <NodePlane win={win}></NodePlane>
-                                    )}
-                                </>
-                            }
-                            content={
-                                <>
-                                    <Container
-                                        flexDirection={"column"}
-                                        onPointerEnter={() => {
-                                            //
-                                            // document.body.style.cursor =
-                                            //     "crosshair";
-                                            //
-                                        }}
-                                        onPointerLeave={() => {
-                                            //
-                                            // document.body.style.cursor = "";
-                                            //
-                                        }}
-                                    >
-                                        <Text
-                                            fontSize={30}
-                                            fontWeight="medium"
-                                            letterSpacing={-0.4}
-                                            color={colors.primary}
-                                            onPointerDown={(ev) => {
-                                                ev.stopPropagation();
-
-                                                if (controls) {
-                                                    controls.enabled = false;
-                                                }
-                                            }}
-                                        >
-                                            {win?.value?.name}
-                                        </Text>
-
-                                        <Text
-                                            fontSize={20}
-                                            fontWeight="medium"
-                                            letterSpacing={-0.4}
-                                            color={colors.primary}
-                                            onPointerDown={(ev) => {
-                                                ev.stopPropagation();
-
-                                                if (controls) {
-                                                    controls.enabled = false;
-                                                }
-                                            }}
-                                        >
-                                            {win?.value?.name}
-                                        </Text>
-                                    </Container>
-                                </>
-                            }
-                        ></UIKitDrawer>
-                    </>
-                }
-                show={
+                show={({ o3 }) => (
                     <>
                         {/*  */}
-
                         {/*  */}
                     </>
-                }
+                )}
+                grab={({ o3 }) => {
+                    return (
+                        <>
+                            {/*  */}
+
+                            <UIKitDrawer
+                                openDrawer={openDrawer}
+                                onSetDrawer={(value) => {
+                                    //
+                                    setOpen(value);
+                                }}
+                                portal={
+                                    <>
+                                        {win.value.type === "app_preview" && (
+                                            <PreviewPlane
+                                                win={win}
+                                            ></PreviewPlane>
+                                        )}
+                                        {win.value.type === "app_node" && (
+                                            <NodePlane win={win}></NodePlane>
+                                        )}
+                                    </>
+                                }
+                                content={
+                                    <>
+                                        <Container
+                                            flexDirection={"column"}
+                                            onPointerEnter={() => {
+                                                //
+                                                // document.body.style.cursor =
+                                                //     "crosshair";
+                                                //
+                                            }}
+                                            onPointerLeave={() => {
+                                                //
+                                                // document.body.style.cursor = "";
+                                                //
+                                            }}
+                                        >
+                                            <Text
+                                                fontSize={30}
+                                                fontWeight="medium"
+                                                letterSpacing={-0.4}
+                                                color={colors.primary}
+                                                onPointerDown={(ev) => {
+                                                    ev.stopPropagation();
+
+                                                    if (controls) {
+                                                        controls.enabled = false;
+                                                    }
+                                                }}
+                                            >
+                                                {win?.value?.name}
+                                            </Text>
+
+                                            <Text
+                                                fontSize={20}
+                                                fontWeight="medium"
+                                                letterSpacing={-0.4}
+                                                color={colors.primary}
+                                                onPointerDown={(ev) => {
+                                                    ev.stopPropagation();
+
+                                                    if (controls) {
+                                                        controls.enabled = false;
+                                                    }
+                                                }}
+                                            >
+                                                {win?.value?.name}
+                                            </Text>
+                                        </Container>
+                                    </>
+                                }
+                            ></UIKitDrawer>
+                        </>
+                    );
+                }}
                 win={win}
             ></EnableDrag>
 

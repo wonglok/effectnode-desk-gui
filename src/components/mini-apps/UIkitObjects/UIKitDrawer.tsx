@@ -55,6 +55,7 @@ import {
 } from "three";
 import { RenderPlane } from "../Objects/RenderPlane";
 import { AvatarMotion } from "../Objects/AvatarMotion";
+import { DragBlock } from "../Objects/EnableDrag";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 const notifications = [
@@ -69,11 +70,14 @@ const notifications = [
 export function UIKitDrawer({
     content = null,
     portal = null,
+    openDrawer = false,
+    onSetDrawer = (v: boolean) => {},
 }: {
+    onSetDrawer: (v: boolean) => void;
+    openDrawer: boolean;
     content: ReactElement | null;
     portal: ReactElement | null;
 }) {
-    const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
     const translateZ = useMemo(() => signal(0), []);
@@ -85,27 +89,20 @@ export function UIKitDrawer({
         easing.damp(
             topCardBorderRadius,
             "value",
-            openRef.current ? 0 : 50,
-            0.2,
-            delta,
-        );
-        //
-
-        //
-        easing.damp(rotationX, "value", openRef.current ? 35 : 0, 0.2, delta);
-
-        //
-        easing.damp(
-            translateY,
-            "value",
-            openRef.current ? 0 : -460,
+            openDrawer ? 0 : 50,
             0.2,
             delta,
         );
 
-        easing.damp(translateZ, "value", openRef.current ? 0 : 0, 0.2, delta);
+        //
+        easing.damp(rotationX, "value", openDrawer ? 35 : 0, 0.2, delta);
 
-        easing.damp(groupMoveZ, "value", openRef.current ? 0 : 0, 0.2, delta);
+        //
+        easing.damp(translateY, "value", openDrawer ? 0 : -460, 0.2, delta);
+
+        easing.damp(translateZ, "value", openDrawer ? 0 : 0, 0.2, delta);
+
+        easing.damp(groupMoveZ, "value", openDrawer ? 0 : 0, 0.2, delta);
     });
 
     const settings = {
@@ -123,21 +120,21 @@ export function UIKitDrawer({
         easing.damp(
             settings.translateX,
             "value",
-            !openRef.current ? 0 : 0,
+            !openDrawer ? 0 : 0,
             0.2,
             delta,
         );
         easing.damp(
             settings.translateY,
             "value",
-            !openRef.current ? -400 + notifications.length * -100.0 : 0,
+            !openDrawer ? -400 + notifications.length * -100.0 : 0,
             0.2,
             delta,
         );
         easing.damp(
             settings.translateZ,
             "value",
-            !openRef.current ? 0 : 0,
+            !openDrawer ? 0 : 0,
             0.2,
             delta,
         );
@@ -146,21 +143,21 @@ export function UIKitDrawer({
         easing.damp(
             settings.rotationX,
             "value",
-            !openRef.current ? 0 : 0,
+            !openDrawer ? 0 : 0,
             0.2,
             delta,
         );
         easing.damp(
             settings.rotationY,
             "value",
-            !openRef.current ? 0 : 0,
+            !openDrawer ? 0 : 0,
             0.2,
             delta,
         );
         easing.damp(
             settings.rotationZ,
             "value",
-            !openRef.current ? 0 : 0,
+            !openDrawer ? 0 : 0,
             0.2,
             delta,
         );
@@ -181,7 +178,6 @@ export function UIKitDrawer({
                         dark={{ backgroundColor: 0x0 }}
                         borderRadius={20}
                         borderBottomRadius={topCardBorderRadius}
-                        cursor="pointer"
                         flexDirection="column"
                         transformTranslateZ={translateZ}
                         transformOriginY={"bottom"}
@@ -190,6 +186,7 @@ export function UIKitDrawer({
                     >
                         <Suspense fallback={null}>
                             <Content
+                                cursor="pointer"
                                 transformTranslateZ={1}
                                 padding={14}
                                 keepAspectRatio={false}
@@ -198,10 +195,10 @@ export function UIKitDrawer({
                                 castShadow
                                 onClick={(e) => {
                                     e.stopPropagation();
-                                    openRef.current = !openRef.current;
+                                    onSetDrawer(!openDrawer);
                                 }}
                             >
-                                {portal}
+                                <>{portal}</>
                             </Content>
                         </Suspense>
 
@@ -242,7 +239,13 @@ export function UIKitDrawer({
                     </Container>
 
                     <Container
+                        onPointerDown={(ev) => {
+                            if (!openDrawer) {
+                                ev.stopPropagation();
+                            }
+                        }}
                         flexDirection="column"
+                        cursor={openDrawer ? `grab` : ``}
                         overflow={"hidden"}
                         transformTranslateZ={0}
                         castShadow
@@ -362,9 +365,11 @@ export function UIKitDrawer({
                                 </CardContent>
                                 <CardFooter>
                                     <Button
+                                        cursor="pointer"
                                         onClick={(e) => {
                                             e.stopPropagation();
-                                            openRef.current = false;
+
+                                            onSetDrawer(false);
                                         }}
                                         flexDirection="row"
                                         width="100%"
