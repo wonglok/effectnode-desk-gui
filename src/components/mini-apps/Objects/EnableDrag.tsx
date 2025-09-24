@@ -19,20 +19,31 @@ let at = new Object3D();
 
 export function EnableDrag({
     win,
-    children,
+    show = null,
+    grab = null,
     initPos = [0, 0, 0],
 }: {
+    children?: ReactElement | null;
+    show?: ReactElement | null;
+    grab?: ReactElement | null;
     win: WinObject;
-    children?: ReactElement;
     initPos?: [number, number, number];
 }) {
     let params = useParams();
-    let workspaceID = params.workspaceID;
+    // let workspaceID = params.workspaceID;
     let myRand = useMemo(() => {
         return `${v4()}`;
     }, []);
 
-    let [o3API, setO3] = useState(() => {
+    let [grabAPI, setO3] = useState(() => {
+        let o3 = new Object3D();
+        return {
+            o3,
+            display: <primitive object={o3}></primitive>,
+        };
+    });
+
+    let [showAPI] = useState(() => {
         let o3 = new Object3D();
         return {
             o3,
@@ -41,7 +52,8 @@ export function EnableDrag({
     });
 
     useEffect(() => {
-        o3API.o3.position.fromArray(win.value.position);
+        grabAPI.o3.position.fromArray(win.value.position);
+        showAPI.o3.position.fromArray(win.value.position);
     }, [win]);
 
     let controls: any = useThree((r) => r.controls);
@@ -62,7 +74,7 @@ export function EnableDrag({
                             at.position.multiplyScalar(0);
                         }
 
-                        st.position.copy(o3API.o3.position);
+                        st.position.copy(grabAPI.o3.position);
 
                         if (controls) {
                             controls.enabled = false;
@@ -83,7 +95,8 @@ export function EnableDrag({
 
                             at.position.add(dt.position);
 
-                            o3API.o3.position.add(dt.position);
+                            grabAPI.o3.position.add(dt.position);
+                            showAPI.o3.position.add(dt.position);
                         }
                     }}
                     onDragEnd={() => {
@@ -91,13 +104,13 @@ export function EnableDrag({
                         // store.setItem(
                         //     `${keyname}${name}`,
                         //     JSON.parse(
-                        //         JSON.stringify(o3API.o3.position.toArray()),
+                        //         JSON.stringify(grabAPI.o3.position.toArray()),
                         //     ),
                         // );
                         //
 
                         if (win) {
-                            win.value.position = o3API.o3.position.toArray();
+                            win.value.position = grabAPI.o3.position.toArray();
                             vanilla.object.write.mutate({
                                 type: win.type as string,
                                 workspaceID: win.workspaceID as string,
@@ -118,10 +131,13 @@ export function EnableDrag({
                         isDown.current = "";
                     }}
                 >
-                    {createPortal(<>{children}</>, o3API.o3)}
-                    {o3API.display}
+                    {createPortal(<>{grab}</>, grabAPI.o3)}
+                    {grabAPI.display}
                 </DragControls>
             }
+
+            {createPortal(<>{show}</>, showAPI.o3)}
+            {showAPI.display}
         </>
     );
 }
