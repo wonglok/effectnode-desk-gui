@@ -92,6 +92,9 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 openDrawer={openDrawer}
                                 onSetDrawer={(value) => {
                                     setOpen(value);
+                                    if (controls) {
+                                        controls.enabled = true;
+                                    }
                                 }}
                                 portal={
                                     <>
