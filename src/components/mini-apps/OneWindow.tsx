@@ -123,13 +123,13 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         flexDirection={"column"}
                                         onPointerEnter={() => {
                                             //
-                                            document.body.style.cursor =
-                                                "crosshair";
+                                            // document.body.style.cursor =
+                                            //     "crosshair";
                                             //
                                         }}
                                         onPointerLeave={() => {
                                             //
-                                            document.body.style.cursor = "";
+                                            // document.body.style.cursor = "";
                                             //
                                         }}
                                     >
