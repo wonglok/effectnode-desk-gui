@@ -50,8 +50,8 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
     }
 
     let geo = useMemo(() => {
-        let box1 = new BoxGeometry(0.01, 0.01, 0.75);
-        let box2 = new BoxGeometry(0.75, 0.01, 0.01);
+        let box1 = new BoxGeometry(0.015, 0.015, 0.75);
+        let box2 = new BoxGeometry(0.75, 0.015, 0.015);
 
         let geo = mergeGeometries([box1, box2]);
 
