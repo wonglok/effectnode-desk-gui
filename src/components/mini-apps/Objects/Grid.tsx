@@ -26,7 +26,7 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
     for (let y = -Math.floor(num * 0.5); y <= Math.floor(num * 0.5); y++) {
         for (let x = -Math.floor(num * 0.5); x <= Math.floor(num * 0.5); x++) {
             insts.push(
-                <group key={`xx${x}-yy${y}`} position={[x * 2, 0.01, y * 2]}>
+                <group key={`xx${x}-yy${y}`} position={[x * 2, 0.02, y * 2]}>
                     <Instance rotation={[-Math.PI / 2, 0, 0]} />
                     <Instance rotation={[-Math.PI / 2, 0, Math.PI / 2]} />
                 </group>,
@@ -36,17 +36,17 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
 
     return (
         <>
-            <Instances position={[0, 0.0, 0]} count={insts.length * 4}>
+            <Instances count={insts.length * 2.0}>
                 <planeGeometry args={[lineWidth, height]} />
                 <meshBasicMaterial color={colors.primary} />
 
                 {insts}
-
-                <gridHelper
-                    args={[50, 50, colors.grid, colors.grid]}
-                    position={[0, -0.01, 0]}
-                />
             </Instances>
+
+            <gridHelper
+                args={[50, 50, colors.grid, colors.grid]}
+                position={[0, -0.01, 0]}
+            />
 
             <Plane
                 scale={50}
@@ -62,3 +62,5 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
         </>
     );
 };
+
+//
