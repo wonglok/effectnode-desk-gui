@@ -73,8 +73,19 @@ export function UIKitDrawer({
     const translateY = useMemo(() => signal(0), []);
     const translateZ = useMemo(() => signal(0), []);
     const groupMoveZ = useMemo(() => signal(0), []);
+    const topCardBorderRadius = useMemo(() => signal(0), []);
 
     useFrame((_, delta) => {
+        //
+        easing.damp(
+            topCardBorderRadius,
+            "value",
+            openRef.current ? 0 : 20,
+            0.2,
+            delta,
+        );
+        //
+
         //
         easing.damp(rotationX, "value", openRef.current ? 35 : 0, 0.2, delta);
 
@@ -89,13 +100,7 @@ export function UIKitDrawer({
 
         easing.damp(translateZ, "value", openRef.current ? 0 : 0, 0.2, delta);
 
-        easing.damp(
-            groupMoveZ,
-            "value",
-            openRef.current ? -100 : 0,
-            0.2,
-            delta,
-        );
+        easing.damp(groupMoveZ, "value", openRef.current ? 0 : 0, 0.2, delta);
     });
 
     const settings = {
@@ -170,6 +175,7 @@ export function UIKitDrawer({
                         backgroundColor={0xffffff}
                         dark={{ backgroundColor: 0x0 }}
                         borderRadius={20}
+                        borderBottomRadius={topCardBorderRadius}
                         cursor="pointer"
                         flexDirection="column"
                         transformTranslateZ={translateZ}
@@ -233,14 +239,12 @@ export function UIKitDrawer({
                     <Container
                         flexDirection="column"
                         overflow={"hidden"}
-                        paddingTop={40}
                         transformTranslateZ={0}
                         castShadow
                     >
                         <Container
                             //
                             // borderWidth={0}
-                            borderRadius={20}
                             flexDirection="column"
                             //
                             transformTranslateX={settings.translateX}
@@ -250,7 +254,11 @@ export function UIKitDrawer({
                             transformRotateY={settings.rotationY}
                             transformRotateZ={settings.rotationZ}
                         >
-                            <Card backgroundColor={colors.secondary}>
+                            <Container
+                                borderBottomRadius={15}
+                                flexDirection={"column"}
+                                backgroundColor={colors.secondary}
+                            >
                                 <CardHeader>
                                     <CardTitle>
                                         <Text>Notifications</Text>
@@ -364,7 +372,7 @@ export function UIKitDrawer({
                                         <Text>Mark all as read</Text>
                                     </Button>
                                 </CardFooter>
-                            </Card>
+                            </Container>
                         </Container>
                     </Container>
                 </Root>
