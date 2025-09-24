@@ -105,6 +105,7 @@ export function EnableDrag({
     useEffect(() => {
         let hh = () => {
             isDown.current = "";
+            controls.enabled = true;
         };
         window.addEventListener("blur", hh);
         window.addEventListener("touchend", hh);
@@ -112,9 +113,13 @@ export function EnableDrag({
         window.addEventListener("pointerup", hh);
         window.addEventListener("mouseup", hh);
         return () => {
+            window.removeEventListener("blur", hh);
+            window.removeEventListener("touchend", hh);
+            window.removeEventListener("touchcancel", hh);
             window.removeEventListener("pointerup", hh);
+            window.removeEventListener("mouseup", hh);
         };
-    }, []);
+    }, [controls]);
 
     return (
         <>
