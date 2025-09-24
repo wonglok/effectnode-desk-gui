@@ -144,6 +144,7 @@ function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
 
                     glbScene.traverse((it: Partial<any>) => {
                         if (it.material) {
+                            it.frustumCulled = false;
                             it.material.side = DoubleSide;
                             it.material.depthTest = true;
                             it.material.depthWrite = true;
