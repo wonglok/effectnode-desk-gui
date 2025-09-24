@@ -60,7 +60,7 @@ const notifications = [
     { title: "Your call has been confirmed.", description: "1 hour ago" },
 ];
 
-export function UIKitObject({
+export function UIKitDrawer({
     content = null,
 }: {
     content: ReactElement | null;
@@ -229,19 +229,25 @@ export function UIKitObject({
                         </Suspense>
 
                         <Container
+                            //
+                            paddingLeft={28}
+                            paddingRight={28}
+                        >
+                            {content}
+                        </Container>
+
+                        <Container
                             backgroundColor={0xffffff}
                             dark={{ backgroundColor: 0x0 }}
                             flexDirection="row"
                             padding={28}
-                            paddingTop={28 + 4}
+                            paddingTop={32 * 0.0}
                             alignItems="center"
                             justifyContent="space-between"
                             borderBottomRadius={20}
                             castShadow
                         >
                             <Container flexDirection="column" gap={8}>
-                                {content}
-
                                 <Input
                                     fontSize={30}
                                     fontWeight="medium"
@@ -410,7 +416,23 @@ export function UIKitObject({
                         </Container>
                     </Container>
                 </Root>
+
+                {/*  */}
+
+                {/*  */}
             </group>
+
+            <Suspense fallback={null}>
+                <group
+                    position={[2.5, 0, 0]}
+                    rotation={[Math.PI * 0.0, Math.PI * -0.35, 0]}
+                >
+                    <AvatarMotion
+                        avatarURL={`/avatar/angel.glb?r=001`}
+                        motionURL={`/avatar/formal-salute.fbx?b=002`}
+                    ></AvatarMotion>
+                </group>
+            </Suspense>
         </>
     );
 }

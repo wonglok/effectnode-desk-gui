@@ -29,12 +29,12 @@ export function AvatarMotion({
     useFrame((st) => {
         mixer.setTime(st.clock.elapsedTime);
     });
+
     useEffect(() => {
         //
         let act = mixer
             .clipAction(motion.animations[0] as AnimationClip, avatar.scene)
             .play();
-        //
         //
         return () => {
             act.stop();

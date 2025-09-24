@@ -13,7 +13,7 @@ import {
 } from "@react-three/uikit";
 import { UIKitFrame } from "./UIkitObjects/UIKitFrame";
 import { EnableDrag } from "./Objects/EnableDrag";
-import { UIKitObject } from "./UIkitObjects/UIKitObject";
+import { UIKitDrawer } from "./UIkitObjects/UIKitDrawer";
 import { colors } from "@react-three/uikit-default";
 
 export function OneWindow({ win }: { win: WinObject }) {
@@ -51,17 +51,20 @@ export function OneWindow({ win }: { win: WinObject }) {
                             </>
                         }
                     ></UIKitFrame> */}
-                <UIKitObject
+
+                {/*  */}
+
+                <UIKitDrawer
                     content={
                         <>
-                            <Input
+                            <Text>123</Text>
+                            {/* <Input
                                 fontSize={30}
                                 fontWeight="medium"
                                 letterSpacing={-0.4}
                                 color={colors.primary}
                                 defaultValue={"Im loklok"}
                             />
-
                             <Text
                                 fontSize={20}
                                 fontWeight="medium"
@@ -69,10 +72,10 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 color={colors.primary}
                             >
                                 1 activities for you
-                            </Text>
+                            </Text> */}
                         </>
                     }
-                ></UIKitObject>
+                ></UIKitDrawer>
             </EnableDrag>
             {/*  */}
 
