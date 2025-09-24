@@ -174,10 +174,6 @@ export function UIKitDrawer({
                         backgroundColor={0xffffff}
                         dark={{ backgroundColor: 0x0 }}
                         borderRadius={20}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            openRef.current = !openRef.current;
-                        }}
                         cursor="pointer"
                         flexDirection="column"
                         transformTranslateZ={translateZ}
@@ -193,6 +189,10 @@ export function UIKitDrawer({
                                 width="100%"
                                 height={400}
                                 castShadow
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    openRef.current = !openRef.current;
+                                }}
                             >
                                 <RenderPlane
                                     width={512 * 1.5}
