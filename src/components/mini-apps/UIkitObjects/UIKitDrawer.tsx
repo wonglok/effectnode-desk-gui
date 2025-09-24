@@ -62,8 +62,10 @@ const notifications = [
 
 export function UIKitDrawer({
     content = null,
+    portal = null,
 }: {
     content: ReactElement | null;
+    portal: ReactElement | null;
 }) {
     const openRef = useRef(true);
     const rotationX = useMemo(() => signal(0), []);
@@ -196,31 +198,7 @@ export function UIKitDrawer({
                                     eventPriority={100}
                                 >
                                     {/* <ambientLight intensity={Math.PI} /> */}
-
-                                    <group
-                                        rotation={[0, Math.PI * 0.15, 0]}
-                                        position={[-0.3, 0, 0]}
-                                    >
-                                        <AvatarMotion
-                                            avatarURL={`/avatar/angel.glb`}
-                                            motionURL={`/avatar/formal-salute.fbx`}
-                                        ></AvatarMotion>
-                                    </group>
-
-                                    <group
-                                        rotation={[0, Math.PI * -0.15, 0]}
-                                        position={[0.3, 0, 0]}
-                                    >
-                                        <AvatarMotion
-                                            avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                                            motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
-                                        ></AvatarMotion>
-                                    </group>
-
-                                    {/*  */}
-
-                                    <ambientLight intensity={Math.PI * 0.5} />
-                                    <Sky rayleigh={0.1} azimuth={0.5}></Sky>
+                                    {portal}
                                     {/* <Cloud position={[0, 0, -1]}></Cloud> */}
                                     {/*  */}
                                     {/*  */}
@@ -228,13 +206,13 @@ export function UIKitDrawer({
                             </Content>
                         </Suspense>
 
-                        <Container
+                        {/* <Container
                             //
                             paddingLeft={28}
                             paddingRight={28}
                         >
-                            {content}
-                        </Container>
+                           
+                        </Container> */}
 
                         <Container
                             backgroundColor={0xffffff}
@@ -248,22 +226,7 @@ export function UIKitDrawer({
                             castShadow
                         >
                             <Container flexDirection="column" gap={8}>
-                                <Input
-                                    fontSize={30}
-                                    fontWeight="medium"
-                                    letterSpacing={-0.4}
-                                    color={colors.primary}
-                                    defaultValue={"Im loklok"}
-                                />
-
-                                <Text
-                                    fontSize={20}
-                                    fontWeight="medium"
-                                    letterSpacing={-0.4}
-                                    color={colors.primary}
-                                >
-                                    1 activities for you
-                                </Text>
+                                {content}
                             </Container>
 
                             <Container flexDirection="row">
@@ -421,18 +384,6 @@ export function UIKitDrawer({
 
                 {/*  */}
             </group>
-
-            <Suspense fallback={null}>
-                <group
-                    position={[2.5, 0, 0]}
-                    rotation={[Math.PI * 0.0, Math.PI * -0.35, 0]}
-                >
-                    <AvatarMotion
-                        avatarURL={`/avatar/angel.glb?r=001`}
-                        motionURL={`/avatar/formal-salute.fbx?b=002`}
-                    ></AvatarMotion>
-                </group>
-            </Suspense>
         </>
     );
 }
