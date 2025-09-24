@@ -242,7 +242,7 @@ export function UIKitDrawer({
                         castShadow
                     >
                         <Container
-                            backgroundColor={colors.secondary}
+                            // borderWidth={0}
                             borderRadius={20}
                             flexDirection="column"
                             //

@@ -7,7 +7,7 @@ export const Grid = ({ number = 23, lineWidth = 0.036, height = 0.5 }) => {
         <>
             <Instances position={[0, 0.0, 0]}>
                 <planeGeometry args={[lineWidth, height]} />
-                <meshBasicMaterial color="#77c" />
+                <meshBasicMaterial color="#7ff" />
 
                 {Array.from({ length: number }, (_, y) =>
                     Array.from({ length: number }, (_, x) => (
@@ -27,7 +27,7 @@ export const Grid = ({ number = 23, lineWidth = 0.036, height = 0.5 }) => {
                     )),
                 )}
                 <gridHelper
-                    args={[50, 50, "#ccf", "#ccf"]}
+                    args={[50, 50, "#cff", "#cff"]}
                     position={[0, -0.01, 0]}
                 />
 
@@ -39,7 +39,7 @@ export const Grid = ({ number = 23, lineWidth = 0.036, height = 0.5 }) => {
                     castShadow
                 >
                     <meshBasicMaterial
-                        color={new Color("#ccf")
+                        color={new Color("#000000")
                             .offsetHSL(0, -0.1, 0.15)
                             .getHex()}
                     ></meshBasicMaterial>
