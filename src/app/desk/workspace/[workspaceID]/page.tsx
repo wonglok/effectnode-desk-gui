@@ -4,8 +4,6 @@ import { BackButton } from "@/components/buttons/BackButton";
 import { LogoutButton } from "@/components/buttons/LogoutButton";
 import { RemoveButton } from "@/components/buttons/RemoveButton";
 import { launchCoder } from "@/components/mini-apps/appMethods";
-import { MiniApps } from "@/components/mini-apps/MiniApps";
-import { useMiniApps } from "@/components/mini-apps/useMiniApps";
 import { WebGLArea } from "@/components/mini-apps/WebGLArea";
 import { vanilla } from "@/trpc/react";
 import { useParams } from "next/navigation";

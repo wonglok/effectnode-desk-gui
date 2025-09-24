@@ -103,16 +103,6 @@ function EnvirionmentContent() {
         <>
             {/* * */}
             <group scale={1}>
-                <Plane
-                    scale={50}
-                    rotation={[-Math.PI * 0.5, 0, 0]}
-                    position={[0, -0.1, 0]}
-                    receiveShadow
-                    castShadow
-                >
-                    <meshBasicMaterial color={0xfbfbfb}></meshBasicMaterial>
-                </Plane>
-
                 <Grid></Grid>
             </group>
 
