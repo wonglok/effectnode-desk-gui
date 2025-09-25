@@ -49,6 +49,7 @@ function OneItem({
     x: number;
     y: number;
 }) {
+    let refTime = useRef<number>(0);
     //
     let ref = useRef<Object3D>(null);
 
@@ -57,6 +58,8 @@ function OneItem({
     }, []);
 
     useFrame((st, dt) => {
+        refTime.current += dt * 0.5;
+
         if (ref.current) {
             let val = (st as any).controls?.target as Vector3;
             let val2 = val.clone();
@@ -93,14 +96,21 @@ function OneItem({
                 easing.damp(
                     ref.current.rotation,
                     "z",
-                    circleRadius * Math.PI * 3,
+                    circleRadius * Math.PI * 2.5 + refTime.current,
                     0.2,
                     dt,
                 );
                 easing.damp(
                     ref.current.rotation,
                     "x",
-                    circleRadius * Math.PI * 3,
+                    circleRadius * Math.PI * 2.5 + refTime.current,
+                    0.2,
+                    dt,
+                );
+                easing.damp(
+                    ref.current.rotation,
+                    "y",
+                    circleRadius * Math.PI * 2.5 + refTime.current,
                     0.2,
                     dt,
                 );
