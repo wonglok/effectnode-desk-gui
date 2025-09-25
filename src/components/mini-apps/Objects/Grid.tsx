@@ -74,7 +74,7 @@ function OneItem({
                 }
                 dist = maxi - dist;
 
-                let circleRadius = Math.pow(dist / maxi, 3.5);
+                let circleRadius = Math.pow(dist / maxi, 2.5);
 
                 easing.damp(
                     ref.current.position,
@@ -125,7 +125,7 @@ function OneItem({
                 if ((ref.current as any).color) {
                     let col = (ref.current as any).color as Color;
                     col.setHSL(
-                        circleRadius + st.clock.elapsedTime * 0.25,
+                        circleRadius - st.clock.elapsedTime * 0.25,
                         1.0,
                         0.65,
                         SRGBColorSpace,
