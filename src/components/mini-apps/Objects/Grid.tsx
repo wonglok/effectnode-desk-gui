@@ -1,5 +1,6 @@
 import { Instances, Instance, Merged, Plane } from "@react-three/drei";
 import { ReactThreeFiber, useFrame, useThree } from "@react-three/fiber";
+import { easing } from "maath";
 import { useEffect, useMemo, useRef, type ReactElement } from "react";
 import {
     Box3,
@@ -15,9 +16,12 @@ import {
     MeshPhysicalMaterial,
     MeshStandardMaterial,
     Object3D,
+    PlaneGeometry,
     Shape,
     ShapeUtils,
+    SphereGeometry,
     Vector2,
+    Vector3,
 } from "three";
 // import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
@@ -42,12 +46,35 @@ function OneItem({
     x: number;
     y: number;
 }) {
+    let ref = useRef<Object3D>(null);
+    useFrame((st, delta) => {
+        if (ref.current) {
+            let val = (st as any).controls?.target as Vector3;
+            let val2 = val.clone();
+            val2.y = 0;
+            let mypos = ref.current.position.clone();
+            mypos.y = 0;
+            if (val) {
+                let dist = val2.distanceTo(mypos);
+                if (dist >= 50) {
+                    dist = 50;
+                }
+                dist = 50 - dist;
+
+                easing.damp(ref.current.scale, "x", dist / 50, 0.2, delta);
+                easing.damp(ref.current.scale, "z", dist / 50, 0.2, delta);
+                easing.damp(ref.current.scale, "y", dist / 25, 0.2, delta);
+            }
+        }
+    });
     return (
         <>
             <MySymbol
+                ref={ref}
+                frustumCulled={false}
                 key={`xx${x}-yy${y}`}
                 rotation={rot}
-                position={[x, 0, y]}
+                position={[x * 2, 0, y * 2]}
             ></MySymbol>
         </>
     );
@@ -70,9 +97,9 @@ export const Grid = ({ num = 25 }) => {
                     <OneItem
                         MySymbol={meshes.SymbolOne}
                         key={`xx${x}-yy${y}`}
-                        rot={[0, Math.PI * 0.5, 0]}
-                        x={x + 0.5}
-                        y={y + 0.5}
+                        rot={[0, Math.PI * 0.0, 0]}
+                        x={x * 2 + 1}
+                        y={y * 2 + 1}
                     ></OneItem>,
                 );
 
@@ -101,8 +128,8 @@ export const Grid = ({ num = 25 }) => {
                         MySymbol={meshes.SymbolTwo}
                         key={`xx${x}-yy${y}`}
                         rot={[0, Math.PI * 0, 0]}
-                        x={x}
-                        y={y}
+                        x={x * 2}
+                        y={y * 2}
                     ></OneItem>,
                 );
 
@@ -115,10 +142,8 @@ export const Grid = ({ num = 25 }) => {
     };
 
     let hexGeo = useMemo(() => {
-        let box1: BufferGeometry = new CircleGeometry(0.3, 6).toNonIndexed();
+        let box1: BufferGeometry = new CircleGeometry(0.3, 10).toNonIndexed();
 
-        // box1.rotateZ(Math.PI * 0.5);
-        // box1.rotateX(Math.PI * -0.5);
         let array = [];
         let num = box1?.attributes?.position?.count as number;
 
@@ -134,8 +159,6 @@ export const Grid = ({ num = 25 }) => {
             //
         }
 
-        console.log(array);
-
         const shape = new Shape(array);
 
         const extrudeSettings = {
@@ -148,8 +171,9 @@ export const Grid = ({ num = 25 }) => {
         };
 
         const geometry = new ExtrudeGeometry(shape, extrudeSettings);
+        geometry.rotateZ(Math.PI * 0.5);
         geometry.rotateX(Math.PI * 0.5);
-        geometry.scale(1.2, 0.25, 1.2);
+        geometry.scale(1.2 * 3.5, 1, 1.2 * 3.5);
         geometry.computeVertexNormals();
         geometry.computeBoundingBox();
         geometry.center();
@@ -163,6 +187,7 @@ export const Grid = ({ num = 25 }) => {
     return (
         <>
             <Merged
+                frustumCulled={false}
                 count={num * num * 5}
                 meshes={{
                     // Cross: new Mesh(
@@ -172,26 +197,19 @@ export const Grid = ({ num = 25 }) => {
                     SymbolOne: new Mesh(
                         hexGeo,
                         new MeshStandardMaterial({
-                            color: colors.primary,
-                            roughness: 0.25,
+                            color: new Color("#ffffff"),
+                            roughness: 0.3,
                             metalness: 1.0,
                         }),
                     ),
                     SymbolTwo: new Mesh(
                         hexGeo,
                         new MeshStandardMaterial({
-                            color: colors.primary,
+                            color: new Color("#ffffff"),
                             roughness: 1.0,
-                            metalness: 0.25,
+                            metalness: 0.2,
                         }),
                     ),
-                }}
-                scale={[2, 1, 2]}
-                onPointerEnter={(ev) => {
-                    ev.eventObject.userData.hover = 1;
-                }}
-                onPointerLeave={(ev) => {
-                    ev.eventObject.userData.hover = 0;
                 }}
             >
                 {(meshes: any) => {
