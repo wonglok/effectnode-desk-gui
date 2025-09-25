@@ -30,6 +30,8 @@ let primary = new Color("#DE9E49").offsetHSL(0.0, 0.0, 0.05);
 let grid = new Color(primary).offsetHSL(0, 0, -0.3);
 let background = new Color(primary).offsetHSL(0, 0, -0.44);
 
+let cursor = new Vector3();
+
 let colors = {
     primary,
     grid,
@@ -54,16 +56,17 @@ function OneItem({
         return new Color("#ff0000").setHSL(0, 1, 0.5);
     }, []);
 
-    //
-    //
     useFrame((st, dt) => {
         if (ref.current) {
             let val = (st as any).controls?.target as Vector3;
             let val2 = val.clone();
+            if ("ontouchstart" in window) {
+            } else {
+                val2.copy(cursor);
+            }
             val2.y = 0;
             let mypos = ref.current.position.clone();
-            mypos.y = 0;
-            if (val) {
+            if (val2) {
                 let maxi = 50;
                 let dist = val2.distanceTo(mypos);
                 if (dist >= maxi) {
@@ -85,6 +88,10 @@ function OneItem({
                     0.2,
                     dt,
                 );
+
+                /////
+                /////
+                /////
 
                 easing.damp(
                     ref.current.rotation,
@@ -122,7 +129,8 @@ function OneItem({
                 if ((ref.current as any).color) {
                     let col = (ref.current as any).color as Color;
                     col.setHSL(
-                        Math.pow(dist / maxi, 5.5) + st.clock.elapsedTime * 0.2,
+                        Math.pow(dist / maxi, 5.5) +
+                            st.clock.elapsedTime * 0.25,
                         1.0,
                         0.65,
                         SRGBColorSpace,
@@ -303,8 +311,12 @@ export const Grid = ({ num = 25 }) => {
                 position={[0, -0.01, 0]}
             /> */}
 
-            {/* <Plane
-                scale={50}
+            <Plane
+                visible={false}
+                onPointerMove={(st) => {
+                    cursor.copy(st.point);
+                }}
+                scale={100}
                 rotation={[-Math.PI * 0.5, 0, 0]}
                 position={[0, -0.1, 0]}
                 receiveShadow
@@ -313,7 +325,7 @@ export const Grid = ({ num = 25 }) => {
                 <meshBasicMaterial
                     color={colors.background}
                 ></meshBasicMaterial>
-            </Plane> */}
+            </Plane>
 
             {/*  */}
         </>
