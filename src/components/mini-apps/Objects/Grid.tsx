@@ -28,21 +28,23 @@ let colors = {
     background,
 };
 
-function OneTile({ x, y, meshes }: any) {
-    return (
-        <>
-            <group position={[x, -0.01, y]}>
-                {/* <Instance></Instance> */}
-                {<meshes.Cross></meshes.Cross>}
-                {/*  */}
-                {/* <Instance rotation={[-Math.PI / 2, 0, 0]} /> */}
-                {/* <Instance rotation={[-Math.PI / 2, 0, Math.PI / 2]} /> */}
-            </group>
-        </>
-    );
-}
+// export function OneTile({ x, y, meshes }: any) {
+//     return (
+//         <>
+//             <group position={[x, -0.01, y]}>
+//                 {/* <Instance></Instance> */}
+//                 {<meshes.Cross></meshes.Cross>}
+//                 {/*  */}
+//                 {/* <Instance rotation={[-Math.PI / 2, 0, 0]} /> */}
+//                 {/* <Instance rotation={[-Math.PI / 2, 0, Math.PI / 2]} /> */}
+//             </group>
+//         </>
+//     );
+// }
 
-export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
+export const Grid = ({ num = 25 }) => {
+    //
+
     // Renders a grid and crosses as instances
     let scene = useThree((r) => r.scene);
 
