@@ -30,7 +30,7 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { BloomPass } from "three/examples/jsm/postprocessing/BloomPass.js";
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 
-const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
+const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025 * 2.0);
 
 export function RenderPlane({
     children,
@@ -43,7 +43,6 @@ export function RenderPlane({
     let env = useEnvironment({
         files: [hdr],
     });
-    env.mapping = EquirectangularReflectionMapping;
 
     let myScene = useMemo(() => {
         return new Scene();
@@ -61,6 +60,7 @@ export function RenderPlane({
     }, []);
 
     useEffect(() => {
+        env.mapping = EquirectangularReflectionMapping;
         myScene.environment = env;
         myScene.environmentIntensity = 1.0;
     }, [myScene, env]);
