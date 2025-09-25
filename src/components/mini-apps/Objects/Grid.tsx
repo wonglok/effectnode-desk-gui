@@ -120,7 +120,15 @@ function OneItem({
                 easing.damp(
                     ref.current.scale,
                     "x",
-                    circleRadius * 2.5,
+                    circleRadius * 3.0,
+                    0.2,
+                    dt,
+                );
+
+                easing.damp(
+                    ref.current.scale,
+                    "y",
+                    Math.pow(1.0 - circleRadius, 3.0) * 75,
                     0.2,
                     dt,
                 );
@@ -128,7 +136,7 @@ function OneItem({
                 easing.damp(
                     ref.current.scale,
                     "z",
-                    circleRadius * 2.5,
+                    circleRadius * 3.0,
                     0.2,
                     dt,
                 );
