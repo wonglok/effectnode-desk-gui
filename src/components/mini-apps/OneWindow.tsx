@@ -45,8 +45,8 @@ import { AvatarMotion } from "./Objects/AvatarMotion";
 import { Sky, Box, Cloud } from "@react-three/drei";
 import { createPortal, useFrame, useThree } from "@react-three/fiber";
 
-import { BellRing, Check } from "@react-three/uikit-lucide";
-import { RenderPlane } from "./Objects/RenderPlane";
+// import { BellRing, Check } from "@react-three/uikit-lucide";
+// import { RenderPlane } from "./Objects/RenderPlane";
 import { PreviewPlane } from "./UIkitObjects/RenderPlanes/PreviewPlane";
 import { NodePlane } from "./UIkitObjects/RenderPlanes/NodePlane";
 import { NotificationSection } from "./UIkitObjects/Sections/Notifications";
@@ -100,6 +100,7 @@ export function OneWindow({ win }: { win: WinObject }) {
             },
         };
     };
+
     return (
         <>
             <EnableDrag
@@ -161,6 +162,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 drawerUI={
                                     <>
                                         {/*  */}
+                                        {/* <NotificationSection></NotificationSection> */}
                                         <Suspense fallback={null}>
                                             <Content
                                                 {...getDragToggleProps()}
