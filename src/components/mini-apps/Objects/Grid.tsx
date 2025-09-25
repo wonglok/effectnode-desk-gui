@@ -146,7 +146,7 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
         geometry.rotateX(Math.PI * 0.5);
         geometry.center();
 
-        geometry.translate(0, 0.0, 0);
+        geometry.computeVertexNormals();
 
         // geometry.scale(0.5, 1, 0.5);
 
@@ -168,15 +168,15 @@ export const Grid = ({ num = 25, lineWidth = 0.036, height = 0.5 }) => {
                         hexGeo,
                         new MeshStandardMaterial({
                             color: colors.primary,
-                            roughness: 0.0,
-                            metalness: 1,
+                            roughness: 1.0,
+                            metalness: 0.25,
                         }),
                     ),
                     SymbolTwo: new Mesh(
                         hexGeo,
                         new MeshStandardMaterial({
                             color: colors.primary,
-                            roughness: 0.3,
+                            roughness: 0.25,
                             metalness: 1,
                         }),
                     ),
