@@ -155,7 +155,7 @@ function OneItem({
                 frustumCulled={false}
                 key={`xx${x}-yy${y}`}
                 rotation={rot}
-                position={[x, 0, y]}
+                position={[x, -2, y]}
                 color={color}
             ></MySymbol>
         </>
