@@ -185,7 +185,10 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                     height={400}
                                                     castShadow
                                                 >
-                                                    <DemoPlane win={win} />
+                                                    <DemoPlane
+                                                        canRun={openDrawer}
+                                                        win={win}
+                                                    />
                                                 </Content>
                                             </Suspense>
                                         </CardContent>

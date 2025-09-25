@@ -33,6 +33,7 @@ import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025 * 2.0);
 
 export function RenderPlane({
+    canRun = true,
     children,
     width = 1024,
     height = 1024,
@@ -102,25 +103,27 @@ export function RenderPlane({
     // }, [children]);
 
     useFrame((st, dt) => {
-        //
-        cam.position.x = cameraPosition[0];
-        cam.position.y = cameraPosition[1];
-        cam.position.z = cameraPosition[2];
+        if (canRun) {
+            //
+            cam.position.x = cameraPosition[0];
+            cam.position.y = cameraPosition[1];
+            cam.position.z = cameraPosition[2];
 
-        cam.rotation.x = cameraRotation[0];
-        cam.rotation.y = cameraRotation[1];
-        cam.rotation.z = cameraRotation[2];
+            cam.rotation.x = cameraRotation[0];
+            cam.rotation.y = cameraRotation[1];
+            cam.rotation.z = cameraRotation[2];
 
-        cam.updateMatrixWorld();
-        cam.updateProjectionMatrix();
+            cam.updateMatrixWorld();
+            cam.updateProjectionMatrix();
 
-        cam.aspect = width / height;
+            cam.aspect = width / height;
 
-        st.gl.autoClear = true;
-        st.gl.setRenderTarget(rtt);
-        st.gl.render(myScene, cam);
-        st.gl.setRenderTarget(null);
-        st.gl.autoClear = true;
+            st.gl.autoClear = true;
+            st.gl.setRenderTarget(rtt);
+            st.gl.render(myScene, cam);
+            st.gl.setRenderTarget(null);
+            st.gl.autoClear = true;
+        }
     });
 
     return (

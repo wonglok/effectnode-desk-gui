@@ -36,13 +36,20 @@ import type { WinObject } from "../../useMiniApps";
 
 // const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 
-export function DemoPlane({ win }: { win: WinObject }) {
+export function DemoPlane({
+    win,
+    canRun = true,
+}: {
+    canRun: boolean;
+    win: WinObject;
+}) {
     return (
         <RenderPlane
             width={512 * 1.5}
             height={512 * 1.5}
             colorSpace={NoColorSpace}
             eventPriority={100}
+            canRun={canRun}
             //
             cameraPosition={[0, 1.75, 1.5]}
             cameraRotation={[-0.3, 0, 0]}
