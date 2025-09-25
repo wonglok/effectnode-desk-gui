@@ -204,6 +204,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 <BotIcon
                                                     height={16}
                                                     width={16}
+                                                    marginRight={10}
                                                 />
                                                 <Text>Close</Text>
                                             </Button>
