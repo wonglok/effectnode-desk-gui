@@ -29,7 +29,14 @@ import {
     Fullscreen,
     Input,
 } from "@react-three/uikit";
-import { BellRing, Check } from "@react-three/uikit-lucide";
+import {
+    BellRing,
+    BotIcon,
+    Check,
+    Cross,
+    RemoveFormatting,
+    TvIcon,
+} from "@react-three/uikit-lucide";
 import {
     Defaults,
     colors,
@@ -311,62 +318,6 @@ export function UIKitDrawer({
                                         <Container flexGrow={1} />
                                         <Switch />
                                     </Container>
-                                    <Container flexDirection="column">
-                                        {notifications.map(
-                                            (notification, index) => (
-                                                <Container
-                                                    key={index}
-                                                    marginBottom={
-                                                        index ===
-                                                        notifications.length - 1
-                                                            ? 0
-                                                            : 16
-                                                    }
-                                                    paddingBottom={
-                                                        index ===
-                                                        notifications.length - 1
-                                                            ? 0
-                                                            : 16
-                                                    }
-                                                    alignItems="flex-start"
-                                                    flexDirection="row"
-                                                    gap={17}
-                                                >
-                                                    <Container
-                                                        height={8}
-                                                        width={8}
-                                                        transformTranslateY={4}
-                                                        borderRadius={1000}
-                                                        backgroundColor={
-                                                            colors.primary
-                                                        }
-                                                    />
-                                                    <Container
-                                                        gap={4}
-                                                        flexDirection="column"
-                                                    >
-                                                        <Text
-                                                            fontSize={14}
-                                                            lineHeight="100%"
-                                                        >
-                                                            {notification.title}
-                                                        </Text>
-                                                        <Text
-                                                            fontSize={14}
-                                                            lineHeight={20}
-                                                            color={
-                                                                colors.mutedForeground
-                                                            }
-                                                        >
-                                                            {
-                                                                notification.description
-                                                            }
-                                                        </Text>
-                                                    </Container>
-                                                </Container>
-                                            ),
-                                        )}
-                                    </Container>
                                 </CardContent>
                                 <CardFooter>
                                     <Button
@@ -379,12 +330,12 @@ export function UIKitDrawer({
                                         flexDirection="row"
                                         width="100%"
                                     >
-                                        <Check
+                                        <BotIcon
                                             marginRight={8}
                                             height={16}
                                             width={16}
                                         />
-                                        <Text>Mark all as read</Text>
+                                        <Text>Close</Text>
                                     </Button>
                                 </CardFooter>
 
