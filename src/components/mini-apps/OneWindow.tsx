@@ -153,14 +153,21 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 //
                                 upperUI={
                                     <>
-                                        <Suspense fallback={null}>
+                                        <Suspense
+                                            fallback={
+                                                <Container
+                                                    borderRadius={14}
+                                                    height={400}
+                                                    width={"100%"}
+                                                ></Container>
+                                            }
+                                        >
                                             <Content
                                                 transformTranslateZ={1}
                                                 padding={14}
                                                 keepAspectRatio={false}
                                                 width="100%"
                                                 height={400}
-                                                castShadow
                                                 {...getPropsForDragging()}
                                             >
                                                 {win.value.type ===
@@ -177,8 +184,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                     ></NodePlane>
                                                 )}
                                             </Content>
-
-                                            {/*  */}
                                         </Suspense>
 
                                         <TitleSection
@@ -236,7 +241,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                     keepAspectRatio={false}
                                                     width="100%"
                                                     height={400}
-                                                    castShadow
                                                 >
                                                     <DemoPlane
                                                         canRun={openDrawer}
