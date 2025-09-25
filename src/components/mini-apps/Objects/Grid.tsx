@@ -20,6 +20,7 @@ import {
     Shape,
     ShapeUtils,
     SphereGeometry,
+    SRGBColorSpace,
     Vector2,
     Vector3,
 } from "three";
@@ -84,6 +85,21 @@ function OneItem({
                     dt,
                 );
 
+                easing.damp(
+                    ref.current.rotation,
+                    "z",
+                    Math.pow(dist / maxi, 3.5) * Math.PI,
+                    0.2,
+                    dt,
+                );
+                easing.damp(
+                    ref.current.rotation,
+                    "x",
+                    Math.pow(dist / maxi, 3.5) * Math.PI,
+                    0.2,
+                    dt,
+                );
+
                 /////
 
                 easing.damp(
@@ -103,10 +119,12 @@ function OneItem({
                 );
 
                 if ((ref.current as any).color) {
-                    (ref.current as any).color.offsetHSL(
-                        Math.pow(dist / maxi, 5.5) * 0.25 * dt,
-                        0,
-                        0,
+                    let col = (ref.current as any).color as Color;
+                    col.setHSL(
+                        Math.pow(dist / maxi, 5.5) + st.clock.elapsedTime * 0.2,
+                        1.0,
+                        0.65,
+                        SRGBColorSpace,
                     );
                 }
             }
