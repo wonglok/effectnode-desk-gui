@@ -46,8 +46,15 @@ function OneItem({
     x: number;
     y: number;
 }) {
+    //
     let ref = useRef<Object3D>(null);
-    useFrame((st, delta) => {
+
+    let color = useMemo(() => {
+        return new Color("#ff0000");
+    }, []);
+
+    //
+    useFrame((st, dt) => {
         if (ref.current) {
             let val = (st as any).controls?.target as Vector3;
             let val2 = val.clone();
@@ -63,23 +70,49 @@ function OneItem({
                 dist = maxi - dist;
 
                 easing.damp(
+                    ref.current.position,
+                    "y",
+                    -5 + Math.pow(dist / maxi, 3.5) * 5,
+                    0.2,
+                    dt,
+                );
+                easing.damp(
+                    ref.current.scale,
+                    "y",
+                    Math.pow(dist / maxi, 3.5) * 1,
+                    0.2,
+                    dt,
+                );
+
+                /////
+
+                easing.damp(
                     ref.current.scale,
                     "x",
-                    Math.pow(dist / maxi, 2.5) * 1.2,
+                    Math.pow(dist / maxi, 3.5) * 2.5,
                     0.2,
-                    delta,
+                    dt,
                 );
 
                 easing.damp(
                     ref.current.scale,
-                    "y",
-                    Math.pow(dist / maxi, 2.5) * 1.2,
+                    "z",
+                    Math.pow(dist / maxi, 3.5) * 2.5,
                     0.2,
-                    delta,
+                    dt,
+                );
+
+                ref.current.color.offsetHSL(
+                    Math.pow(dist / maxi, 5.5) * 0.25 * dt,
+                    0,
+                    0,
                 );
             }
         }
     });
+
+    //
+
     return (
         <>
             <MySymbol
@@ -87,7 +120,8 @@ function OneItem({
                 frustumCulled={false}
                 key={`xx${x}-yy${y}`}
                 rotation={rot}
-                position={[x * 2, 0, y * 2]}
+                position={[x, 0, y]}
+                color={color}
             ></MySymbol>
         </>
     );
@@ -110,7 +144,7 @@ export const Grid = ({ num = 25 }) => {
                     <OneItem
                         MySymbol={meshes.SymbolOne}
                         key={`xx${x}-yy${y}`}
-                        rot={[0, Math.PI * 0.5, 0]}
+                        rot={[0, Math.PI * 0.0, 0]}
                         x={x * 2 + 1}
                         y={y * 2 + 1}
                     ></OneItem>,
@@ -155,7 +189,7 @@ export const Grid = ({ num = 25 }) => {
     };
 
     let hexGeo = useMemo(() => {
-        let box1: BufferGeometry = new CircleGeometry(0.3, 6).toNonIndexed();
+        let box1: BufferGeometry = new CircleGeometry(0.3, 20).toNonIndexed();
 
         let array = [];
         let num = box1?.attributes?.position?.count as number;
@@ -183,10 +217,10 @@ export const Grid = ({ num = 25 }) => {
             bevelThickness: 0.0,
         };
 
-        const geometry = new ExtrudeGeometry(shape, extrudeSettings);
+        let geometry = new ExtrudeGeometry(shape, extrudeSettings);
         geometry.rotateZ(Math.PI * 0.5);
         geometry.rotateX(Math.PI * 0.5);
-        geometry.scale(1.2 * 3.5, 1, 1.2 * 3.5);
+        geometry.scale(1, 0.1, 1);
         geometry.computeVertexNormals();
         geometry.computeBoundingBox();
         geometry.center();
