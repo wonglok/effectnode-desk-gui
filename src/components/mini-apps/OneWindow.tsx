@@ -111,6 +111,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         )}
                                     </>
                                 }
+                                footer={<></>}
                                 content={
                                     <>
                                         <Container

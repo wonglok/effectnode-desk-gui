@@ -72,6 +72,7 @@ const notifications = [
 ];
 
 export function UIKitDrawer({
+    footer = null,
     content = null,
     portal = null,
     openDrawer = false,
@@ -81,6 +82,7 @@ export function UIKitDrawer({
     openDrawer: boolean;
     content: ReactElement | null;
     portal: ReactElement | null;
+    footer: ReactElement | null;
 }) {
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
@@ -385,6 +387,9 @@ export function UIKitDrawer({
                                         <Text>Mark all as read</Text>
                                     </Button>
                                 </CardFooter>
+
+                                {/*  */}
+                                {/* footer */}
                             </Container>
                         </Container>
                     </Container>
