@@ -48,6 +48,7 @@ import { BellRing, Check } from "@react-three/uikit-lucide";
 import { RenderPlane } from "./Objects/RenderPlane";
 import { PreviewPlane } from "./UIkitObjects/RenderPlanes/PreviewPlane";
 import { NodePlane } from "./UIkitObjects/RenderPlanes/NodePlane";
+import { NotificationSection } from "./UIkitObjects/Sections/Notifications";
 
 export function OneWindow({ win }: { win: WinObject }) {
     // let ref = useRef<Object3D>(null);
@@ -109,7 +110,11 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         )}
                                     </>
                                 }
-                                footer={<></>}
+                                footer={
+                                    <>
+                                        <NotificationSection></NotificationSection>
+                                    </>
+                                }
                                 content={
                                     <>
                                         <Container

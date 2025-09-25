@@ -102,44 +102,44 @@ export function NotificationSection() {
                     <Container flexGrow={1} />
                     <Switch />
                 </Container>
-            </CardContent>
 
-            <Container flexDirection="column">
-                {notifications.map((notification, index) => (
-                    <Container
-                        key={index}
-                        marginBottom={
-                            index === notifications.length - 1 ? 0 : 16
-                        }
-                        paddingBottom={
-                            index === notifications.length - 1 ? 0 : 16
-                        }
-                        alignItems="flex-start"
-                        flexDirection="row"
-                        gap={17}
-                    >
+                <Container flexDirection="column">
+                    {notifications.map((notification, index) => (
                         <Container
-                            height={8}
-                            width={8}
-                            transformTranslateY={4}
-                            borderRadius={1000}
-                            backgroundColor={colors.primary}
-                        />
-                        <Container gap={4} flexDirection="column">
-                            <Text fontSize={14} lineHeight="100%">
-                                {notification.title}
-                            </Text>
-                            <Text
-                                fontSize={14}
-                                lineHeight={20}
-                                color={colors.mutedForeground}
-                            >
-                                {notification.description}
-                            </Text>
+                            key={index}
+                            marginBottom={
+                                index === notifications.length - 1 ? 0 : 16
+                            }
+                            paddingBottom={
+                                index === notifications.length - 1 ? 0 : 16
+                            }
+                            alignItems="flex-start"
+                            flexDirection="row"
+                            gap={17}
+                        >
+                            <Container
+                                height={8}
+                                width={8}
+                                transformTranslateY={4}
+                                borderRadius={1000}
+                                backgroundColor={colors.primary}
+                            />
+                            <Container gap={4} flexDirection="column">
+                                <Text fontSize={14} lineHeight="100%">
+                                    {notification.title}
+                                </Text>
+                                <Text
+                                    fontSize={14}
+                                    lineHeight={20}
+                                    color={colors.mutedForeground}
+                                >
+                                    {notification.description}
+                                </Text>
+                            </Container>
                         </Container>
-                    </Container>
-                ))}
-            </Container>
+                    ))}
+                </Container>
+            </CardContent>
         </>
     );
 }

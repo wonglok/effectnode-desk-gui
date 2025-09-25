@@ -1,5 +1,12 @@
 import { easing, geometry } from "maath";
-import { Suspense, useEffect, useMemo, useRef, type ReactElement } from "react";
+import {
+    Suspense,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+    type ReactElement,
+} from "react";
 import { signal } from "@preact/signals-core";
 import {
     Box,
@@ -128,6 +135,8 @@ export function UIKitDrawer({
         rotationZ: useMemo(() => signal(0), []),
     };
 
+    const [height, setHeight] = useState(0);
+
     useFrame((_, delta) => {
         //
         easing.damp(
@@ -140,7 +149,7 @@ export function UIKitDrawer({
         easing.damp(
             settings.translateY,
             "value",
-            !openDrawer ? -400 + notifications.length * -100.0 : 0,
+            !openDrawer ? -150 - height : 0,
             0.2,
             delta,
         );
@@ -183,7 +192,10 @@ export function UIKitDrawer({
                     transformTranslateY={groupMoveZ}
                     flexDirection="column"
                     pixelSize={0.01}
-                    sizeX={4.4}
+                    sizeX={4.5}
+                    onSizeChange={(width, height) => {
+                        setHeight(height);
+                    }}
                 >
                     {/*  */}
                     <Container
@@ -286,7 +298,7 @@ export function UIKitDrawer({
                                 flexDirection={"column"}
                                 backgroundColor={colors.secondary}
                             >
-                                {/* footer */}
+                                {footer}
 
                                 <CardFooter marginTop={30}>
                                     <Button
