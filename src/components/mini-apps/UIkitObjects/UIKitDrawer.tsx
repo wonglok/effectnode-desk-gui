@@ -233,18 +233,14 @@ export function UIKitDrawer({
                                 transformRotateX={settings.rotationX}
                                 transformRotateY={settings.rotationY}
                                 transformRotateZ={settings.rotationZ}
-
                                 //
+                                borderTopRadius={25}
+                                borderBottomRadius={25}
+                                // flexDirection={"column"}
+                                backgroundColor={colors.secondary}
+                                paddingTop={30}
                             >
-                                <Container
-                                    borderTopRadius={25}
-                                    borderBottomRadius={25}
-                                    flexDirection={"column"}
-                                    backgroundColor={colors.secondary}
-                                    paddingTop={30}
-                                >
-                                    {drawerUI}
-                                </Container>
+                                {drawerUI}
                             </Container>
                         </Container>
                     )}
