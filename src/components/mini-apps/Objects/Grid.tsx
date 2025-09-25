@@ -69,12 +69,13 @@ function OneItem({
             if (val2) {
                 let maxi = 50;
                 let dist = val2.distanceTo(mypos);
+                //
                 if (dist >= maxi) {
                     dist = maxi;
                 }
                 dist = maxi - dist;
 
-                let circleRadius = Math.pow(dist / maxi, 2.5);
+                let circleRadius = Math.pow(dist / maxi, 3.5);
 
                 easing.damp(
                     ref.current.position,
@@ -92,14 +93,14 @@ function OneItem({
                 easing.damp(
                     ref.current.rotation,
                     "z",
-                    circleRadius * Math.PI,
+                    circleRadius * Math.PI * 3,
                     0.2,
                     dt,
                 );
                 easing.damp(
                     ref.current.rotation,
                     "x",
-                    circleRadius * Math.PI,
+                    circleRadius * Math.PI * 3,
                     0.2,
                     dt,
                 );
@@ -213,7 +214,7 @@ export const Grid = ({ num = 25 }) => {
     };
 
     let hexGeo = useMemo(() => {
-        let box1: BufferGeometry = new CircleGeometry(0.3, 24).toNonIndexed();
+        let box1: BufferGeometry = new CircleGeometry(0.3, 6).toNonIndexed();
 
         let array = [];
         let num = box1?.attributes?.position?.count as number;
@@ -269,7 +270,7 @@ export const Grid = ({ num = 25 }) => {
                         hexGeo,
                         new MeshStandardMaterial({
                             color: colors.primary,
-                            roughness: 0.3,
+                            roughness: 0.0,
                             metalness: 1.0,
                         }),
                     ),
@@ -277,8 +278,8 @@ export const Grid = ({ num = 25 }) => {
                         hexGeo,
                         new MeshStandardMaterial({
                             color: colors.primary,
-                            roughness: 1.0,
-                            metalness: 0.2,
+                            roughness: 0.3,
+                            metalness: 1.0,
                         }),
                     ),
                 }}
