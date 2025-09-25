@@ -117,8 +117,7 @@ export function UIKitDrawer({
         //
         easing.damp(rotationX, "value", openDrawer ? 35 : 0, 0.2, delta);
 
-        //
-        easing.damp(translateY, "value", openDrawer ? 0 : -460, 0.2, delta);
+        easing.damp(translateY, "value", openDrawer ? 0 : 0, 0.2, delta);
 
         easing.damp(translateZ, "value", openDrawer ? 0.001 : 0, 0.2, delta);
 
@@ -146,6 +145,7 @@ export function UIKitDrawer({
             0.2,
             delta,
         );
+
         easing.damp(
             settings.translateY,
             "value",
@@ -153,6 +153,7 @@ export function UIKitDrawer({
             0.2,
             delta,
         );
+
         easing.damp(
             settings.translateZ,
             "value",
@@ -169,6 +170,7 @@ export function UIKitDrawer({
             0.2,
             delta,
         );
+
         easing.damp(
             settings.rotationY,
             "value",
@@ -176,6 +178,7 @@ export function UIKitDrawer({
             0.2,
             delta,
         );
+
         easing.damp(
             settings.rotationZ,
             "value",
@@ -187,7 +190,7 @@ export function UIKitDrawer({
 
     return (
         <>
-            <group rotation={[Math.PI * -0.5, 0, 0]} position={[0, 0.05, 0]}>
+            <group rotation={[-Math.PI * 0.5, 0, 0]} position={[0, 0.0, 0]}>
                 <Root
                     transformTranslateY={groupMoveZ}
                     flexDirection="column"
@@ -197,7 +200,6 @@ export function UIKitDrawer({
                         setHeight(height);
                     }}
                 >
-                    {/*  */}
                     <Container
                         cursor="pointer"
                         backgroundColor={0xffffff}
@@ -208,6 +210,7 @@ export function UIKitDrawer({
                         transformTranslateZ={translateZ}
                         transformOriginY={"bottom"}
                         transformRotateX={rotationX}
+                        transformTranslateY={translateY}
                     >
                         <>{upperUI}</>
                     </Container>

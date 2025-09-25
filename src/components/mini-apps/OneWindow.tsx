@@ -193,12 +193,9 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                             {...getPropsForDragging()}
                                                         >
                                                             <CloudDownload
-                                                                color={"lime"}
                                                                 marginRight={10}
                                                             ></CloudDownload>
-                                                            <Text
-                                                                color={"lime"}
-                                                            >{`Open`}</Text>
+                                                            <Text>{`Open`}</Text>
                                                         </Button>
                                                     )}
 
@@ -213,12 +210,9 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                             {...getPropsForDragging()}
                                                         >
                                                             <CloudUpload
-                                                                color={"cyan"}
                                                                 marginRight={10}
                                                             ></CloudUpload>
-                                                            <Text
-                                                                color={"cyan"}
-                                                            >{`Close`}</Text>
+                                                            <Text>{`Close`}</Text>
                                                         </Button>
                                                     )}
                                                 </>
@@ -253,7 +247,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 cursor="pointer"
                                                 onClick={(e) => {
                                                     e.stopPropagation();
-
                                                     setOpenDrawer(false);
                                                 }}
                                                 flexDirection="row"
