@@ -26,7 +26,7 @@ import {
 } from "three";
 // import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-let primary = new Color("#DE9E49").offsetHSL(0.0, 0.0, 0.05);
+let primary = new Color("#baffff").offsetHSL(0.0, 0.0, 0.05);
 let grid = new Color(primary).offsetHSL(0, 0, -0.3);
 let background = new Color(primary).offsetHSL(0, 0, -0.44);
 
@@ -74,20 +74,16 @@ function OneItem({
                 }
                 dist = maxi - dist;
 
+                let circleRadius = Math.pow(dist / maxi, 3.5);
+
                 easing.damp(
                     ref.current.position,
                     "y",
-                    -10 + Math.pow(dist / maxi, 3.5) * 10,
+                    -10 + circleRadius * 10,
                     0.2,
                     dt,
                 );
-                easing.damp(
-                    ref.current.scale,
-                    "y",
-                    Math.pow(dist / maxi, 3.5) * 1,
-                    0.2,
-                    dt,
-                );
+                easing.damp(ref.current.scale, "y", circleRadius * 1, 0.2, dt);
 
                 /////
                 /////
@@ -96,14 +92,14 @@ function OneItem({
                 easing.damp(
                     ref.current.rotation,
                     "z",
-                    Math.pow(dist / maxi, 3.5) * Math.PI,
+                    circleRadius * Math.PI,
                     0.2,
                     dt,
                 );
                 easing.damp(
                     ref.current.rotation,
                     "x",
-                    Math.pow(dist / maxi, 3.5) * Math.PI,
+                    circleRadius * Math.PI,
                     0.2,
                     dt,
                 );
@@ -113,7 +109,7 @@ function OneItem({
                 easing.damp(
                     ref.current.scale,
                     "x",
-                    Math.pow(dist / maxi, 3.5) * 2.5,
+                    circleRadius * 2.5,
                     0.2,
                     dt,
                 );
@@ -121,7 +117,7 @@ function OneItem({
                 easing.damp(
                     ref.current.scale,
                     "z",
-                    Math.pow(dist / maxi, 3.5) * 2.5,
+                    circleRadius * 2.5,
                     0.2,
                     dt,
                 );
@@ -129,8 +125,7 @@ function OneItem({
                 if ((ref.current as any).color) {
                     let col = (ref.current as any).color as Color;
                     col.setHSL(
-                        Math.pow(dist / maxi, 5.5) +
-                            st.clock.elapsedTime * 0.25,
+                        circleRadius + st.clock.elapsedTime * 0.25,
                         1.0,
                         0.65,
                         SRGBColorSpace,
