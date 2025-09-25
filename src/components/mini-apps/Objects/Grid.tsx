@@ -55,6 +55,7 @@ function OneItem({
     }, []);
 
     //
+    //
     useFrame((st, dt) => {
         if (ref.current) {
             let val = (st as any).controls?.target as Vector3;
@@ -209,7 +210,7 @@ export const Grid = ({ num = 25 }) => {
     };
 
     let hexGeo = useMemo(() => {
-        let box1: BufferGeometry = new CircleGeometry(0.3, 20).toNonIndexed();
+        let box1: BufferGeometry = new CircleGeometry(0.3, 24).toNonIndexed();
 
         let array = [];
         let num = box1?.attributes?.position?.count as number;
