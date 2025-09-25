@@ -78,6 +78,27 @@ export function OneWindow({ win }: { win: WinObject }) {
     let controls: any = useThree((r) => r.controls);
     let [openDrawer, setOpen] = useState(false);
 
+    let getDragToggleProps = () => {
+        return {
+            onPointerDown: (ev: any) => {
+                ev.eventObject.userData.movementTick = 0;
+            },
+            onPointerMove: (ev: any) => {
+                if (typeof ev.eventObject.userData.movementTick === "number") {
+                    ev.eventObject.userData.movementTick += 1;
+                }
+            },
+            onPointerUp: (ev: any) => {
+                ev.stopPropagation();
+                if (typeof ev.eventObject.userData.movementTick === "number") {
+                    if (ev.eventObject.userData.movementTick <= 10) {
+                        setOpen(!openDrawer);
+                    }
+                    ev.eventObject.userData.movementTick = undefined;
+                }
+            },
+        };
+    };
     return (
         <>
             <EnableDrag
@@ -106,22 +127,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                     <>
                                         <Suspense fallback={null}>
                                             <Content
-                                                onPointerDown={(ev) => {
-                                                    ev.eventObject.userData.movement = 0;
-                                                }}
-                                                onPointerMove={(ev) => {
-                                                    ev.eventObject.userData.movement += 1;
-                                                }}
-                                                onClick={(ev) => {
-                                                    ev.stopPropagation();
-
-                                                    if (
-                                                        ev.eventObject.userData
-                                                            .movement <= 20
-                                                    ) {
-                                                        setOpen(!openDrawer);
-                                                    }
-                                                }}
+                                                {...getDragToggleProps()}
                                                 transformTranslateZ={1}
                                                 padding={14}
                                                 keepAspectRatio={false}
@@ -156,6 +162,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         {/*  */}
                                         <Suspense fallback={null}>
                                             <Content
+                                                {...getDragToggleProps()}
                                                 transformTranslateZ={1}
                                                 padding={14}
                                                 keepAspectRatio={false}
