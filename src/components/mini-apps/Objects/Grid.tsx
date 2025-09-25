@@ -25,7 +25,7 @@ import {
 } from "three";
 // import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-let primary = new Color("#0077ee").offsetHSL(0.0, 0.0, 0.05);
+let primary = new Color("#DE9E49").offsetHSL(0.0, 0.0, 0.05);
 let grid = new Color(primary).offsetHSL(0, 0, -0.3);
 let background = new Color(primary).offsetHSL(0, 0, -0.44);
 
@@ -61,8 +61,20 @@ function OneItem({
                 }
                 dist = 50 - dist;
 
-                easing.damp(ref.current.scale, "x", dist / 50, 0.2, delta);
-                easing.damp(ref.current.scale, "z", dist / 50, 0.2, delta);
+                easing.damp(
+                    ref.current.scale,
+                    "x",
+                    Math.pow(dist / 50, 2.0) * 1.2,
+                    0.2,
+                    delta,
+                );
+                easing.damp(
+                    ref.current.scale,
+                    "z",
+                    Math.pow(dist / 50, 2.0) * 1.2,
+                    0.2,
+                    delta,
+                );
                 easing.damp(ref.current.scale, "y", dist / 25, 0.2, delta);
             }
         }
@@ -142,7 +154,7 @@ export const Grid = ({ num = 25 }) => {
     };
 
     let hexGeo = useMemo(() => {
-        let box1: BufferGeometry = new CircleGeometry(0.3, 10).toNonIndexed();
+        let box1: BufferGeometry = new CircleGeometry(0.3, 6).toNonIndexed();
 
         let array = [];
         let num = box1?.attributes?.position?.count as number;
@@ -162,10 +174,10 @@ export const Grid = ({ num = 25 }) => {
         const shape = new Shape(array);
 
         const extrudeSettings = {
+            steps: 1,
             depth: 1,
             bevelEnabled: false,
             bevelSegments: 0,
-            steps: 1,
             bevelSize: 0.0,
             bevelThickness: 0.0,
         };
@@ -197,7 +209,7 @@ export const Grid = ({ num = 25 }) => {
                     SymbolOne: new Mesh(
                         hexGeo,
                         new MeshStandardMaterial({
-                            color: new Color("#ffffff"),
+                            color: colors.primary,
                             roughness: 0.3,
                             metalness: 1.0,
                         }),
@@ -205,7 +217,7 @@ export const Grid = ({ num = 25 }) => {
                     SymbolTwo: new Mesh(
                         hexGeo,
                         new MeshStandardMaterial({
-                            color: new Color("#ffffff"),
+                            color: colors.primary,
                             roughness: 1.0,
                             metalness: 0.2,
                         }),
