@@ -55,7 +55,9 @@ import {
     BellRing,
     BotIcon,
     Check,
+    CloudDownload,
     CloudLightningIcon,
+    CloudUpload,
     Cross,
     DeleteIcon,
     DoorClosedIcon,
@@ -190,10 +192,10 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                             width="100%"
                                                             {...getPropsForDragging()}
                                                         >
-                                                            <ZapIcon
+                                                            <CloudDownload
                                                                 color={"lime"}
                                                                 marginRight={10}
-                                                            ></ZapIcon>
+                                                            ></CloudDownload>
                                                             <Text
                                                                 color={"lime"}
                                                             >{`Open`}</Text>
@@ -210,10 +212,10 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                             width="100%"
                                                             {...getPropsForDragging()}
                                                         >
-                                                            <CloudLightningIcon
+                                                            <CloudUpload
                                                                 color={"cyan"}
                                                                 marginRight={10}
-                                                            ></CloudLightningIcon>
+                                                            ></CloudUpload>
                                                             <Text
                                                                 color={"cyan"}
                                                             >{`Close`}</Text>

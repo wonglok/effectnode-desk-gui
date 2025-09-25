@@ -96,7 +96,7 @@ export function UIKitDrawer({
     upperUI: ReactElement | null;
     drawerUI?: ReactElement | null;
 }) {
-    const rotationX = useMemo(() => signal(0), []);
+    const rotationX = useMemo(() => signal(35), []);
     const translateY = useMemo(() => signal(0), []);
     const translateZ = useMemo(() => signal(0), []);
     const groupMoveZ = useMemo(() => signal(0), []);
@@ -108,7 +108,7 @@ export function UIKitDrawer({
             easing.damp(
                 topCardBorderRadius,
                 "value",
-                openDrawer ? 0 : 50,
+                openDrawer ? 50 : 50,
                 0.2,
                 delta,
             );
@@ -208,7 +208,6 @@ export function UIKitDrawer({
                         transformTranslateZ={translateZ}
                         transformOriginY={"bottom"}
                         transformRotateX={rotationX}
-                        castShadow
                     >
                         <>{upperUI}</>
                     </Container>
@@ -223,12 +222,9 @@ export function UIKitDrawer({
                             flexDirection="column"
                             cursor={openDrawer ? `grab` : ``}
                             overflow={"hidden"}
-                            transformTranslateZ={0}
-                            castShadow
+                            width={"100%"}
                         >
                             <Container
-                                //
-                                // borderWidth={0}
                                 flexDirection="column"
                                 //
                                 transformTranslateX={settings.translateX}
@@ -241,7 +237,8 @@ export function UIKitDrawer({
                                 //
                             >
                                 <Container
-                                    borderBottomRadius={15}
+                                    borderTopRadius={25}
+                                    borderBottomRadius={25}
                                     flexDirection={"column"}
                                     backgroundColor={colors.secondary}
                                     paddingTop={30}
