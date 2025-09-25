@@ -67,9 +67,8 @@ export function PreviewPlane({ win }: { win: WinObject }) {
                 <ambientLight intensity={Math.PI * 1} />
 
                 <Cloud seed={1} position={[0, 0, -2]}></Cloud>
+                <Sky rayleigh={0.3} azimuth={0.5}></Sky>
             </Suspense>
-
-            <Sky rayleigh={0.3} azimuth={0.5}></Sky>
         </RenderPlane>
     );
 }

@@ -201,7 +201,6 @@ export function UIKitDrawer({
                     }}
                 >
                     <Container
-                        cursor="pointer"
                         backgroundColor={0xffffff}
                         dark={{ backgroundColor: 0x0 }}
                         borderRadius={20}
@@ -222,8 +221,8 @@ export function UIKitDrawer({
                                     ev.stopPropagation();
                                 }
                             }}
-                            flexDirection="column"
                             cursor={openDrawer ? `grab` : ``}
+                            flexDirection="column"
                             overflow={"hidden"}
                             width={"100%"}
                         >

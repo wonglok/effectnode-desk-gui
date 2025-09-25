@@ -58,7 +58,7 @@ export function TitleSection({
     description = "",
     cta = null,
 }: any) {
-    let controls: any = useThree((r) => r.controls);
+    // let controls: any = useThree((r) => r.controls);
     return (
         <Container
             backgroundColor={0xffffff}
@@ -91,13 +91,13 @@ export function TitleSection({
                         fontWeight="medium"
                         letterSpacing={-0.4}
                         color={colors.primary}
-                        onPointerDown={(ev) => {
-                            ev.stopPropagation();
+                        // onPointerDown={(ev) => {
+                        //     ev.stopPropagation();
 
-                            if (controls) {
-                                controls.enabled = false;
-                            }
-                        }}
+                        //     if (controls) {
+                        //         controls.enabled = false;
+                        //     }
+                        // }}
                     >
                         {title}
                     </Text>
@@ -107,13 +107,13 @@ export function TitleSection({
                         fontWeight="medium"
                         letterSpacing={-0.4}
                         color={colors.primary}
-                        onPointerDown={(ev) => {
-                            ev.stopPropagation();
+                        // onPointerDown={(ev) => {
+                        //     ev.stopPropagation();
 
-                            if (controls) {
-                                controls.enabled = false;
-                            }
-                        }}
+                        //     if (controls) {
+                        //         controls.enabled = false;
+                        //     }
+                        // }}
                     >
                         {description}
                     </Text>

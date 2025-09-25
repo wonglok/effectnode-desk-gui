@@ -48,6 +48,7 @@ import {
     Cloud,
     Sphere,
     MeshTransmissionMaterial,
+    Plane,
 } from "@react-three/drei";
 import { createPortal, useFrame, useThree } from "@react-three/fiber";
 
@@ -159,6 +160,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 castShadow
                                                 {...getPropsForDragging()}
                                             >
+                                                <Box visible={false}></Box>
                                                 {win.value.type ===
                                                     "app_preview" && (
                                                     <PreviewPlane
