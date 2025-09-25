@@ -174,19 +174,20 @@ export function OneWindow({ win }: { win: WinObject }) {
                                     <>
                                         {/*  */}
                                         {/* <NotificationSection></NotificationSection> */}
-                                        <Suspense fallback={null}>
-                                            <Content
-                                                {...getDragToggleProps()}
-                                                transformTranslateZ={1}
-                                                padding={20}
-                                                keepAspectRatio={false}
-                                                width="100%"
-                                                height={400}
-                                                castShadow
-                                            >
-                                                <DemoPlane win={win} />
-                                            </Content>
-                                        </Suspense>
+                                        <CardContent>
+                                            <Suspense fallback={null}>
+                                                <Content
+                                                    {...getDragToggleProps()}
+                                                    transformTranslateZ={1}
+                                                    keepAspectRatio={false}
+                                                    width="100%"
+                                                    height={400}
+                                                    castShadow
+                                                >
+                                                    <DemoPlane win={win} />
+                                                </Content>
+                                            </Suspense>
+                                        </CardContent>
 
                                         <CardFooter marginTop={0}>
                                             <Button

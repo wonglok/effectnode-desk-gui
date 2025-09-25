@@ -244,6 +244,7 @@ export function UIKitDrawer({
                                     borderBottomRadius={15}
                                     flexDirection={"column"}
                                     backgroundColor={colors.secondary}
+                                    paddingTop={30}
                                 >
                                     {drawerUI}
                                 </Container>
