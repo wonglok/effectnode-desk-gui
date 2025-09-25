@@ -30,6 +30,7 @@ import { UIKitFrame } from "./UIkitObjects/UIKitFrame";
 import { EnableDrag } from "./Objects/EnableDrag";
 import { UIKitDrawer } from "./UIkitObjects/UIKitDrawer";
 import {
+    Avatar,
     Button,
     Card,
     CardContent,
@@ -98,6 +99,91 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         controls.enabled = true;
                                     }
                                 }}
+                                title={
+                                    <>
+                                        <Container
+                                            backgroundColor={0xffffff}
+                                            dark={{ backgroundColor: 0x0 }}
+                                            flexDirection="row"
+                                            padding={28}
+                                            paddingTop={32 * 0.0}
+                                            alignItems="center"
+                                            justifyContent="space-between"
+                                            borderBottomRadius={20}
+                                            castShadow
+                                        >
+                                            <Container
+                                                flexDirection="column"
+                                                gap={8}
+                                            >
+                                                <Container
+                                                    flexDirection={"column"}
+                                                    onPointerEnter={() => {
+                                                        //
+                                                        // document.body.style.cursor =
+                                                        //     "crosshair";
+                                                        //
+                                                    }}
+                                                    onPointerLeave={() => {
+                                                        //
+                                                        // document.body.style.cursor = "";
+                                                        //
+                                                    }}
+                                                >
+                                                    <Text
+                                                        fontSize={30}
+                                                        fontWeight="medium"
+                                                        letterSpacing={-0.4}
+                                                        color={colors.primary}
+                                                        onPointerDown={(ev) => {
+                                                            ev.stopPropagation();
+
+                                                            if (controls) {
+                                                                controls.enabled = false;
+                                                            }
+                                                        }}
+                                                    >
+                                                        {win?.value?.name}
+                                                    </Text>
+
+                                                    <Text
+                                                        fontSize={20}
+                                                        fontWeight="medium"
+                                                        letterSpacing={-0.4}
+                                                        color={colors.primary}
+                                                        onPointerDown={(ev) => {
+                                                            ev.stopPropagation();
+
+                                                            if (controls) {
+                                                                controls.enabled = false;
+                                                            }
+                                                        }}
+                                                    >
+                                                        {win?.value?.name}
+                                                    </Text>
+                                                </Container>
+                                            </Container>
+
+                                            <Container flexDirection="row">
+                                                <Avatar
+                                                    //
+                                                    width={40}
+                                                    src="/avatar-icon/ava1.png"
+                                                />
+                                                <Avatar
+                                                    marginLeft={-6}
+                                                    width={40}
+                                                    src="/avatar-icon/ava2.png"
+                                                />
+                                                <Avatar
+                                                    marginLeft={-6}
+                                                    width={40}
+                                                    src="/avatar-icon/ava3.png"
+                                                />
+                                            </Container>
+                                        </Container>
+                                    </>
+                                }
                                 portal={
                                     <>
                                         <Suspense fallback={null}>
@@ -128,6 +214,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 }
                                 drawerUI={
                                     <>
+                                        {/*  */}
                                         <Suspense fallback={null}>
                                             <Content
                                                 transformTranslateZ={1}
@@ -142,56 +229,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         </Suspense>
 
                                         {/* <NotificationSection></NotificationSection> */}
-                                    </>
-                                }
-                                content={
-                                    <>
-                                        <Container
-                                            flexDirection={"column"}
-                                            onPointerEnter={() => {
-                                                //
-                                                // document.body.style.cursor =
-                                                //     "crosshair";
-                                                //
-                                            }}
-                                            onPointerLeave={() => {
-                                                //
-                                                // document.body.style.cursor = "";
-                                                //
-                                            }}
-                                        >
-                                            <Text
-                                                fontSize={30}
-                                                fontWeight="medium"
-                                                letterSpacing={-0.4}
-                                                color={colors.primary}
-                                                onPointerDown={(ev) => {
-                                                    ev.stopPropagation();
-
-                                                    if (controls) {
-                                                        controls.enabled = false;
-                                                    }
-                                                }}
-                                            >
-                                                {win?.value?.name}
-                                            </Text>
-
-                                            <Text
-                                                fontSize={20}
-                                                fontWeight="medium"
-                                                letterSpacing={-0.4}
-                                                color={colors.primary}
-                                                onPointerDown={(ev) => {
-                                                    ev.stopPropagation();
-
-                                                    if (controls) {
-                                                        controls.enabled = false;
-                                                    }
-                                                }}
-                                            >
-                                                {win?.value?.name}
-                                            </Text>
-                                        </Container>
                                     </>
                                 }
                             ></UIKitDrawer>

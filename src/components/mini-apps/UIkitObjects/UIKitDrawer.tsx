@@ -87,14 +87,14 @@ const notifications = [
 
 export function UIKitDrawer({
     drawerUI = null,
-    content = null,
+    title = null,
     portal = null,
     openDrawer = false,
     onSetDrawer = (v: boolean) => {},
 }: {
     onSetDrawer: (v: boolean) => void;
     openDrawer: boolean;
-    content: ReactElement | null;
+    title: ReactElement | null;
     portal: ReactElement | null;
     drawerUI?: ReactElement | null;
 }) {
@@ -225,39 +225,7 @@ export function UIKitDrawer({
                     >
                         <>{portal}</>
 
-                        <Container
-                            backgroundColor={0xffffff}
-                            dark={{ backgroundColor: 0x0 }}
-                            flexDirection="row"
-                            padding={28}
-                            paddingTop={32 * 0.0}
-                            alignItems="center"
-                            justifyContent="space-between"
-                            borderBottomRadius={20}
-                            castShadow
-                        >
-                            <Container flexDirection="column" gap={8}>
-                                {content}
-                            </Container>
-
-                            <Container flexDirection="row">
-                                <Avatar
-                                    //
-                                    width={40}
-                                    src="/avatar-icon/ava1.png"
-                                />
-                                <Avatar
-                                    marginLeft={-6}
-                                    width={40}
-                                    src="/avatar-icon/ava2.png"
-                                />
-                                <Avatar
-                                    marginLeft={-6}
-                                    width={40}
-                                    src="/avatar-icon/ava3.png"
-                                />
-                            </Container>
-                        </Container>
+                        <>{title}</>
                     </Container>
 
                     {drawerUI && (
