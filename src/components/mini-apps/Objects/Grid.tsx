@@ -64,18 +64,19 @@ function OneItem({
                 easing.damp(
                     ref.current.scale,
                     "x",
-                    Math.pow(dist / 50, 2.0) * 1.2,
+                    Math.pow(1.0 - dist / 50, 2.0) * 1.2,
                     0.2,
                     delta,
                 );
+
                 easing.damp(
                     ref.current.scale,
-                    "z",
-                    Math.pow(dist / 50, 2.0) * 1.2,
+                    "y",
+                    Math.pow(1.0 - dist / 50, 2.0) * 1.2,
                     0.2,
                     delta,
                 );
-                easing.damp(ref.current.scale, "y", dist / 25, 0.2, delta);
+                // easing.damp(ref.current.scale, "y", dist / 25, 0.2, delta);
             }
         }
     });
@@ -109,7 +110,7 @@ export const Grid = ({ num = 25 }) => {
                     <OneItem
                         MySymbol={meshes.SymbolOne}
                         key={`xx${x}-yy${y}`}
-                        rot={[0, Math.PI * 0.0, 0]}
+                        rot={[0, Math.PI * 0.5, 0]}
                         x={x * 2 + 1}
                         y={y * 2 + 1}
                     ></OneItem>,
