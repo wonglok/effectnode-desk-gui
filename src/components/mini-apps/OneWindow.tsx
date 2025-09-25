@@ -112,7 +112,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 }
                                 footer={
                                     <>
-                                        <NotificationSection></NotificationSection>
+                                        {/* <NotificationSection></NotificationSection> */}
                                     </>
                                 }
                                 content={

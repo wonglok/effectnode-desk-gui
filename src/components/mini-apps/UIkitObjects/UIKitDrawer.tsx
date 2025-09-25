@@ -127,7 +127,7 @@ export function UIKitDrawer({
 
     const settings = {
         translateX: useMemo(() => signal(0), []),
-        translateY: useMemo(() => signal(0), []),
+        translateY: useMemo(() => signal(-800), []),
         translateZ: useMemo(() => signal(0), []),
 
         rotationX: useMemo(() => signal(0), []),
@@ -135,7 +135,7 @@ export function UIKitDrawer({
         rotationZ: useMemo(() => signal(0), []),
     };
 
-    const [height, setHeight] = useState(0);
+    const [height, setHeight] = useState(-800);
 
     useFrame((_, delta) => {
         //
@@ -149,7 +149,7 @@ export function UIKitDrawer({
         easing.damp(
             settings.translateY,
             "value",
-            !openDrawer ? -150 - height : 0,
+            !openDrawer ? -height : 0,
             0.2,
             delta,
         );
@@ -292,6 +292,8 @@ export function UIKitDrawer({
                             transformRotateX={settings.rotationX}
                             transformRotateY={settings.rotationY}
                             transformRotateZ={settings.rotationZ}
+
+                            //
                         >
                             <Container
                                 borderBottomRadius={15}
