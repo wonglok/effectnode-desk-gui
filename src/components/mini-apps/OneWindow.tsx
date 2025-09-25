@@ -45,6 +45,15 @@ import { AvatarMotion } from "./Objects/AvatarMotion";
 import { Sky, Box, Cloud } from "@react-three/drei";
 import { createPortal, useFrame, useThree } from "@react-three/fiber";
 
+import {
+    BellRing,
+    BotIcon,
+    Check,
+    Cross,
+    RemoveFormatting,
+    TvIcon,
+} from "@react-three/uikit-lucide";
+
 // import { BellRing, Check } from "@react-three/uikit-lucide";
 // import { RenderPlane } from "./Objects/RenderPlane";
 import { PreviewPlane } from "./UIkitObjects/RenderPlanes/PreviewPlane";
@@ -169,7 +178,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                             <Content
                                                 {...getDragToggleProps()}
                                                 transformTranslateZ={1}
-                                                padding={14}
+                                                padding={20}
                                                 keepAspectRatio={false}
                                                 width="100%"
                                                 height={400}
@@ -178,6 +187,25 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 <DemoPlane win={win} />
                                             </Content>
                                         </Suspense>
+
+                                        <CardFooter marginTop={0}>
+                                            <Button
+                                                cursor="pointer"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+
+                                                    setOpen(false);
+                                                }}
+                                                flexDirection="row"
+                                                width="100%"
+                                            >
+                                                <BotIcon
+                                                    height={16}
+                                                    width={16}
+                                                />
+                                                <Text>Close</Text>
+                                            </Button>
+                                        </CardFooter>
 
                                         {/* <NotificationSection></NotificationSection> */}
                                     </>

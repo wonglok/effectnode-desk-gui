@@ -246,26 +246,6 @@ export function UIKitDrawer({
                                     backgroundColor={colors.secondary}
                                 >
                                     {drawerUI}
-
-                                    <CardFooter marginTop={30}>
-                                        <Button
-                                            cursor="pointer"
-                                            onClick={(e) => {
-                                                e.stopPropagation();
-
-                                                onSetDrawer(false);
-                                            }}
-                                            flexDirection="row"
-                                            width="100%"
-                                        >
-                                            <BotIcon
-                                                marginRight={8}
-                                                height={16}
-                                                width={16}
-                                            />
-                                            <Text>Close</Text>
-                                        </Button>
-                                    </CardFooter>
                                 </Container>
                             </Container>
                         </Container>
