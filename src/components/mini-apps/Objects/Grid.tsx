@@ -274,6 +274,49 @@ export const Grid = ({ num = 25 }) => {
         return geometry;
     }, []);
 
+    let circleGeo = useMemo(() => {
+        let box1: BufferGeometry = new CircleGeometry(0.3, 3).toNonIndexed();
+
+        let array = [];
+        let num = box1?.attributes?.position?.count as number;
+
+        for (let ii = 0; ii < num; ii++) {
+            //
+            let v2 = new Vector2(
+                box1.attributes.position?.getX(ii),
+                box1.attributes.position?.getY(ii),
+            );
+
+            array.push(v2);
+
+            //
+        }
+
+        const shape = new Shape(array);
+
+        const extrudeSettings = {
+            steps: 1,
+            depth: 1,
+            bevelEnabled: false,
+            bevelSegments: 0,
+            bevelSize: 0.0,
+            bevelThickness: 0.0,
+        };
+
+        let geometry = new ExtrudeGeometry(shape, extrudeSettings);
+        geometry.rotateZ(Math.PI * 0.5);
+        geometry.rotateX(Math.PI * 0.5);
+        geometry.scale(1, 0.1, 1);
+        geometry.computeVertexNormals();
+        geometry.computeBoundingBox();
+        geometry.center();
+
+        let boundingBox = geometry.boundingBox as Box3;
+        geometry.translate(0, (boundingBox.min.y - boundingBox.max.y) / 2, 0);
+
+        return geometry;
+    }, []);
+
     return (
         <>
             <Merged
@@ -293,7 +336,7 @@ export const Grid = ({ num = 25 }) => {
                         }),
                     ),
                     SymbolTwo: new Mesh(
-                        hexGeo,
+                        circleGeo,
                         new MeshStandardMaterial({
                             color: colors.primary,
                             roughness: 0.3,
