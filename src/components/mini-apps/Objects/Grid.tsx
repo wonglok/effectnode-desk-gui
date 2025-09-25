@@ -275,7 +275,7 @@ export const Grid = ({ num = 25 }) => {
     }, []);
 
     let circleGeo = useMemo(() => {
-        let box1: BufferGeometry = new CircleGeometry(0.3, 3).toNonIndexed();
+        let box1: BufferGeometry = new CircleGeometry(0.3, 6).toNonIndexed();
 
         let array = [];
         let num = box1?.attributes?.position?.count as number;
