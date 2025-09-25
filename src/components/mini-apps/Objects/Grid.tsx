@@ -55,16 +55,17 @@ function OneItem({
             let mypos = ref.current.position.clone();
             mypos.y = 0;
             if (val) {
+                let maxi = 50;
                 let dist = val2.distanceTo(mypos);
-                if (dist >= 50) {
-                    dist = 50;
+                if (dist >= maxi) {
+                    dist = maxi;
                 }
-                dist = 50 - dist;
+                dist = maxi - dist;
 
                 easing.damp(
                     ref.current.scale,
                     "x",
-                    Math.pow(1.0 - dist / 50, 2.0) * 1.2,
+                    Math.pow(dist / maxi, 2.5) * 1.2,
                     0.2,
                     delta,
                 );
@@ -72,11 +73,10 @@ function OneItem({
                 easing.damp(
                     ref.current.scale,
                     "y",
-                    Math.pow(1.0 - dist / 50, 2.0) * 1.2,
+                    Math.pow(dist / maxi, 2.5) * 1.2,
                     0.2,
                     delta,
                 );
-                // easing.damp(ref.current.scale, "y", dist / 25, 0.2, delta);
             }
         }
     });
