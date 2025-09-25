@@ -97,21 +97,21 @@ function OneItem({
                     ref.current.rotation,
                     "z",
                     circleRadius * Math.PI * 2.5 + refTime.current,
-                    0.2,
+                    0.1,
                     dt,
                 );
                 easing.damp(
                     ref.current.rotation,
                     "x",
                     circleRadius * Math.PI * 2.5 + refTime.current,
-                    0.2,
+                    0.1,
                     dt,
                 );
                 easing.damp(
                     ref.current.rotation,
                     "y",
                     circleRadius * Math.PI * 2.5 + refTime.current,
-                    0.2,
+                    0.1,
                     dt,
                 );
 
