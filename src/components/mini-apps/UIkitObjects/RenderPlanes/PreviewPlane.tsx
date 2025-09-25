@@ -44,8 +44,8 @@ export function PreviewPlane({ win }: { win: WinObject }) {
             colorSpace={NoColorSpace}
             eventPriority={100}
             //
-            cameraPosition={[0, 1.7, 1]}
-            cameraRotation={[-0.1, 0, 0]}
+            cameraPosition={[0, 2, 1]}
+            cameraRotation={[-0.4, 0, 0]}
         >
             <Suspense fallback={null}>
                 <group>
@@ -56,19 +56,17 @@ export function PreviewPlane({ win }: { win: WinObject }) {
                     >
                         <AvatarMotion
                             avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                            motionURL={`/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`}
+                            motionURL={`/game-asset/motion-files/mixamo/dance/silly-dance.fbx`}
                         ></AvatarMotion>
                     </group>
                 </group>
 
-                <ambientLight intensity={Math.PI * 0.5} />
+                <ambientLight intensity={Math.PI * 1} />
 
-                <Sky rayleigh={0.3} azimuth={0.5}></Sky>
-
-                <Cloud seed={1} position={[0, -1, -2]}></Cloud>
-
-                <ambientLight intensity={1}></ambientLight>
+                <Cloud seed={1} position={[0, 0, -2]}></Cloud>
             </Suspense>
+
+            <Sky rayleigh={0.3} azimuth={0.5}></Sky>
         </RenderPlane>
     );
 }
