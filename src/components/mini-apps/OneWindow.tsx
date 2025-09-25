@@ -105,6 +105,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 win={win}
                                             ></PreviewPlane>
                                         )}
+
                                         {win.value.type === "app_node" && (
                                             <NodePlane win={win}></NodePlane>
                                         )}
