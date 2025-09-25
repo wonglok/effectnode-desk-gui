@@ -49,6 +49,7 @@ import { RenderPlane } from "./Objects/RenderPlane";
 import { PreviewPlane } from "./UIkitObjects/RenderPlanes/PreviewPlane";
 import { NodePlane } from "./UIkitObjects/RenderPlanes/NodePlane";
 import { NotificationSection } from "./UIkitObjects/Sections/Notifications";
+import { DemoPlane } from "./UIkitObjects/RenderPlanes/DemoPlane";
 
 export function OneWindow({ win }: { win: WinObject }) {
     // let ref = useRef<Object3D>(null);
@@ -99,19 +100,47 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 }}
                                 portal={
                                     <>
-                                        {win.value.type === "app_preview" && (
-                                            <PreviewPlane
-                                                win={win}
-                                            ></PreviewPlane>
-                                        )}
+                                        <Suspense fallback={null}>
+                                            <Content
+                                                transformTranslateZ={1}
+                                                padding={14}
+                                                keepAspectRatio={false}
+                                                width="100%"
+                                                height={400}
+                                                castShadow
+                                            >
+                                                {win.value.type ===
+                                                    "app_preview" && (
+                                                    <PreviewPlane
+                                                        win={win}
+                                                    ></PreviewPlane>
+                                                )}
 
-                                        {win.value.type === "app_node" && (
-                                            <NodePlane win={win}></NodePlane>
-                                        )}
+                                                {win.value.type ===
+                                                    "app_node" && (
+                                                    <NodePlane
+                                                        win={win}
+                                                    ></NodePlane>
+                                                )}
+                                            </Content>
+                                        </Suspense>
                                     </>
                                 }
                                 drawerUI={
                                     <>
+                                        <Suspense fallback={null}>
+                                            <Content
+                                                transformTranslateZ={1}
+                                                padding={14}
+                                                keepAspectRatio={false}
+                                                width="100%"
+                                                height={400}
+                                                castShadow
+                                            >
+                                                <DemoPlane win={win} />
+                                            </Content>
+                                        </Suspense>
+
                                         {/* <NotificationSection></NotificationSection> */}
                                     </>
                                 }

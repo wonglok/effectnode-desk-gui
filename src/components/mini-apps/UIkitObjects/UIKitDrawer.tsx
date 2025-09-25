@@ -223,18 +223,7 @@ export function UIKitDrawer({
                         transformRotateX={rotationX}
                         castShadow
                     >
-                        <Suspense fallback={null}>
-                            <Content
-                                transformTranslateZ={1}
-                                padding={14}
-                                keepAspectRatio={false}
-                                width="100%"
-                                height={400}
-                                castShadow
-                            >
-                                <>{portal}</>
-                            </Content>
-                        </Suspense>
+                        <>{portal}</>
 
                         <Container
                             backgroundColor={0xffffff}
