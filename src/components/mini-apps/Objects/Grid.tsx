@@ -1,7 +1,8 @@
-import { Instance, Instances, Merged, Plane } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
-import { useEffect, useMemo, useRef } from "react";
+import { Instances, Instance, Merged, Plane } from "@react-three/drei";
+import { ReactThreeFiber, useFrame, useThree } from "@react-three/fiber";
+import { useEffect, useMemo, useRef, type ReactElement } from "react";
 import {
+    Box3,
     BoxGeometry,
     BufferGeometry,
     CircleGeometry,
@@ -10,13 +11,15 @@ import {
     Mesh,
     MeshBasicMaterial,
     MeshNormalMaterial,
+    MeshPhongMaterial,
+    MeshPhysicalMaterial,
     MeshStandardMaterial,
     Object3D,
     Shape,
     ShapeUtils,
     Vector2,
 } from "three";
-import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+// import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 let primary = new Color("#0077ee").offsetHSL(0.0, 0.0, 0.05);
 let grid = new Color(primary).offsetHSL(0, 0, -0.3);
@@ -28,37 +31,35 @@ let colors = {
     background,
 };
 
-// export function OneTile({ x, y, meshes }: any) {
-//     return (
-//         <>
-//             <group position={[x, -0.01, y]}>
-//                 {/* <Instance></Instance> */}
-//                 {<meshes.Cross></meshes.Cross>}
-//                 {/*  */}
-//                 {/* <Instance rotation={[-Math.PI / 2, 0, 0]} /> */}
-//                 {/* <Instance rotation={[-Math.PI / 2, 0, Math.PI / 2]} /> */}
-//             </group>
-//         </>
-//     );
-// }
+function OneItem({
+    MySymbol,
+    x,
+    y,
+    rot = [0, 0, 0],
+}: {
+    rot: [number, number, number];
+    MySymbol: any;
+    x: number;
+    y: number;
+}) {
+    return (
+        <>
+            <MySymbol
+                key={`xx${x}-yy${y}`}
+                rotation={rot}
+                position={[x, 0, y]}
+            ></MySymbol>
+        </>
+    );
+}
 
 export const Grid = ({ num = 25 }) => {
-    //
-
-    // Renders a grid and crosses as instances
-    let scene = useThree((r) => r.scene);
-
-    useEffect(() => {
-        scene.background = colors.background;
-    }, [background]);
-
-    //
-
-    let getLayout1 = ({ meshes }: any) => {
+    let getLayout1 = ({ meshes }: { meshes: any }) => {
         let insts = [];
 
         let ie = 0;
         for (let y = -Math.floor(num * 0.5); y <= Math.floor(num * 0.5); y++) {
+            //
             for (
                 let x = -Math.floor(num * 0.5);
                 x <= Math.floor(num * 0.5);
@@ -66,11 +67,13 @@ export const Grid = ({ num = 25 }) => {
             ) {
                 //
                 insts.push(
-                    <meshes.SymbolOne
-                        meshes={meshes}
+                    <OneItem
+                        MySymbol={meshes.SymbolOne}
                         key={`xx${x}-yy${y}`}
-                        position={[x, 0, y]}
-                    ></meshes.SymbolOne>,
+                        rot={[0, Math.PI * 0.5, 0]}
+                        x={x + 0.5}
+                        y={y + 0.5}
+                    ></OneItem>,
                 );
 
                 ie++;
@@ -86,6 +89,7 @@ export const Grid = ({ num = 25 }) => {
 
         let ie = 0;
         for (let y = -Math.floor(num * 0.5); y <= Math.floor(num * 0.5); y++) {
+            //
             for (
                 let x = -Math.floor(num * 0.5);
                 x <= Math.floor(num * 0.5);
@@ -93,11 +97,13 @@ export const Grid = ({ num = 25 }) => {
             ) {
                 //
                 insts.push(
-                    <meshes.SymbolTwo
-                        meshes={meshes}
+                    <OneItem
+                        MySymbol={meshes.SymbolTwo}
                         key={`xx${x}-yy${y}`}
-                        position={[x + 0.5, 0, y + 0.5]}
-                    ></meshes.SymbolTwo>,
+                        rot={[0, Math.PI * 0, 0]}
+                        x={x}
+                        y={y}
+                    ></OneItem>,
                 );
 
                 ie++;
@@ -118,13 +124,12 @@ export const Grid = ({ num = 25 }) => {
 
         for (let ii = 0; ii < num; ii++) {
             //
-
-            array.push(
-                new Vector2(
-                    box1.attributes.position?.getX(ii),
-                    box1.attributes.position?.getY(ii),
-                ),
+            let v2 = new Vector2(
+                box1.attributes.position?.getX(ii),
+                box1.attributes.position?.getY(ii),
             );
+
+            array.push(v2);
 
             //
         }
@@ -134,7 +139,7 @@ export const Grid = ({ num = 25 }) => {
         const shape = new Shape(array);
 
         const extrudeSettings = {
-            depth: 0.1,
+            depth: 1,
             bevelEnabled: false,
             bevelSegments: 0,
             steps: 1,
@@ -143,16 +148,14 @@ export const Grid = ({ num = 25 }) => {
         };
 
         const geometry = new ExtrudeGeometry(shape, extrudeSettings);
-        geometry.center();
-        geometry.computeBoundingBox();
         geometry.rotateX(Math.PI * 0.5);
+        geometry.scale(1.2, 0.25, 1.2);
+        geometry.computeVertexNormals();
+        geometry.computeBoundingBox();
         geometry.center();
 
-        geometry.computeVertexNormals();
-
-        // geometry.scale(0.5, 1, 0.5);
-
-        // let geo = mergeGeometries([box1]);
+        let boundingBox = geometry.boundingBox as Box3;
+        geometry.translate(0, (boundingBox.min.y - boundingBox.max.y) / 2, 0);
 
         return geometry;
     }, []);
@@ -170,20 +173,26 @@ export const Grid = ({ num = 25 }) => {
                         hexGeo,
                         new MeshStandardMaterial({
                             color: colors.primary,
-                            roughness: 1.0,
-                            metalness: 0.25,
+                            roughness: 0.25,
+                            metalness: 1.0,
                         }),
                     ),
                     SymbolTwo: new Mesh(
                         hexGeo,
                         new MeshStandardMaterial({
                             color: colors.primary,
-                            roughness: 0.25,
-                            metalness: 1,
+                            roughness: 1.0,
+                            metalness: 0.25,
                         }),
                     ),
                 }}
                 scale={[2, 1, 2]}
+                onPointerEnter={(ev) => {
+                    ev.eventObject.userData.hover = 1;
+                }}
+                onPointerLeave={(ev) => {
+                    ev.eventObject.userData.hover = 0;
+                }}
             >
                 {(meshes: any) => {
                     return (
@@ -203,12 +212,12 @@ export const Grid = ({ num = 25 }) => {
                 {/* {insts} */}
             </Merged>
 
-            <gridHelper
+            {/* <gridHelper
                 args={[50 * 2, 50, colors.grid, colors.grid]}
                 position={[0, -0.01, 0]}
-            />
+            /> */}
 
-            <Plane
+            {/* <Plane
                 scale={50}
                 rotation={[-Math.PI * 0.5, 0, 0]}
                 position={[0, -0.1, 0]}
@@ -218,7 +227,7 @@ export const Grid = ({ num = 25 }) => {
                 <meshBasicMaterial
                     color={colors.background}
                 ></meshBasicMaterial>
-            </Plane>
+            </Plane> */}
 
             {/*  */}
         </>
