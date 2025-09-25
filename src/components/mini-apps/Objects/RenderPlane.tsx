@@ -40,6 +40,7 @@ export function RenderPlane({
     cameraPosition = [-0.1, 1.7, 0.75],
     cameraRotation = [0, 0, 0],
     hdr = `/game-asset/hdr/brown_photostudio_02_1k.hdr`,
+    onlyRenderWhenHover = false,
 }: any) {
     let env = useEnvironment({
         files: [hdr],
