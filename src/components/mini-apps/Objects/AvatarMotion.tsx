@@ -108,9 +108,12 @@ function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
                             if (avatarBone.name === "Hips") {
                                 // motionBone.getWorldScale(avatarBone.scale);
                                 avatarBone.rotation.x += Math.PI * -0.5;
-                                // avatarBone.position
-                                //     .copy(motionBone.position)
-                                //     .multiplyScalar(1);
+
+                                motionBone.getWorldPosition(
+                                    avatarBone.position,
+                                );
+
+                                avatarBone.position.multiplyScalar(1.0);
                             }
 
                             // console.log(motionBone.quaternion);

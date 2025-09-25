@@ -44,8 +44,8 @@ export function PreviewPlane({ win }: { win: WinObject }) {
             colorSpace={NoColorSpace}
             eventPriority={100}
             //
-            cameraPosition={[0, 2, 1]}
-            cameraRotation={[-0.4, 0, 0]}
+            cameraPosition={[0, 1.0, 2]}
+            cameraRotation={[0, 0, 0]}
         >
             <Suspense fallback={null}>
                 <group>
@@ -56,7 +56,7 @@ export function PreviewPlane({ win }: { win: WinObject }) {
                     >
                         <AvatarMotion
                             avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                            motionURL={`/game-asset/motion-files/mixamo/dance/silly-dance.fbx`}
+                            motionURL={`/game-asset/motion-files/mixamo/mma/mma-warmup.fbx`}
                         ></AvatarMotion>
                     </group>
                 </group>

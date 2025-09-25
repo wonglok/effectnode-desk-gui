@@ -43,7 +43,7 @@ export function NodePlane({ win }: { win: WinObject }) {
             height={512 * 1.5}
             colorSpace={NoColorSpace}
             eventPriority={100}
-            cameraPosition={[0, 1.6, 1]}
+            cameraPosition={[0, 0.75, 1.5]}
             cameraRotation={[-0.2, 0, 0]}
         >
             <Suspense fallback={null}>
@@ -55,7 +55,7 @@ export function NodePlane({ win }: { win: WinObject }) {
                         <AvatarMotion
                             avatarURL={`/avatar/sweater.glb`}
                             motionURL={`/avatar/sit.fbx`}
-                            lookAt={[0, 1.5, 1]}
+                            lookAt={[0, 0.75, 1.5]}
                         ></AvatarMotion>
                     </group>
                 </group>
