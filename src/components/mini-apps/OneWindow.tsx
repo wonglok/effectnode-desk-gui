@@ -86,10 +86,10 @@ export function OneWindow({ win }: { win: WinObject }) {
             onPointerMove: (ev: any) => {
                 if (typeof ev.eventObject.userData.movementTick === "number") {
                     ev.eventObject.userData.movementTick += 1;
+                    ev.stopPropagation();
                 }
             },
             onPointerUp: (ev: any) => {
-                ev.stopPropagation();
                 if (typeof ev.eventObject.userData.movementTick === "number") {
                     if (ev.eventObject.userData.movementTick <= 25) {
                         setOpen(!openDrawer);
