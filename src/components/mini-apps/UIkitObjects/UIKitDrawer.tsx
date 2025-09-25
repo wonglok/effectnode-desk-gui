@@ -190,7 +190,14 @@ export function UIKitDrawer({
                         cursor="pointer"
                         onClick={(e) => {
                             e.stopPropagation();
-                            onSetDrawer(!openDrawer);
+
+                            console.log(e.movementX);
+                            if (e.movementX >= 10 || e.movementY >= 10) {
+                                //
+                                //
+                            } else {
+                                onSetDrawer(!openDrawer);
+                            }
                         }}
                         backgroundColor={0xffffff}
                         dark={{ backgroundColor: 0x0 }}
@@ -279,47 +286,9 @@ export function UIKitDrawer({
                                 flexDirection={"column"}
                                 backgroundColor={colors.secondary}
                             >
-                                <CardHeader>
-                                    <CardTitle>
-                                        <Text>Notifications</Text>
-                                    </CardTitle>
-                                    <CardDescription>
-                                        <Text>You have 3 unread messages.</Text>
-                                    </CardDescription>
-                                </CardHeader>
-                                <CardContent flexDirection="column" gap={16}>
-                                    <Container
-                                        flexDirection="row"
-                                        alignItems="center"
-                                        gap={16}
-                                        borderRadius={6}
-                                        borderWidth={1}
-                                        padding={16}
-                                    >
-                                        <BellRing />
-                                        <Container
-                                            flexDirection="column"
-                                            gap={4}
-                                        >
-                                            <Text
-                                                fontSize={14}
-                                                lineHeight="100%"
-                                            >
-                                                Push Notifications
-                                            </Text>
-                                            <Text
-                                                fontSize={14}
-                                                lineHeight={20}
-                                                color={colors.mutedForeground}
-                                            >
-                                                Send notifications to device.
-                                            </Text>
-                                        </Container>
-                                        <Container flexGrow={1} />
-                                        <Switch />
-                                    </Container>
-                                </CardContent>
-                                <CardFooter>
+                                {/* footer */}
+
+                                <CardFooter marginTop={30}>
                                     <Button
                                         cursor="pointer"
                                         onClick={(e) => {
@@ -338,9 +307,6 @@ export function UIKitDrawer({
                                         <Text>Close</Text>
                                     </Button>
                                 </CardFooter>
-
-                                {/*  */}
-                                {/* footer */}
                             </Container>
                         </Container>
                     </Container>

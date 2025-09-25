@@ -68,6 +68,42 @@ const notifications = [
 export function NotificationSection() {
     return (
         <>
+            <CardHeader>
+                <CardTitle>
+                    <Text>PreviewWindow</Text>
+                </CardTitle>
+                <CardDescription>
+                    <Text>aaaaa</Text>
+                </CardDescription>
+            </CardHeader>
+
+            <CardContent flexDirection="column" gap={16}>
+                <Container
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={16}
+                    borderRadius={6}
+                    borderWidth={1}
+                    padding={16}
+                >
+                    <BellRing />
+                    <Container flexDirection="column" gap={4}>
+                        <Text fontSize={14} lineHeight="100%">
+                            Push Notifications
+                        </Text>
+                        <Text
+                            fontSize={14}
+                            lineHeight={20}
+                            color={colors.mutedForeground}
+                        >
+                            Send notifications to device.
+                        </Text>
+                    </Container>
+                    <Container flexGrow={1} />
+                    <Switch />
+                </Container>
+            </CardContent>
+
             <Container flexDirection="column">
                 {notifications.map((notification, index) => (
                     <Container
