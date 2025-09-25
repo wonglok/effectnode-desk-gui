@@ -102,11 +102,13 @@ function OneItem({
                     dt,
                 );
 
-                ref.current.color.offsetHSL(
-                    Math.pow(dist / maxi, 5.5) * 0.25 * dt,
-                    0,
-                    0,
-                );
+                if ((ref.current as any).color) {
+                    (ref.current as any).color.offsetHSL(
+                        Math.pow(dist / maxi, 5.5) * 0.25 * dt,
+                        0,
+                        0,
+                    );
+                }
             }
         }
     });
