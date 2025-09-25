@@ -26,8 +26,8 @@ import {
 } from "three";
 // import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-let primary = new Color("#baffff").offsetHSL(0.0, 0.0, 0.05);
-let grid = new Color(primary).offsetHSL(0, 0, -0.3);
+let primary = new Color("#E96825").offsetHSL(0.0, 0.0, 0.05);
+let grid = new Color(primary).offsetHSL(0, 0, -0.2);
 let background = new Color(primary).offsetHSL(0, 0, -0.44);
 
 let cursor = new Vector3();
@@ -319,57 +319,56 @@ export const Grid = ({ num = 25 }) => {
 
     return (
         <>
-            <Merged
-                frustumCulled={false}
-                count={num * num * 5}
-                meshes={{
-                    // Cross: new Mesh(
-                    //     hexGeo,
-                    //     new MeshBasicMaterial({ color: colors.primary }),
-                    // ),
-                    SymbolOne: new Mesh(
-                        hexGeo,
-                        new MeshStandardMaterial({
-                            color: colors.primary,
-                            roughness: 0.0,
-                            metalness: 1.0,
-                        }),
-                    ),
-                    SymbolTwo: new Mesh(
-                        circleGeo,
-                        new MeshStandardMaterial({
-                            color: colors.primary,
-                            roughness: 0.3,
-                            metalness: 1.0,
-                        }),
-                    ),
-                }}
-            >
-                {(meshes: any) => {
-                    return (
-                        <>
-                            {getLayout1({
-                                meshes: meshes,
-                            })}
+            {false && (
+                <Merged
+                    frames={1}
+                    frustumCulled={false}
+                    count={num * num * 5}
+                    meshes={{
+                        // Cross: new Mesh(
+                        //     hexGeo,
+                        //     new MeshBasicMaterial({ color: colors.primary }),
+                        // ),
+                        SymbolOne: new Mesh(
+                            hexGeo,
+                            new MeshStandardMaterial({
+                                color: colors.primary,
+                                roughness: 0.0,
+                                metalness: 1.0,
+                            }),
+                        ),
+                        SymbolTwo: new Mesh(
+                            circleGeo,
+                            new MeshStandardMaterial({
+                                color: colors.primary,
+                                roughness: 0.3,
+                                metalness: 1.0,
+                            }),
+                        ),
+                    }}
+                >
+                    {(meshes: any) => {
+                        return (
+                            <>
+                                {getLayout1({
+                                    meshes: meshes,
+                                })}
 
-                            {getLayout2({
-                                meshes: meshes,
-                            })}
-                        </>
-                    );
-                }}
-                {/* <icosahedronGeometry args={[0.25, 0]} /> */}
-                {/* <meshBasicMaterial color={colors.primary} /> */}
-                {/* {insts} */}
-            </Merged>
+                                {getLayout2({
+                                    meshes: meshes,
+                                })}
+                            </>
+                        );
+                    }}
+                </Merged>
+            )}
 
-            {/* <gridHelper
+            <gridHelper
                 args={[50 * 2, 50, colors.grid, colors.grid]}
                 position={[0, -0.01, 0]}
-            /> */}
+            />
 
             <Plane
-                visible={false}
                 onPointerMove={(st) => {
                     cursor.copy(st.point);
                 }}

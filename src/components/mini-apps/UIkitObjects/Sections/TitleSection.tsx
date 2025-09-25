@@ -29,7 +29,7 @@ import {
     Fullscreen,
     Input,
 } from "@react-three/uikit";
-import { BellRing, Check } from "@react-three/uikit-lucide";
+import { BellRing, BotIcon, Check } from "@react-three/uikit-lucide";
 import {
     Defaults,
     colors,
@@ -53,7 +53,11 @@ import {
     EquirectangularReflectionMapping,
 } from "three";
 
-export function TitleSection({ title = "", description = "" }) {
+export function TitleSection({
+    title = "",
+    description = "",
+    cta = null,
+}: any) {
     let controls: any = useThree((r) => r.controls);
     return (
         <Container
@@ -67,7 +71,7 @@ export function TitleSection({ title = "", description = "" }) {
             borderBottomRadius={20}
             castShadow
         >
-            <Container flexDirection="column" gap={8}>
+            <Container flexShrink={0} flexDirection="column" gap={8}>
                 <Container
                     flexDirection={"column"}
                     onPointerEnter={() => {
@@ -116,6 +120,17 @@ export function TitleSection({ title = "", description = "" }) {
                 </Container>
             </Container>
 
+            <Container width={130} flexDirection="row" marginLeft={16}>
+                {cta}
+            </Container>
+            {/* <Avatars></Avatars> */}
+        </Container>
+    );
+}
+
+export function Avatars() {
+    return (
+        <>
             <Container flexDirection="row">
                 <Avatar
                     //
@@ -133,6 +148,6 @@ export function TitleSection({ title = "", description = "" }) {
                     src="/avatar-icon/ava3.png"
                 />
             </Container>
-        </Container>
+        </>
     );
 }

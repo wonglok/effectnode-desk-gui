@@ -42,16 +42,32 @@ import {
     Switch,
 } from "@react-three/uikit-default";
 import { AvatarMotion } from "./Objects/AvatarMotion";
-import { Sky, Box, Cloud } from "@react-three/drei";
+import {
+    Sky,
+    Box,
+    Cloud,
+    Sphere,
+    MeshTransmissionMaterial,
+} from "@react-three/drei";
 import { createPortal, useFrame, useThree } from "@react-three/fiber";
 
 import {
     BellRing,
     BotIcon,
     Check,
+    CloudLightningIcon,
     Cross,
+    DeleteIcon,
+    DoorClosedIcon,
+    EyeClosedIcon,
+    FolderClosed,
+    FolderOpen,
+    LockIcon,
+    LockOpenIcon,
     RemoveFormatting,
+    SpadeIcon,
     TvIcon,
+    ZapIcon,
 } from "@react-three/uikit-lucide";
 
 // import { BellRing, Check } from "@react-three/uikit-lucide";
@@ -61,6 +77,7 @@ import { NodePlane } from "./UIkitObjects/RenderPlanes/NodePlane";
 import { NotificationSection } from "./UIkitObjects/Sections/Notifications";
 import { DemoPlane } from "./UIkitObjects/RenderPlanes/DemoPlane";
 import { TitleSection } from "./UIkitObjects/Sections/TitleSection";
+import { getDragToggleProps } from "./utils/getDragToggleProps";
 
 export function OneWindow({ win }: { win: WinObject }) {
     // let ref = useRef<Object3D>(null);
@@ -83,31 +100,24 @@ export function OneWindow({ win }: { win: WinObject }) {
     // }, [win.key]);
 
     // console.log(win);
+    //
 
     let controls: any = useThree((r) => r.controls);
-    let [openDrawer, setOpen] = useState(false);
 
-    let getDragToggleProps = () => {
-        return {
-            onPointerDown: (ev: any) => {
-                ev.eventObject.userData.movementTick = 0;
+    let [openDrawer, setOpenDrawer] = useState(false);
+
+    let getPropsForDragging = (
+        { onClick } = {
+            onClick: () => {
+                setOpenDrawer(!openDrawer);
             },
-            onPointerMove: (ev: any) => {
-                if (typeof ev.eventObject.userData.movementTick === "number") {
-                    ev.eventObject.userData.movementTick += 1;
-                    ev.stopPropagation();
-                }
+        },
+    ) => {
+        return getDragToggleProps({
+            onClick: () => {
+                onClick();
             },
-            onPointerUp: (ev: any) => {
-                if (typeof ev.eventObject.userData.movementTick === "number") {
-                    if (ev.eventObject.userData.movementTick <= 5) {
-                        setOpen(!openDrawer);
-                        ev.eventObject.userData.movementTick = 0;
-                    }
-                    ev.eventObject.userData.movementTick = undefined;
-                }
-            },
-        };
+        });
     };
 
     return (
@@ -128,23 +138,24 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 //
                                 openDrawer={openDrawer}
                                 onSetDrawer={(value) => {
-                                    setOpen(value);
+                                    setOpenDrawer(value);
                                     if (controls) {
                                         controls.enabled = true;
                                     }
                                 }}
                                 //
+                                //
                                 upperUI={
                                     <>
                                         <Suspense fallback={null}>
                                             <Content
-                                                {...getDragToggleProps()}
                                                 transformTranslateZ={1}
                                                 padding={14}
                                                 keepAspectRatio={false}
                                                 width="100%"
                                                 height={400}
                                                 castShadow
+                                                {...getPropsForDragging()}
                                             >
                                                 {win.value.type ===
                                                     "app_preview" && (
@@ -160,7 +171,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                     ></NodePlane>
                                                 )}
                                             </Content>
-                                            {/*  */}
 
                                             {/*  */}
                                         </Suspense>
@@ -168,6 +178,49 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         <TitleSection
                                             title={`${win.value.name}`}
                                             description={`Mini Window`}
+                                            cta={
+                                                <>
+                                                    {!openDrawer && (
+                                                        <Button
+                                                            cursor="pointer"
+                                                            // onClick={(e) => {
+                                                            //     e.stopPropagation();
+                                                            // }}
+                                                            flexDirection="row"
+                                                            width="100%"
+                                                            {...getPropsForDragging()}
+                                                        >
+                                                            <ZapIcon
+                                                                color={"lime"}
+                                                                marginRight={10}
+                                                            ></ZapIcon>
+                                                            <Text
+                                                                color={"lime"}
+                                                            >{`Open`}</Text>
+                                                        </Button>
+                                                    )}
+
+                                                    {openDrawer && (
+                                                        <Button
+                                                            cursor="pointer"
+                                                            // onClick={(e) => {
+                                                            //     e.stopPropagation();
+                                                            // }}
+                                                            flexDirection="row"
+                                                            width="100%"
+                                                            {...getPropsForDragging()}
+                                                        >
+                                                            <CloudLightningIcon
+                                                                color={"cyan"}
+                                                                marginRight={10}
+                                                            ></CloudLightningIcon>
+                                                            <Text
+                                                                color={"cyan"}
+                                                            >{`Close`}</Text>
+                                                        </Button>
+                                                    )}
+                                                </>
+                                            }
                                         ></TitleSection>
                                     </>
                                 }
@@ -178,7 +231,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         <CardContent>
                                             <Suspense fallback={null}>
                                                 <Content
-                                                    {...getDragToggleProps()}
+                                                    {...getPropsForDragging()}
                                                     transformTranslateZ={1}
                                                     keepAspectRatio={false}
                                                     width="100%"
@@ -199,7 +252,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 onClick={(e) => {
                                                     e.stopPropagation();
 
-                                                    setOpen(false);
+                                                    setOpenDrawer(false);
                                                 }}
                                                 flexDirection="row"
                                                 width="100%"

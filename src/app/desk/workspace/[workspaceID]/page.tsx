@@ -46,13 +46,13 @@ export default function Home() {
                 <div className="absolute top-0 left-0 h-[53px] w-full border-b border-gray-300 bg-white">
                     {/*  */}
                     {/*  */}
-                    <div className="flex h-full w-full items-center justify-between">
-                        <div className="ml-4">
+                    <div className="flex h-full w-full items-center justify-between select-none">
+                        <div className="ml-4 select-none">
                             <BackButton
                                 workspaceID={params?.workspaceID as string}
                             ></BackButton>
                         </div>
-                        <div className="mr-4">
+                        <div className="mr-4 select-none">
                             <ResetButton
                                 workspaceID={params?.workspaceID as string}
                             ></ResetButton>
@@ -66,15 +66,18 @@ export default function Home() {
                     {/*  */}
 
                     <div className="flex h-full w-full items-center justify-between">
-                        <div className="ml-4">
+                        <div className="ml-4 select-none">
                             <LogoutButton></LogoutButton>
                         </div>
-                        <div className="mx-1 flex w-1/3 items-center justify-center">
+                        <div className="mx-1 flex w-1/3 items-center justify-center select-none">
                             {/* <AddCard
                                 workspaceID={params?.workspaceID as string}
                             ></AddCard> */}
                         </div>
-                        <div className="mr-4"></div>
+                        <div className="mr-4 select-none">
+                            {/*  */}
+                            {/*  */}
+                        </div>
                     </div>
 
                     {/*  */}

@@ -120,7 +120,7 @@ export function UIKitDrawer({
         //
         easing.damp(translateY, "value", openDrawer ? 0 : -460, 0.2, delta);
 
-        easing.damp(translateZ, "value", openDrawer ? 0 : 0, 0.2, delta);
+        easing.damp(translateZ, "value", openDrawer ? 0.001 : 0, 0.2, delta);
 
         easing.damp(groupMoveZ, "value", openDrawer ? 0 : 0, 0.2, delta);
     });

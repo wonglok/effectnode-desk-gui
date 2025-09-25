@@ -41,7 +41,7 @@ export function WebGLArea() {
                 {/* <StandUpText text="Praise the LORD"></StandUpText> */}
 
                 <EnvirionmentContent></EnvirionmentContent>
-                <Drags></Drags>
+
                 <group position={[0, 0.01, 0]}>
                     <MiniApps></MiniApps>
                 </group>
@@ -52,54 +52,6 @@ export function WebGLArea() {
     );
 }
 
-function Drags() {
-    return (
-        <>
-            {/* <EnableDrag
-                name="p-1-cta"
-                initPos={[
-                    1.7824280292933643, 2.0698720515355262e-14,
-                    0.3820235632324256,
-                ]}
-            >
-                <Suspense fallback={null}>
-                    <LaydownText text="Desk"></LaydownText>
-                </Suspense>
-            </EnableDrag>
-
-            <EnableDrag
-                name="p-1-avatar"
-                initPos={[-1.0884924105567535, -2.7824964554667986e-14, 0]}
-            >
-                <Suspense fallback={null}>
-                    <Avatar></Avatar>
-                </Suspense>
-            </EnableDrag>
-
-            <EnableDrag
-                name="p-1-card-page-1"
-                initPos={[-5.470102401240012, 4.413136522884997e-15, 0]}
-            >
-                <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
-                    <Suspense fallback={null}>
-                        <UIKitObject></UIKitObject>
-                    </Suspense>
-                </group>
-            </EnableDrag>
-
-            <EnableDrag
-                name="p-1-card-page-2"
-                initPos={[8.84911023890157, -1.0644263248593688e-14, 0]}
-            >
-                <group position={[0, 0.1, 0]} rotation={[Math.PI * -0.5, 0, 0]}>
-                    <Suspense fallback={null}>
-                        <UIKitCard></UIKitCard>
-                    </Suspense>
-                </group>
-            </EnableDrag> */}
-        </>
-    );
-}
 function EnvirionmentContent() {
     return (
         <>

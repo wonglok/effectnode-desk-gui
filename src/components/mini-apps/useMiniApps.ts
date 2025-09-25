@@ -37,6 +37,7 @@ export type WinObject = Partial<WorkspaceObjectInterface> & {
 export const useMiniApps = create<{
     //
     objects: WorkspaceObjectInterface[];
+    openDrawer: boolean;
     //
     //
 }>((set, get) => {
@@ -44,6 +45,8 @@ export const useMiniApps = create<{
     return {
         //
         objects: [],
+
+        openDrawer: false,
 
         // icons: [],
         // apps: [],
