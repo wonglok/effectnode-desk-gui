@@ -233,7 +233,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 drawerUI={
                                     <>
                                         {/* <NotificationSection></NotificationSection> */}
-                                        <CardContent>
+                                        <CardContent flexDirection={"column"}>
                                             <Suspense fallback={null}>
                                                 <Content
                                                     {...getPropsForDragging()}

@@ -22,20 +22,8 @@ export function AvatarMotion({
     lookAt = false,
     avatarURL = "/avatar/angel.glb",
     motionURL = `/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`,
+    ...props
 }: any) {
-    return (
-        <>
-            {/* <primitive object={avatar.scene}></primitive> */}
-            <AvatarLoader
-                lookAt={lookAt}
-                motionURL={motionURL}
-                avatarURL={avatarURL}
-            ></AvatarLoader>
-        </>
-    );
-}
-
-function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
     const [motion, glb] = suspend(async () => {
         let draco = new DRACOLoader();
         draco.setDecoderPath(`/libs/draco`);
@@ -113,7 +101,7 @@ function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
                                     avatarBone.position,
                                 );
 
-                                avatarBone.position.multiplyScalar(1.0);
+                                avatarBone.position.multiplyScalar(1 / 100);
                             }
 
                             // console.log(motionBone.quaternion);
@@ -179,8 +167,10 @@ function AvatarLoader({ lookAt, avatarURL, motionURL }: any) {
     return (
         <>
             {/*  */}
-            {outputBox.display}
-            {api.display}
+            <group {...props}>
+                {outputBox.display}
+                {api.display}
+            </group>
         </>
     );
 }

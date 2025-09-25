@@ -51,8 +51,8 @@ export function DemoPlane({
             eventPriority={100}
             canRun={canRun}
             //
-            cameraPosition={[0, 1.75, 1.5]}
-            cameraRotation={[-0.3, 0, 0]}
+            cameraPosition={[0, 0.75, 1.5]}
+            cameraRotation={[-0.1, 0, 0]}
         >
             <Suspense fallback={null}>
                 <group>

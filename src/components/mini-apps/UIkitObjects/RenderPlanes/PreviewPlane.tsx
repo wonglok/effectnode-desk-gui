@@ -44,7 +44,7 @@ export function PreviewPlane({ win }: { win: WinObject }) {
             colorSpace={NoColorSpace}
             eventPriority={100}
             //
-            cameraPosition={[0, 1.3, 2]}
+            cameraPosition={[0, 0.5, 2]}
             cameraRotation={[0, 0, 0]}
         >
             <Suspense fallback={null}>
