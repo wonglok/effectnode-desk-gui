@@ -188,10 +188,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 <>
                                                     {!openDrawer && (
                                                         <Button
-                                                            cursor="pointer"
-                                                            // onClick={(e) => {
-                                                            //     e.stopPropagation();
-                                                            // }}
                                                             flexDirection="row"
                                                             width="100%"
                                                             backgroundColor={
@@ -210,10 +206,6 @@ export function OneWindow({ win }: { win: WinObject }) {
 
                                                     {openDrawer && (
                                                         <Button
-                                                            cursor="pointer"
-                                                            // onClick={(e) => {
-                                                            //     e.stopPropagation();
-                                                            // }}
                                                             flexDirection="row"
                                                             width="100%"
                                                             backgroundColor={
