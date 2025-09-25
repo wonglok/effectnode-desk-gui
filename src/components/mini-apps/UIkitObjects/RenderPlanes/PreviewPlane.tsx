@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useMemo, useRef } from "react";
-import { Sky, useEnvironment } from "@react-three/drei";
+import { Float, Sky, useEnvironment } from "@react-three/drei";
 import {
     Canvas,
     createPortal,
@@ -44,7 +44,7 @@ export function PreviewPlane({ win }: { win: WinObject }) {
             colorSpace={NoColorSpace}
             eventPriority={100}
             //
-            cameraPosition={[0, 1.0, 2]}
+            cameraPosition={[0, 1.3, 2]}
             cameraRotation={[0, 0, 0]}
         >
             <Suspense fallback={null}>
@@ -54,10 +54,13 @@ export function PreviewPlane({ win }: { win: WinObject }) {
                         rotation={[0, 0, 0]}
                         position={[0, 0, 0]}
                     >
-                        <AvatarMotion
-                            avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
-                            motionURL={`/game-asset/motion-files/mixamo/mma/mma-warmup.fbx`}
-                        ></AvatarMotion>
+                        <Float>
+                            <AvatarMotion
+                                lookAt={[0.0, 0.7, 2]}
+                                avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
+                                motionURL={`/game-asset/motion-files/mixamo/dance/floating-swim.fbx`}
+                            ></AvatarMotion>
+                        </Float>
                     </group>
                 </group>
 
