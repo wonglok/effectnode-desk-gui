@@ -1,5 +1,6 @@
 export const getDragToggleProps = ({ onClick = () => {} }) => {
     return {
+        cursor: "pointer",
         onPointerDown: (ev: any) => {
             ev.eventObject.userData.movementTick = 0;
         },

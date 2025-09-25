@@ -53,12 +53,17 @@ import {
 import { createPortal, useFrame, useThree } from "@react-three/fiber";
 
 import {
+    ArrowDown,
+    ArrowUp,
+    ArrowUp01,
+    BanIcon,
     BellRing,
     BotIcon,
     Check,
     CloudDownload,
     CloudLightningIcon,
     CloudUpload,
+    CroissantIcon,
     Cross,
     DeleteIcon,
     DoorClosedIcon,
@@ -67,6 +72,8 @@ import {
     FolderOpen,
     LockIcon,
     LockOpenIcon,
+    PanelBottomClose,
+    PanelBottomOpen,
     RemoveFormatting,
     SpadeIcon,
     TvIcon,
@@ -77,7 +84,6 @@ import {
 // import { RenderPlane } from "./Objects/RenderPlane";
 import { PreviewPlane } from "./UIkitObjects/RenderPlanes/PreviewPlane";
 import { NodePlane } from "./UIkitObjects/RenderPlanes/NodePlane";
-import { NotificationSection } from "./UIkitObjects/Sections/Notifications";
 import { DemoPlane } from "./UIkitObjects/RenderPlanes/DemoPlane";
 import { TitleSection } from "./UIkitObjects/Sections/TitleSection";
 import { getDragToggleProps } from "./utils/getDragToggleProps";
@@ -101,9 +107,6 @@ export function OneWindow({ win }: { win: WinObject }) {
     //     });
     //     //
     // }, [win.key]);
-
-    // console.log(win);
-    //
 
     let controls: any = useThree((r) => r.controls);
 
@@ -160,7 +163,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 castShadow
                                                 {...getPropsForDragging()}
                                             >
-                                                <Box visible={false}></Box>
                                                 {win.value.type ===
                                                     "app_preview" && (
                                                     <PreviewPlane
@@ -192,12 +194,17 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                             // }}
                                                             flexDirection="row"
                                                             width="100%"
+                                                            backgroundColor={
+                                                                "#000099"
+                                                            }
                                                             {...getPropsForDragging()}
                                                         >
-                                                            <CloudDownload
+                                                            <PanelBottomClose
                                                                 marginRight={10}
-                                                            ></CloudDownload>
-                                                            <Text>{`Open`}</Text>
+                                                            ></PanelBottomClose>
+                                                            <Text
+                                                                color={"white"}
+                                                            >{`Open`}</Text>
                                                         </Button>
                                                     )}
 
@@ -209,11 +216,15 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                             // }}
                                                             flexDirection="row"
                                                             width="100%"
+                                                            backgroundColor={
+                                                                "#ef0000"
+                                                            }
                                                             {...getPropsForDragging()}
                                                         >
-                                                            <CloudUpload
+                                                            <PanelBottomOpen
                                                                 marginRight={10}
-                                                            ></CloudUpload>
+                                                            ></PanelBottomOpen>
+
                                                             <Text>{`Close`}</Text>
                                                         </Button>
                                                     )}
@@ -224,7 +235,6 @@ export function OneWindow({ win }: { win: WinObject }) {
                                 }
                                 drawerUI={
                                     <>
-                                        {/*  */}
                                         {/* <NotificationSection></NotificationSection> */}
                                         <CardContent>
                                             <Suspense fallback={null}>
@@ -254,7 +264,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 flexDirection="row"
                                                 width="100%"
                                             >
-                                                <BotIcon
+                                                <ArrowUp
                                                     height={16}
                                                     width={16}
                                                     marginRight={10}
