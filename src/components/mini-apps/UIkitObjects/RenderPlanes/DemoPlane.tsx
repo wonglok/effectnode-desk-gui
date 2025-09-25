@@ -44,8 +44,8 @@ export function DemoPlane({ win }: { win: WinObject }) {
             colorSpace={NoColorSpace}
             eventPriority={100}
             //
-            cameraPosition={[0, 2, 1]}
-            cameraRotation={[-0.4, 0, 0]}
+            cameraPosition={[0, 1.75, 1.5]}
+            cameraRotation={[-0.3, 0, 0]}
         >
             <Suspense fallback={null}>
                 <group>
@@ -56,7 +56,7 @@ export function DemoPlane({ win }: { win: WinObject }) {
                     >
                         <AvatarMotion
                             avatarURL={`/avatar/angel.glb`}
-                            motionURL={`/avatar/formal-salute.fbx`}
+                            motionURL={`/game-asset/motion-files/mixamo/dance/backflip.fbx`}
                         ></AvatarMotion>
                     </group>
                 </group>
