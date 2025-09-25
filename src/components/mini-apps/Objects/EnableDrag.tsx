@@ -139,6 +139,12 @@ export function EnableDrag({
                                 st.position.multiplyScalar(0);
                                 nt.position.multiplyScalar(0);
                                 at.position.multiplyScalar(0);
+
+                                // lt.position.multiplyScalar(0);
+                                // dt.position.multiplyScalar(0);
+                                // st.position.multiplyScalar(0);
+                                // nt.position.multiplyScalar(0);
+                                // at.position.multiplyScalar(0);
                             }
 
                             st.position.copy(grabAPI.o3.position);
@@ -191,12 +197,6 @@ export function EnableDrag({
                                 });
                             }
 
-                            lt.position.multiplyScalar(0);
-                            dt.position.multiplyScalar(0);
-                            st.position.multiplyScalar(0);
-                            nt.position.multiplyScalar(0);
-                            at.position.multiplyScalar(0);
-
                             if (controls) {
                                 controls.enabled = true;
                             }
@@ -204,14 +204,14 @@ export function EnableDrag({
                         }}
                     >
                         {createPortal(
-                            <>{grab({ o3: grabAPI.o3 })}</>,
+                            <>{grab({ o3: grabAPI.o3, at })}</>,
                             grabAPI.o3,
                         )}
                         {grabAPI.display}
                     </DragControls>
                 }
 
-                {createPortal(<>{show({ o3: grabAPI.o3 })}</>, showAPI.o3)}
+                {createPortal(<>{show({ o3: grabAPI.o3, at })}</>, showAPI.o3)}
                 {showAPI.display}
             </SomeContext.Provider>
         </>

@@ -86,16 +86,14 @@ const notifications = [
 ];
 
 export function UIKitDrawer({
-    drawerUI = null,
-    title = null,
-    portal = null,
     openDrawer = false,
     onSetDrawer = (v: boolean) => {},
+    upperUI = null,
+    drawerUI = null,
 }: {
-    onSetDrawer: (v: boolean) => void;
     openDrawer: boolean;
-    title: ReactElement | null;
-    portal: ReactElement | null;
+    onSetDrawer: (v: boolean) => void;
+    upperUI: ReactElement | null;
     drawerUI?: ReactElement | null;
 }) {
     const rotationX = useMemo(() => signal(0), []);
@@ -202,17 +200,6 @@ export function UIKitDrawer({
                     {/*  */}
                     <Container
                         cursor="pointer"
-                        onClick={(e) => {
-                            e.stopPropagation();
-
-                            console.log(e.movementX);
-                            if (e.movementX >= 10 || e.movementY >= 10) {
-                                //
-                                //
-                            } else {
-                                onSetDrawer(!openDrawer);
-                            }
-                        }}
                         backgroundColor={0xffffff}
                         dark={{ backgroundColor: 0x0 }}
                         borderRadius={20}
@@ -223,9 +210,7 @@ export function UIKitDrawer({
                         transformRotateX={rotationX}
                         castShadow
                     >
-                        <>{portal}</>
-
-                        <>{title}</>
+                        <>{upperUI}</>
                     </Container>
 
                     {drawerUI && (

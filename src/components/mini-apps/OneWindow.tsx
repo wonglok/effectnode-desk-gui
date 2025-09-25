@@ -51,6 +51,7 @@ import { PreviewPlane } from "./UIkitObjects/RenderPlanes/PreviewPlane";
 import { NodePlane } from "./UIkitObjects/RenderPlanes/NodePlane";
 import { NotificationSection } from "./UIkitObjects/Sections/Notifications";
 import { DemoPlane } from "./UIkitObjects/RenderPlanes/DemoPlane";
+import { TitleSection } from "./UIkitObjects/Sections/TitleSection";
 
 export function OneWindow({ win }: { win: WinObject }) {
     // let ref = useRef<Object3D>(null);
@@ -86,12 +87,13 @@ export function OneWindow({ win }: { win: WinObject }) {
                         {/*  */}
                     </>
                 )}
-                grab={({ o3 }) => {
+                grab={({ o3, at }) => {
                     return (
                         <>
                             {/*  */}
 
                             <UIKitDrawer
+                                //
                                 openDrawer={openDrawer}
                                 onSetDrawer={(value) => {
                                     setOpen(value);
@@ -99,95 +101,27 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         controls.enabled = true;
                                     }
                                 }}
-                                title={
-                                    <>
-                                        <Container
-                                            backgroundColor={0xffffff}
-                                            dark={{ backgroundColor: 0x0 }}
-                                            flexDirection="row"
-                                            padding={28}
-                                            paddingTop={32 * 0.0}
-                                            alignItems="center"
-                                            justifyContent="space-between"
-                                            borderBottomRadius={20}
-                                            castShadow
-                                        >
-                                            <Container
-                                                flexDirection="column"
-                                                gap={8}
-                                            >
-                                                <Container
-                                                    flexDirection={"column"}
-                                                    onPointerEnter={() => {
-                                                        //
-                                                        // document.body.style.cursor =
-                                                        //     "crosshair";
-                                                        //
-                                                    }}
-                                                    onPointerLeave={() => {
-                                                        //
-                                                        // document.body.style.cursor = "";
-                                                        //
-                                                    }}
-                                                >
-                                                    <Text
-                                                        fontSize={30}
-                                                        fontWeight="medium"
-                                                        letterSpacing={-0.4}
-                                                        color={colors.primary}
-                                                        onPointerDown={(ev) => {
-                                                            ev.stopPropagation();
-
-                                                            if (controls) {
-                                                                controls.enabled = false;
-                                                            }
-                                                        }}
-                                                    >
-                                                        {win?.value?.name}
-                                                    </Text>
-
-                                                    <Text
-                                                        fontSize={20}
-                                                        fontWeight="medium"
-                                                        letterSpacing={-0.4}
-                                                        color={colors.primary}
-                                                        onPointerDown={(ev) => {
-                                                            ev.stopPropagation();
-
-                                                            if (controls) {
-                                                                controls.enabled = false;
-                                                            }
-                                                        }}
-                                                    >
-                                                        {win?.value?.name}
-                                                    </Text>
-                                                </Container>
-                                            </Container>
-
-                                            <Container flexDirection="row">
-                                                <Avatar
-                                                    //
-                                                    width={40}
-                                                    src="/avatar-icon/ava1.png"
-                                                />
-                                                <Avatar
-                                                    marginLeft={-6}
-                                                    width={40}
-                                                    src="/avatar-icon/ava2.png"
-                                                />
-                                                <Avatar
-                                                    marginLeft={-6}
-                                                    width={40}
-                                                    src="/avatar-icon/ava3.png"
-                                                />
-                                            </Container>
-                                        </Container>
-                                    </>
-                                }
-                                portal={
+                                //
+                                upperUI={
                                     <>
                                         <Suspense fallback={null}>
                                             <Content
+                                                onPointerDown={(ev) => {
+                                                    ev.eventObject.userData.movement = 0;
+                                                }}
+                                                onPointerMove={(ev) => {
+                                                    ev.eventObject.userData.movement += 1;
+                                                }}
+                                                onClick={(ev) => {
+                                                    ev.stopPropagation();
+
+                                                    if (
+                                                        ev.eventObject.userData
+                                                            .movement <= 20
+                                                    ) {
+                                                        setOpen(!openDrawer);
+                                                    }
+                                                }}
                                                 transformTranslateZ={1}
                                                 padding={14}
                                                 keepAspectRatio={false}
@@ -210,6 +144,11 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 )}
                                             </Content>
                                         </Suspense>
+
+                                        <TitleSection
+                                            title={`${win.value.name}`}
+                                            description={`Mini Window`}
+                                        ></TitleSection>
                                     </>
                                 }
                                 drawerUI={
