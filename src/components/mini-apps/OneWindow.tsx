@@ -110,7 +110,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         )}
                                     </>
                                 }
-                                footer={
+                                drawerUI={
                                     <>
                                         {/* <NotificationSection></NotificationSection> */}
                                     </>

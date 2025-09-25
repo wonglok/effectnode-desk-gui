@@ -86,7 +86,7 @@ const notifications = [
 ];
 
 export function UIKitDrawer({
-    footer = null,
+    drawerUI = null,
     content = null,
     portal = null,
     openDrawer = false,
@@ -96,23 +96,25 @@ export function UIKitDrawer({
     openDrawer: boolean;
     content: ReactElement | null;
     portal: ReactElement | null;
-    footer: ReactElement | null;
+    drawerUI?: ReactElement | null;
 }) {
     const rotationX = useMemo(() => signal(0), []);
     const translateY = useMemo(() => signal(0), []);
     const translateZ = useMemo(() => signal(0), []);
     const groupMoveZ = useMemo(() => signal(0), []);
-    const topCardBorderRadius = useMemo(() => signal(0), []);
+    const topCardBorderRadius = useMemo(() => signal(50), []);
 
     useFrame((_, delta) => {
         //
-        easing.damp(
-            topCardBorderRadius,
-            "value",
-            openDrawer ? 0 : 50,
-            0.2,
-            delta,
-        );
+        if (drawerUI) {
+            easing.damp(
+                topCardBorderRadius,
+                "value",
+                openDrawer ? 0 : 50,
+                0.2,
+                delta,
+            );
+        }
 
         //
         easing.damp(rotationX, "value", openDrawer ? 35 : 0, 0.2, delta);
@@ -269,61 +271,63 @@ export function UIKitDrawer({
                         </Container>
                     </Container>
 
-                    <Container
-                        onPointerDown={(ev) => {
-                            if (!openDrawer) {
-                                ev.stopPropagation();
-                            }
-                        }}
-                        flexDirection="column"
-                        cursor={openDrawer ? `grab` : ``}
-                        overflow={"hidden"}
-                        transformTranslateZ={0}
-                        castShadow
-                    >
+                    {drawerUI && (
                         <Container
-                            //
-                            // borderWidth={0}
+                            onPointerDown={(ev) => {
+                                if (!openDrawer) {
+                                    ev.stopPropagation();
+                                }
+                            }}
                             flexDirection="column"
-                            //
-                            transformTranslateX={settings.translateX}
-                            transformTranslateY={settings.translateY}
-                            transformTranslateZ={settings.translateZ}
-                            transformRotateX={settings.rotationX}
-                            transformRotateY={settings.rotationY}
-                            transformRotateZ={settings.rotationZ}
-
-                            //
+                            cursor={openDrawer ? `grab` : ``}
+                            overflow={"hidden"}
+                            transformTranslateZ={0}
+                            castShadow
                         >
                             <Container
-                                borderBottomRadius={15}
-                                flexDirection={"column"}
-                                backgroundColor={colors.secondary}
+                                //
+                                // borderWidth={0}
+                                flexDirection="column"
+                                //
+                                transformTranslateX={settings.translateX}
+                                transformTranslateY={settings.translateY}
+                                transformTranslateZ={settings.translateZ}
+                                transformRotateX={settings.rotationX}
+                                transformRotateY={settings.rotationY}
+                                transformRotateZ={settings.rotationZ}
+
+                                //
                             >
-                                {footer}
+                                <Container
+                                    borderBottomRadius={15}
+                                    flexDirection={"column"}
+                                    backgroundColor={colors.secondary}
+                                >
+                                    {drawerUI}
 
-                                <CardFooter marginTop={30}>
-                                    <Button
-                                        cursor="pointer"
-                                        onClick={(e) => {
-                                            e.stopPropagation();
+                                    <CardFooter marginTop={30}>
+                                        <Button
+                                            cursor="pointer"
+                                            onClick={(e) => {
+                                                e.stopPropagation();
 
-                                            onSetDrawer(false);
-                                        }}
-                                        flexDirection="row"
-                                        width="100%"
-                                    >
-                                        <BotIcon
-                                            marginRight={8}
-                                            height={16}
-                                            width={16}
-                                        />
-                                        <Text>Close</Text>
-                                    </Button>
-                                </CardFooter>
+                                                onSetDrawer(false);
+                                            }}
+                                            flexDirection="row"
+                                            width="100%"
+                                        >
+                                            <BotIcon
+                                                marginRight={8}
+                                                height={16}
+                                                width={16}
+                                            />
+                                            <Text>Close</Text>
+                                        </Button>
+                                    </CardFooter>
+                                </Container>
                             </Container>
                         </Container>
-                    </Container>
+                    )}
                 </Root>
 
                 {/*  */}
