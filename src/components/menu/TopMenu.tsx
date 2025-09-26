@@ -10,10 +10,11 @@ import { vanilla } from "@/trpc/react";
 import { useEffect } from "react";
 import { useMiniApps } from "../mini-apps/useMiniApps";
 import { Button } from "../ui/button";
-import { GoalIcon, HomeIcon, Icon, LampDeskIcon } from "lucide-react";
+import { GoalIcon, HomeIcon, Icon, LampDeskIcon, PenIcon } from "lucide-react";
 import type { WorkspaceObjectInterface } from "@/server/db/WorkspaceObject";
 import type { WorkspaceACLInterface } from "@/server/db/WorkspaceACL";
 import { useRouter } from "next/navigation";
+import { Rename } from "./Rename";
 
 export function TopMenu({}) {
     let router = useRouter();
@@ -21,7 +22,6 @@ export function TopMenu({}) {
     let workspaceID = useMiniApps((r) => r.workspaceID);
     useEffect(() => {
         vanilla.acl.listMy.mutate({}).then((data: WorkspaceACLInterface[]) => {
-            console.log(data);
             useMiniApps.setState({
                 workspaces: data,
             });
@@ -61,6 +61,15 @@ export function TopMenu({}) {
                             </DropdownMenuItem>
                         );
                     })}
+
+                    <DropdownMenuItem
+                        onClick={() => {
+                            //
+                        }}
+                    >
+                        <PenIcon></PenIcon>
+                        {`Edit Workspace Settings`}
+                    </DropdownMenuItem>
                     {/* <DropdownMenuItem>Billing</DropdownMenuItem>
                     <DropdownMenuItem>
                         <HomeIcon></HomeIcon>
