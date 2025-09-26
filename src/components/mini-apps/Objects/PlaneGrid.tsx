@@ -169,10 +169,20 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
         ).toNonIndexed();
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
-        box1.scale(1, 5, 1);
+        box1.scale(1.5, 5, 1.5);
+        box1.scale(2, 2, 2);
 
         box1.rotateX(Math.PI * -0.5);
         box1.center();
+        box1.computeVertexNormals();
+        box1.computeBoundingBox();
+        if (box1.boundingBox) {
+            box1.translate(
+                0,
+                (box1.boundingBox?.max.y + box1.boundingBox?.min.y) * -1,
+                0,
+            );
+        }
 
         return box1;
     }, []);
@@ -186,11 +196,21 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
         ).toNonIndexed();
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
-        box1.scale(1, 5, 1);
+        box1.scale(1.5, 5, 1.5);
+        box1.scale(2, 2, 2);
 
         box1.rotateX(Math.PI * -0.5);
         box1.rotateY(Math.PI * -0.5);
         box1.center();
+        box1.computeVertexNormals();
+        box1.computeBoundingBox();
+        if (box1.boundingBox) {
+            box1.translate(
+                0,
+                (box1.boundingBox?.max.y + box1.boundingBox?.min.y) * -1,
+                0,
+            );
+        }
 
         return box1;
     }, []);
@@ -214,7 +234,7 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                             new MeshStandardMaterial({
                                 flatShading: true,
                                 color: BrandColors.primary,
-                                roughness: 0.0,
+                                roughness: 0.2,
                                 metalness: 1.0,
                             }),
                         ),
@@ -223,7 +243,7 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                             new MeshStandardMaterial({
                                 flatShading: true,
                                 color: BrandColors.primary,
-                                roughness: 0.0,
+                                roughness: 0.2,
                                 metalness: 1.0,
                             }),
                         ),
@@ -261,20 +281,22 @@ export function PlaneGrid() {
 
     return (
         <>
-            <PlusGrid></PlusGrid>
+            <group position={[0, -0.2, 0]}>
+                <PlusGrid></PlusGrid>
 
-            <Plane
-                onPointerMove={(st) => {
-                    cursor.copy(st.point);
-                }}
-                scale={100}
-                rotation={[-Math.PI * 0.5, 0, 0]}
-                position={[0, -0.1, 0]}
-            >
-                <meshBasicMaterial
-                    color={BrandColors.background}
-                ></meshBasicMaterial>
-            </Plane>
+                <Plane
+                    onPointerMove={(st) => {
+                        cursor.copy(st.point);
+                    }}
+                    scale={100}
+                    rotation={[-Math.PI * 0.5, 0, 0]}
+                    position={[0, -0.1, 0]}
+                >
+                    <meshBasicMaterial
+                        color={BrandColors.background}
+                    ></meshBasicMaterial>
+                </Plane>
+            </group>
         </>
     );
 }

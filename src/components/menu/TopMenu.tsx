@@ -7,14 +7,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { vanilla } from "@/trpc/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMiniApps } from "../mini-apps/useMiniApps";
 import { Button } from "../ui/button";
 import { GoalIcon, HomeIcon, Icon, LampDeskIcon, PenIcon } from "lucide-react";
 import type { WorkspaceObjectInterface } from "@/server/db/WorkspaceObject";
 import type { WorkspaceACLInterface } from "@/server/db/WorkspaceACL";
 import { useRouter } from "next/navigation";
-import { Rename } from "./Rename";
+import { SettingsDialog } from "./DeskSettings";
+import { DialogTrigger } from "../ui/dialog";
+// import { Rename } from "./Rename";
 
 export function TopMenu({}) {
     let router = useRouter();
@@ -27,6 +29,7 @@ export function TopMenu({}) {
             });
         });
     }, []);
+    const [open, setOpen] = useState(false);
 
     return (
         <>
@@ -42,8 +45,21 @@ export function TopMenu({}) {
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
-                    <DropdownMenuLabel>My Desks</DropdownMenuLabel>
+                    <>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                setOpen(true);
+                            }}
+                        >
+                            <PenIcon></PenIcon>
+                            {`Edit Workspace Settings`}
+                        </DropdownMenuItem>
+                    </>
+
                     <DropdownMenuSeparator />
+
+                    <DropdownMenuLabel>My Own & Shared Desks</DropdownMenuLabel>
+
                     {workspaces.map((work) => {
                         return (
                             <DropdownMenuItem
@@ -62,14 +78,6 @@ export function TopMenu({}) {
                         );
                     })}
 
-                    <DropdownMenuItem
-                        onClick={() => {
-                            //
-                        }}
-                    >
-                        <PenIcon></PenIcon>
-                        {`Edit Workspace Settings`}
-                    </DropdownMenuItem>
                     {/* <DropdownMenuItem>Billing</DropdownMenuItem>
                     <DropdownMenuItem>
                         <HomeIcon></HomeIcon>
@@ -82,6 +90,8 @@ export function TopMenu({}) {
                     </DropdownMenuItem> */}
                 </DropdownMenuContent>
             </DropdownMenu>
+
+            <SettingsDialog open={open} setOpen={setOpen}></SettingsDialog>
         </>
     );
 }

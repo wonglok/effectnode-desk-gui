@@ -107,17 +107,17 @@ function EnvirionmentContent() {
                 <PlaneGrid></PlaneGrid>
             </group>
 
-            <EffectsBloom
+            {/* <EffectsBloom
                 refs={{
                     refGlow,
                     redLights,
                 }}
-            ></EffectsBloom>
+            ></EffectsBloom> */}
         </>
     );
 }
 
-function EffectsBloom({ refs }: any) {
+export function EffectsBloom({ refs }: any) {
     let domGlow = refs?.refGlow?.current;
     let domLights = refs?.refLights?.current;
     let lightsList: any[] = [];
