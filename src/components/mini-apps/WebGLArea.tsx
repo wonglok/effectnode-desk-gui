@@ -102,8 +102,6 @@ function EnvirionmentContent() {
                 <PlaneGrid></PlaneGrid>
             </group>
 
-            {/* <Grid magic={true}></Grid> */}
-
             <Effects
                 refs={{
                     refGlow,
