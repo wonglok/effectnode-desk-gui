@@ -8,6 +8,7 @@ import { Box, Cloud, Sky, useGLTF } from "@react-three/drei";
 import { RenderPlane } from "../mini-apps/Objects/RenderPlane";
 import { Avatar2 } from "../mini-apps/Objects/Avatar2";
 import { Grid } from "../mini-apps/Objects/Grid";
+import { AvatarMotion } from "../mini-apps/Objects/AvatarMotion";
 
 export function Laptop(props: JSX.IntrinsicElements["group"]) {
     const { nodes, materials } = useGLTF("/login/laptop-v1.glb") as any;
@@ -153,14 +154,18 @@ export function Laptop(props: JSX.IntrinsicElements["group"]) {
                         scale={[size.x, size.z, 1]}
                     >
                         <RenderPlane
-                            width={(350 * size.x) / size.z}
-                            height={[350]}
+                            width={(512 * size.x) / size.z}
+                            height={[512]}
                         >
                             <Sky></Sky>
                             <Cloud position={[0, -5, -2.5]}></Cloud>
                             <ambientLight
                                 intensity={Math.PI / 2}
                             ></ambientLight>
+
+                            <group position={[0, -5, 0]}>
+                                <Grid magic></Grid>
+                            </group>
                         </RenderPlane>
                     </group>
 
@@ -176,3 +181,9 @@ export function Laptop(props: JSX.IntrinsicElements["group"]) {
         </group>
     );
 }
+
+//
+// ai programmed avatar
+//
+// ai programmed avatar
+//
