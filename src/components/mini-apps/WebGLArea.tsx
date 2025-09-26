@@ -37,10 +37,12 @@ import {
 import { useEffect, useRef } from "react";
 import { useMiniApps } from "./useMiniApps";
 import { PlaneGrid } from "./Objects/PlaneGrid";
+import { useParams } from "next/navigation";
 
 //
 
 export function WebGLArea() {
+    let params = useParams();
     return (
         <>
             {/*  */}
@@ -56,7 +58,9 @@ export function WebGLArea() {
                 <EnvirionmentContent></EnvirionmentContent>
 
                 <group position={[0, 0.01, 0]}>
-                    <MiniApps></MiniApps>
+                    <MiniApps
+                        key={`${params?.workspaceID}-${"workspace"}`}
+                    ></MiniApps>
                 </group>
             </Canvas>
 
