@@ -83,36 +83,37 @@ function EnvirionmentContent() {
                 target={[0, 0, 0]}
                 makeDefault
                 enableRotate={false}
-            ></MapControls>
+            >
+                {/*  */}
+            </MapControls>
 
-            <PerspectiveCamera
-                makeDefault
-                position={[0, 10, 5]}
-            ></PerspectiveCamera>
+            <PerspectiveCamera makeDefault position={[0, 10, 5]}>
+                {/*  */}
+            </PerspectiveCamera>
 
-            <Environment
-                files={[`/hdr/poly_haven_studio_1k.hdr`]}
-            ></Environment>
+            <Environment files={[`/hdr/poly_haven_studio_1k.hdr`]}>
+                {/*  */}
+            </Environment>
 
             <group ref={redLights} layers={20} position={[0, -0.1, 0]}>
-                <directionalLight></directionalLight>
+                <directionalLight position={[5, 5, 5]}></directionalLight>
             </group>
 
             <group ref={refGlow} layers={20} position={[0, -0.1, 0]}>
                 <PlaneGrid></PlaneGrid>
             </group>
 
-            <Effects
+            <EffectsBloom
                 refs={{
                     refGlow,
                     redLights,
                 }}
-            ></Effects>
+            ></EffectsBloom>
         </>
     );
 }
 
-function Effects({ refs }: any) {
+function EffectsBloom({ refs }: any) {
     let domGlow = refs?.refGlow?.current;
     let domLights = refs?.refLights?.current;
     let lightsList: any[] = [];
@@ -136,7 +137,6 @@ function Effects({ refs }: any) {
     return (
         <>
             <EffectComposer>
-                {/*  */}
                 <SelectiveBloom
                     height={512}
                     resolutionScale={0.5}
@@ -144,7 +144,7 @@ function Effects({ refs }: any) {
                     selection={meshList}
                     selectionLayer={20}
                     luminanceThreshold={1.0}
-                    intensity={0.2}
+                    intensity={0.5}
                     mipmapBlur
                 ></SelectiveBloom>
             </EffectComposer>
