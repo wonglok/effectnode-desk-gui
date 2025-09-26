@@ -10,7 +10,7 @@ export function Avatar2() {
         `/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`,
     );
 
-    let avatar = useMemo(() => {
+    let avatar: any = useMemo(() => {
         let s = clone(avatarRaw.scene);
         s.traverse((i) => {
             i.frustumCulled = false;
@@ -19,6 +19,7 @@ export function Avatar2() {
             scene: s,
         };
     }, [avatarRaw]);
+
     let mixer = useMemo(() => {
         return new AnimationMixer(avatar.scene);
     }, [avatar.scene]);

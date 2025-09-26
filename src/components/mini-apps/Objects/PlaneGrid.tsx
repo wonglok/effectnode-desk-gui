@@ -47,6 +47,7 @@ function OneItem({
     let refTime = useRef<number>(0);
     //
     let ref = useRef<Object3D>(null);
+    let gp = useRef<Object3D>(null);
 
     let color = useMemo(() => {
         return BrandColors.grid;
@@ -58,32 +59,24 @@ function OneItem({
         if (ref.current) {
             if (type === "1") {
                 //
-                ref.current.rotation.z += dt;
+
+                ref.current.rotation.z += dt * 0.25;
+
                 //
             }
             if (type === "2") {
                 //
-                ref.current.rotation.x += dt;
+
+                ref.current.rotation.x += dt * 0.25;
+
                 //
             }
 
-            //
-            // let val = (st as any).controls?.target as Vector3;
-            // if (!val) {
-            //     val = new Vector3(0, 0, 0);
-            // }
-            // let ppapVV = val.clone();
-            // if ((cursor as any)?.force) {
-            //     ppapVV.copy(cursor);
-            // } else if ("ontouchstart" in window) {
-            // } else {
-            //     ppapVV.copy(cursor);
-            // }
-            // ppapVV.y = 0;
-            // let mypos = ref.current.position.clone();
-            // if (ppapVV) {
-            // }
-            //
+            // ref.current.color.offsetHSL(Math.random() * dt, 0, 0);
+        }
+
+        if (gp.current) {
+            // gp.current.rotation.y += dt;
         }
     });
 
@@ -91,14 +84,15 @@ function OneItem({
 
     return (
         <>
-            <MySymbol
-                ref={ref}
-                frustumCulled={false}
-                key={`xx${x}-yy${y}`}
-                rotation={rot}
-                position={[x, 0, y]}
-                color={color}
-            ></MySymbol>
+            <group position={[x, 0, y]} ref={gp}>
+                <MySymbol
+                    ref={ref}
+                    frustumCulled={false}
+                    key={`xx${x}-yy${y}`}
+                    rotation={rot}
+                    color={color}
+                ></MySymbol>
+            </group>
         </>
     );
 }
@@ -121,9 +115,9 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                         type="1"
                         MySymbol={meshes.SymbolOne}
                         key={`xx${x}-yy${y}`}
-                        rot={[0, 0, x / num]}
-                        x={x * 2}
-                        y={y * 2}
+                        rot={[0, 0, Math.random() * Math.PI]}
+                        x={x * 4}
+                        y={y * 4}
                     ></OneItem>,
                 );
 
@@ -152,9 +146,9 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                         type="2"
                         MySymbol={meshes.SymbolTwo}
                         key={`xx${x}-yy${y}`}
-                        rot={[y / num, 0, 0]}
-                        x={x * 2}
-                        y={y * 2}
+                        rot={[Math.random() * Math.PI, 0, 0]}
+                        x={x * 4}
+                        y={y * 4}
                     ></OneItem>,
                 );
 
@@ -168,11 +162,15 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
 
     let hexGeo = useMemo(() => {
         let box1: BufferGeometry = new CylinderGeometry(
-            0.05,
-            0.05,
+            0.025,
+            0.025,
             1,
-            5,
+            7,
         ).toNonIndexed();
+
+        box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
+        box1.scale(1, 5, 1);
+
         box1.rotateX(Math.PI * -0.5);
         box1.center();
 
@@ -181,11 +179,15 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
 
     let circleGeo = useMemo(() => {
         let box1: BufferGeometry = new CylinderGeometry(
-            0.05,
-            0.05,
+            0.025,
+            0.025,
             1,
-            5,
+            7,
         ).toNonIndexed();
+
+        box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
+        box1.scale(1, 5, 1);
+
         box1.rotateX(Math.PI * -0.5);
         box1.rotateY(Math.PI * -0.5);
         box1.center();
@@ -251,48 +253,17 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
 //
 
 export function PlaneGrid() {
-    let selection = useMiniApps((r) => r.selection);
+    let scene = useThree((r) => r.scene);
 
-    let ref = useRef<any>(null);
     useEffect(() => {
-        let el: any = ref.current;
+        scene.background = BrandColors.background;
+    }, [scene]);
 
-        if (el) {
-            selection.push(el);
-
-            return () => {
-                selection.splice(
-                    selection.findIndex((s) => s.uuid === el.uuid),
-                    1,
-                );
-                useMiniApps.setState({
-                    selection: [...selection],
-                });
-            };
-        }
-    }, []);
     return (
         <>
-            {/* <gridHelper
-                args={[50 * 2, 50, BrandColors.grid, BrandColors.grid]}
-                position={[0, -0.01, 0]}
-            /> */}
-            <PlusGrid ref={ref}></PlusGrid>
+            <PlusGrid></PlusGrid>
 
             <Plane
-                // ref={(ev: any) => {
-                //     if (ev) {
-                //         let newSel = [selection];
-
-                //         if (newSel.some((r: any) => r?.uuid === ev?.uuid)) {
-                //             newSel.push(ev);
-                //         }
-
-                //         useMiniApps.setState({
-                //             selection: newSel,
-                //         });
-                //     }
-                // }}
                 onPointerMove={(st) => {
                     cursor.copy(st.point);
                 }}

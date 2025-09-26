@@ -15,7 +15,7 @@ import {
 // import { LaydownText } from "./Objects/LaydownText";
 import { Grid } from "./Objects/Grid";
 // import { StandUpText } from "./Objects/StandupText";
-import { DirectionalLight, NoToneMapping } from "three";
+import { DirectionalLight, Group, NoToneMapping } from "three";
 // import { Avatar } from "./Objects/Avatar";
 // import { UIKitObject } from "./Objects/UIKitObject";
 // import { EnableDrag } from "./Objects/EnableDrag";
@@ -34,7 +34,7 @@ import {
     Selection,
     SelectiveBloom,
 } from "@react-three/postprocessing";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useMiniApps } from "./useMiniApps";
 import { PlaneGrid } from "./Objects/PlaneGrid";
 
@@ -67,6 +67,7 @@ export function WebGLArea() {
 
 function EnvirionmentContent() {
     let refDir = useRef<DirectionalLight>(new DirectionalLight()) as any;
+    let refGlow = useRef<Group>(new Group()) as any;
 
     return (
         <>
@@ -95,7 +96,7 @@ function EnvirionmentContent() {
 
             <directionalLight ref={refDir}></directionalLight>
 
-            <group position={[0, -1, 0]}>
+            <group ref={refGlow} layers={20} position={[0, -0.1, 0]}>
                 <PlaneGrid></PlaneGrid>
             </group>
 
@@ -103,6 +104,7 @@ function EnvirionmentContent() {
 
             <Effects
                 data={{
+                    refGlow,
                     refDir,
                 }}
             ></Effects>
@@ -113,19 +115,46 @@ function EnvirionmentContent() {
 function Effects({ data }: any) {
     let selection = useMiniApps((r) => r.selection);
 
+    useEffect(() => {
+        let dom = data.refGlow.current;
+        if (dom) {
+            let selection2: any = [];
+
+            dom.traverse((it: any) => {
+                //
+                if (it.material) {
+                    //
+                    selection2.push(it);
+                }
+            });
+
+            useMiniApps.setState({
+                selection: selection2,
+            });
+            return () => {
+                useMiniApps.setState({
+                    selection: [],
+                });
+            };
+        }
+    }, [data]);
+
     return (
         <>
             <EffectComposer>
                 <SelectiveBloom
                     lights={[data.refDir]}
-                    selection={selection.filter((r) => r?.parent)}
-                    selectionLayer={1}
-                    luminanceThreshold={0.0}
-                    intensity={2}
+                    selection={selection}
+                    selectionLayer={20}
+                    luminanceThreshold={1.0}
+                    intensity={1.0}
                     mipmapBlur
-                    ignoreBackground={false}
                 ></SelectiveBloom>
             </EffectComposer>
         </>
     );
 }
+
+//
+//
+//
