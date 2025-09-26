@@ -7,6 +7,7 @@ import React, { useRef, type JSX } from "react";
 import { Box, Cloud, Sky, useGLTF } from "@react-three/drei";
 import { RenderPlane } from "../mini-apps/Objects/RenderPlane";
 import { Avatar2 } from "../mini-apps/Objects/Avatar2";
+import { Grid } from "../mini-apps/Objects/Grid";
 
 export function Laptop(props: JSX.IntrinsicElements["group"]) {
     const { nodes, materials } = useGLTF("/login/laptop-v1.glb") as any;
@@ -156,8 +157,7 @@ export function Laptop(props: JSX.IntrinsicElements["group"]) {
                             height={[350]}
                         >
                             <Sky></Sky>
-                            <Cloud position={[0, 0, -2.5]}></Cloud>
-                            <Avatar2></Avatar2>
+                            <Cloud position={[0, -5, -2.5]}></Cloud>
                             <ambientLight
                                 intensity={Math.PI / 2}
                             ></ambientLight>

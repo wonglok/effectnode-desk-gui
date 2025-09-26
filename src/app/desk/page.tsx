@@ -37,6 +37,8 @@ import { Suspense, useEffect, useState } from "react";
 import { Laptop } from "@/components/login/Laptop";
 import { api, vanilla } from "@/trpc/react";
 import { Loader } from "lucide-react";
+import { AvatarMotion } from "@/components/mini-apps/Objects/AvatarMotion";
+import { cursor, Grid } from "@/components/mini-apps/Objects/Grid";
 
 export default function Page() {
     return (
@@ -53,7 +55,8 @@ export default function Page() {
                         <Sky rayleigh={0.1} azimuth={-0.5 * Math.PI}></Sky>
 
                         <ambientLight intensity={Math.PI}></ambientLight>
-                        <group scale={5} position={[0, 0, -5]}>
+
+                        <group scale={5} position={[0, 3.5, -5]}>
                             <Float floatIntensity={3}>
                                 <Cloud
                                     color={"#cccccc"}
@@ -62,15 +65,21 @@ export default function Page() {
                             </Float>
                             <Suspense fallback={null}>
                                 <Gltf
+                                    onPointerMove={(ev) => {
+                                        cursor.copy(ev.point);
+
+                                        (cursor as any).force = true;
+                                        console.log(ev.point.toArray());
+                                    }}
                                     scale={1.5}
                                     rotation={[0, Math.PI * 0.0, 0]}
                                     position={[0, -3, 0]}
                                     src={`/login/desk-v1.glb`}
                                 ></Gltf>
                                 <group
-                                    scale={0.35}
-                                    rotation={[0, Math.PI * -0.25, 0]}
-                                    position={[0.8, -1.5, 0.3]}
+                                    scale={0.3}
+                                    rotation={[0, Math.PI * 0, 0]}
+                                    position={[0, -1.5, 0.3]}
                                 >
                                     <Laptop></Laptop>
                                 </group>
@@ -81,6 +90,13 @@ export default function Page() {
                                 ></Environment>
                             </Suspense>
                         </group>
+
+                        <AvatarMotion
+                            rotation={[0, -0.4, 0]}
+                            position={[0.9, -1.5, 0]}
+                            lookAt={[-1, 0.5, 5]}
+                            motionURL={`/avatar/sit.fbx`}
+                        ></AvatarMotion>
 
                         <directionalLight
                             position={[-1, 1, 1]}
@@ -93,11 +109,7 @@ export default function Page() {
                         ></PerspectiveCamera>
                     </Canvas>
                 </div>
-                <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center">
-                    <div className="w-[333px] shrink-0">
-                        <CardDemo></CardDemo>
-                    </div>
-                </div>
+                <CardDemo></CardDemo>
             </div>
         </>
     );
@@ -112,7 +124,15 @@ function CardDemo() {
         listMy.mutateAsync({});
     }, []);
     return (
-        <Card className="w-full max-w-sm bg-[rgb(255,255,255,0.6)] backdrop-blur-xl">
+        <Card
+            className="absolute w-full max-w-sm bg-[rgb(255,255,255,0.6)] backdrop-blur"
+            style={{
+                top: `calc(50% - 333px / 2)`,
+                bottom: `calc(50% - 333px / 2)`,
+                left: `calc(50% - 333px / 2)`,
+                right: `calc(50% - 333px / 2)`,
+            }}
+        >
             <CardHeader>
                 <CardTitle>Work Desks</CardTitle>
                 <CardDescription>Desk on the Cloud</CardDescription>

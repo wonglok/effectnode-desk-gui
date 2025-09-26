@@ -12,7 +12,7 @@ import {
     // RoundedBox,
 } from "@react-three/drei";
 // import { LaydownText } from "./Objects/LaydownText";
-import { Grid } from "./Objects/Grid";
+import { Grid, PlaneGrid } from "./Objects/Grid";
 // import { StandUpText } from "./Objects/StandupText";
 import { NoToneMapping } from "three";
 // import { Avatar } from "./Objects/Avatar";
@@ -56,9 +56,10 @@ function EnvirionmentContent() {
     return (
         <>
             {/* * */}
-            <group scale={1}>
+            {/* <group scale={1}>
                 <Grid></Grid>
-            </group>
+            </group> */}
+            <PlaneGrid></PlaneGrid>
 
             <MapControls
                 object-position={[0, 10, 5]}

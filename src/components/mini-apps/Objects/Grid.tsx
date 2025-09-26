@@ -30,7 +30,7 @@ let primary = new Color("#E96825").offsetHSL(0.0, 0.0, 0.05);
 let grid = new Color(primary).offsetHSL(0, 0, -0.2);
 let background = new Color(primary).offsetHSL(0, 0, -0.44);
 
-let cursor = new Vector3();
+export const cursor = new Vector3();
 
 let colors = {
     primary,
@@ -62,16 +62,21 @@ function OneItem({
 
         if (ref.current) {
             let val = (st as any).controls?.target as Vector3;
-            let val2 = val.clone();
-            if ("ontouchstart" in window) {
-            } else {
-                val2.copy(cursor);
+            if (!val) {
+                val = new Vector3(0, 0, 0);
             }
-            val2.y = 0;
+            let ppapVV = val.clone();
+            if ((cursor as any)?.force) {
+                ppapVV.copy(cursor);
+            } else if ("ontouchstart" in window) {
+            } else {
+                ppapVV.copy(cursor);
+            }
+            ppapVV.y = 0;
             let mypos = ref.current.position.clone();
-            if (val2) {
+            if (ppapVV) {
                 let maxi = 50;
-                let dist = val2.distanceTo(mypos);
+                let dist = ppapVV.distanceTo(mypos);
                 //
                 if (dist >= maxi) {
                     dist = maxi;
@@ -83,7 +88,7 @@ function OneItem({
                 easing.damp(
                     ref.current.position,
                     "y",
-                    -10 + circleRadius * 10,
+                    -10 + circleRadius * (10 + 75),
                     0.2,
                     dt,
                 );
@@ -170,7 +175,33 @@ function OneItem({
     );
 }
 
-export const Grid = ({ num = 25 }) => {
+export function PlaneGrid() {
+    return (
+        <>
+            <gridHelper
+                args={[50 * 2, 50, colors.grid, colors.grid]}
+                position={[0, -0.01, 0]}
+            />
+
+            <Plane
+                onPointerMove={(st) => {
+                    cursor.copy(st.point);
+                }}
+                scale={100}
+                rotation={[-Math.PI * 0.5, 0, 0]}
+                position={[0, -0.1, 0]}
+                receiveShadow
+                castShadow
+            >
+                <meshBasicMaterial
+                    color={colors.background}
+                ></meshBasicMaterial>
+            </Plane>
+        </>
+    );
+}
+
+export const Grid = ({ num = 25, magic = false }) => {
     let getLayout1 = ({ meshes }: { meshes: any }) => {
         let insts = [];
 
@@ -319,9 +350,8 @@ export const Grid = ({ num = 25 }) => {
 
     return (
         <>
-            {false && (
+            {magic && (
                 <Merged
-                    frames={1}
                     frustumCulled={false}
                     count={num * num * 5}
                     meshes={{
@@ -362,26 +392,6 @@ export const Grid = ({ num = 25 }) => {
                     }}
                 </Merged>
             )}
-
-            <gridHelper
-                args={[50 * 2, 50, colors.grid, colors.grid]}
-                position={[0, -0.01, 0]}
-            />
-
-            <Plane
-                onPointerMove={(st) => {
-                    cursor.copy(st.point);
-                }}
-                scale={100}
-                rotation={[-Math.PI * 0.5, 0, 0]}
-                position={[0, -0.1, 0]}
-                receiveShadow
-                castShadow
-            >
-                <meshBasicMaterial
-                    color={colors.background}
-                ></meshBasicMaterial>
-            </Plane>
 
             {/*  */}
         </>
