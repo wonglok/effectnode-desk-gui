@@ -44,8 +44,8 @@ export function PreviewPlane({ win }: { win: WinObject }) {
             colorSpace={NoColorSpace}
             eventPriority={100}
             //
-            cameraPosition={[0, 0.5, 2]}
-            cameraRotation={[0, 0, 0]}
+            cameraPosition={[0, 1.1, 2]}
+            cameraRotation={[-0.4, 0, 0]}
         >
             <Suspense fallback={null}>
                 <group>
@@ -56,8 +56,8 @@ export function PreviewPlane({ win }: { win: WinObject }) {
                     >
                         <Float>
                             <AvatarMotion
-                                lookAt={[0.0, 0.7, 2]}
-                                avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
+                                lookAt={[0.0, 1.1, 2]}
+                                avatarURL={`/avatar/angel.glb`}
                                 motionURL={`/game-asset/motion-files/mixamo/dance/floating-swim.fbx`}
                             ></AvatarMotion>
                         </Float>

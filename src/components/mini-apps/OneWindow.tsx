@@ -250,7 +250,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                             </Suspense>
                                         </CardContent>
 
-                                        <CardFooter marginTop={0}>
+                                        <CardContent marginTop={0}>
                                             <Button
                                                 cursor="pointer"
                                                 onClick={(e) => {
@@ -267,7 +267,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 />
                                                 <Text>Close</Text>
                                             </Button>
-                                        </CardFooter>
+                                        </CardContent>
 
                                         {/* <NotificationSection></NotificationSection> */}
                                     </>
