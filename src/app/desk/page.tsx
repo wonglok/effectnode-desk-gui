@@ -37,7 +37,7 @@ import Link from "next/link";
 import { Suspense, useEffect, useState } from "react";
 import { Laptop } from "@/components/login/Laptop";
 import { api, vanilla } from "@/trpc/react";
-import { Loader } from "lucide-react";
+import { LampDeskIcon, LampIcon, Loader } from "lucide-react";
 import { AvatarMotion } from "@/components/mini-apps/Objects/AvatarMotion";
 import { cursor, Grid } from "@/components/mini-apps/Objects/Grid";
 
@@ -224,12 +224,14 @@ function CardDemo() {
                                             key={li._id}
                                         >
                                             <Link
+                                                className="w-full"
                                                 href={`/desk/workspace/${li._id}`}
                                             >
                                                 <Button
                                                     className="w-full cursor-pointer bg-gradient-to-tr from-white to-gray-300 text-center shadow-inner"
                                                     variant={"outline"}
                                                 >
+                                                    <LampDeskIcon className=""></LampDeskIcon>
                                                     {li.name}
                                                 </Button>
                                             </Link>

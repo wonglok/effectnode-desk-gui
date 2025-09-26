@@ -12,14 +12,14 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
             workspaceID: workspaceID,
         });
 
-        useMiniApps.setState((st) => {
+        useMiniApps.setState((st: any) => {
             return {
                 ...st,
                 objects: objects,
             };
         });
 
-        if (!objects.some((r) => r.key === `${nameSpace("app_coder")}`)) {
+        if (!objects.some((r: any) => r.key === `${nameSpace("app_coder")}`)) {
             await vanilla.object.write.mutate({
                 type: "apps",
                 workspaceID: `${workspaceID}`,
@@ -31,7 +31,7 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
             });
         }
 
-        if (!objects.some((r) => r.key === `${nameSpace("node_window")}`)) {
+        if (!objects.some((r) => r?.key === `${nameSpace("node_window")}`)) {
             await vanilla.object.write.mutate({
                 type: "wins",
                 workspaceID: `${workspaceID}`,
@@ -51,7 +51,7 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
             });
         }
 
-        if (!objects.some((r) => r.key === `${nameSpace("preview_window")}`)) {
+        if (!objects.some((r) => r?.key === `${nameSpace("preview_window")}`)) {
             await vanilla.object.write.mutate({
                 type: "wins",
                 workspaceID: `${workspaceID}`,
@@ -79,7 +79,7 @@ export async function launchCoder({ workspaceID = "", args = {} }) {
 
         console.log(objects);
 
-        useMiniApps.setState((st) => {
+        useMiniApps.setState((st: any) => {
             return {
                 ...st,
                 objects: objects,

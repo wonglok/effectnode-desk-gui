@@ -4,7 +4,7 @@ import { platformDB, ugcDB } from "./connection";
 
 export interface WorkspaceObjectInterface {
     //
-    _doc: WorkspaceObjectInterface;
+    _doc?: WorkspaceObjectInterface;
     _id: string;
     //
     workspaceID: string;

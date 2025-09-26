@@ -1,3 +1,4 @@
+import type { WorkspaceACLInterface } from "@/server/db/WorkspaceACL";
 import type { WorkspaceObjectInterface } from "@/server/db/WorkspaceObject";
 import { create } from "zustand";
 
@@ -36,7 +37,9 @@ export type WinObject = Partial<WorkspaceObjectInterface> & {
 
 export const useMiniApps = create<{
     //
-    selection: any[];
+
+    workspaceID: string;
+    workspaces: WorkspaceACLInterface[];
     objects: WorkspaceObjectInterface[];
     openDrawer: boolean;
     //
@@ -44,10 +47,10 @@ export const useMiniApps = create<{
 }>((set, get) => {
     //
     return {
-        selection: [],
         //
+        workspaceID: "",
+        workspaces: [],
         objects: [],
-
         openDrawer: false,
 
         // icons: [],

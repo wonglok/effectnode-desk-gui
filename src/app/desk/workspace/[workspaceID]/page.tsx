@@ -5,9 +5,13 @@ import { LogoutButton } from "@/components/buttons/LogoutButton";
 import { ResetButton } from "@/components/buttons/ResetButton";
 import { launchCoder } from "@/components/mini-apps/utils/launchCoder";
 import { WebGLArea } from "@/components/mini-apps/WebGLArea";
-import { vanilla } from "@/trpc/react";
+import { api, vanilla } from "@/trpc/react";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
+
+import { TopMenu } from "@/components/menu/TopMenu";
+import { useMiniApps } from "@/components/mini-apps/useMiniApps";
+
 export default function Home() {
     let params = useParams();
     useEffect(() => {
@@ -15,6 +19,9 @@ export default function Home() {
             return;
         }
         //
+        useMiniApps.setState({
+            workspaceID: `${params?.workspaceID || ""}`,
+        });
         launchCoder({
             workspaceID: `${params.workspaceID}`,
             args: {
@@ -51,6 +58,9 @@ export default function Home() {
                             <BackButton
                                 workspaceID={params?.workspaceID as string}
                             ></BackButton>
+                        </div>
+                        <div className="mx-4 select-none">
+                            <TopMenu></TopMenu>
                         </div>
                         <div className="mr-4 select-none">
                             <ResetButton
