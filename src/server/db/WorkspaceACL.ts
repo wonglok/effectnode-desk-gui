@@ -20,6 +20,7 @@ const WorkspaceACLSchema = new Schema<WorkspaceACLInterface>(
     {
         name: String,
         members: [
+            //
             {
                 name: String,
                 userID: String,
