@@ -71,6 +71,7 @@ function EnvirionmentContent() {
     return (
         <>
             {/* * */}
+
             {/* <group scale={1}>
                 <Grid></Grid>
             </group> */}
@@ -89,13 +90,14 @@ function EnvirionmentContent() {
             ></PerspectiveCamera>
 
             <Environment
-                //
                 files={[`/hdr/poly_haven_studio_1k.hdr`]}
             ></Environment>
 
             <directionalLight ref={refDir}></directionalLight>
 
-            <PlaneGrid></PlaneGrid>
+            <group position={[0, -1, 0]}>
+                <PlaneGrid></PlaneGrid>
+            </group>
 
             {/* <Grid magic={true}></Grid> */}
 

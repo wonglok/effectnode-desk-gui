@@ -8,7 +8,10 @@ import { Box, Cloud, Sky, useGLTF } from "@react-three/drei";
 import { RenderPlane } from "../mini-apps/Objects/RenderPlane";
 import { Grid } from "../mini-apps/Objects/Grid";
 
-export function Laptop(props: JSX.IntrinsicElements["group"]) {
+export function Laptop({
+    screen = null,
+    ...props
+}: JSX.IntrinsicElements["group"] & { screen: any }) {
     const { nodes, materials } = useGLTF("/login/laptop-v1.glb") as any;
 
     nodes.Circle002_4.geometry.computeBoundingBox();
@@ -157,15 +160,7 @@ export function Laptop(props: JSX.IntrinsicElements["group"]) {
                             width={(512 * size.x) / size.z}
                             height={[512]}
                         >
-                            <Sky></Sky>
-                            <Cloud position={[0, -5, -2.5]}></Cloud>
-                            <ambientLight
-                                intensity={Math.PI / 2}
-                            ></ambientLight>
-
-                            <group position={[0, -5, 0]}>
-                                <Grid magic></Grid>
-                            </group>
+                            {screen}
                         </RenderPlane>
                     </group>
 

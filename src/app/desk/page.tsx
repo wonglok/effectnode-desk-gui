@@ -19,6 +19,7 @@ import {
     Gltf,
     PerspectiveCamera,
     Sky,
+    Sphere,
 } from "@react-three/drei";
 import { EffectComposer, Bloom } from "@react-three/postprocessing";
 import { Canvas } from "@react-three/fiber";
@@ -56,7 +57,7 @@ export default function Page() {
 
                         <ambientLight intensity={Math.PI}></ambientLight>
 
-                        <group scale={5} position={[0, 3.5, -5]}>
+                        <group scale={5} position={[0, 4, 0]}>
                             <Float floatIntensity={3}>
                                 <Cloud
                                     color={"#cccccc"}
@@ -81,7 +82,23 @@ export default function Page() {
                                     rotation={[0, Math.PI * 0, 0]}
                                     position={[0, -1.5, 0.3]}
                                 >
-                                    <Laptop></Laptop>
+                                    <Laptop
+                                        screen={
+                                            <>
+                                                <Sky></Sky>
+                                                <Cloud
+                                                    position={[0, 0, 0]}
+                                                ></Cloud>
+                                                <ambientLight
+                                                    intensity={Math.PI / 2}
+                                                ></ambientLight>
+
+                                                <group position={[0, -5, 0]}>
+                                                    {/* <Grid magic></Grid> */}
+                                                </group>
+                                            </>
+                                        }
+                                    ></Laptop>
                                 </group>
                                 <Environment
                                     files={[
@@ -93,8 +110,10 @@ export default function Page() {
 
                         <AvatarMotion
                             rotation={[0, -0.4, 0]}
-                            position={[0.9, -1.5, 0]}
+                            position={[3, -2.5, 0]}
+                            scale={2}
                             lookAt={[-1, 0.5, 5]}
+                            avatarURL={`/avatar/sweater.glb`}
                             motionURL={`/avatar/sit.fbx`}
                         ></AvatarMotion>
 

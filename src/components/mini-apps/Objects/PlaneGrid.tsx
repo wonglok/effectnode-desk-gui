@@ -11,6 +11,7 @@ import {
     BufferGeometry,
     CircleGeometry,
     Color,
+    CylinderGeometry,
     ExtrudeGeometry,
     Mesh,
     MeshBasicMaterial,
@@ -31,11 +32,13 @@ import {
 // import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 function OneItem({
+    type,
     MySymbol,
     x,
     y,
     rot = [0, 0, 0],
 }: {
+    type: string;
     rot: [number, number, number];
     MySymbol: any;
     x: number;
@@ -46,13 +49,24 @@ function OneItem({
     let ref = useRef<Object3D>(null);
 
     let color = useMemo(() => {
-        return new Color("#ff0000").setHSL(0, 1, 0.5);
+        return BrandColors.grid;
     }, []);
 
     useFrame((st, dt) => {
         refTime.current += dt * 0.5;
 
         if (ref.current) {
+            if (type === "1") {
+                //
+                ref.current.rotation.z += dt;
+                //
+            }
+            if (type === "2") {
+                //
+                ref.current.rotation.x += dt;
+                //
+            }
+
             //
             // let val = (st as any).controls?.target as Vector3;
             // if (!val) {
@@ -104,11 +118,12 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                 //
                 insts.push(
                     <OneItem
+                        type="1"
                         MySymbol={meshes.SymbolOne}
                         key={`xx${x}-yy${y}`}
-                        rot={[0, Math.PI * 0.0, 0]}
-                        x={x * 2 + 1}
-                        y={y * 2 + 1}
+                        rot={[0, 0, x / num]}
+                        x={x * 2}
+                        y={y * 2}
                     ></OneItem>,
                 );
 
@@ -134,9 +149,10 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                 //
                 insts.push(
                     <OneItem
+                        type="2"
                         MySymbol={meshes.SymbolTwo}
                         key={`xx${x}-yy${y}`}
-                        rot={[0, Math.PI * 0, 0]}
+                        rot={[y / num, 0, 0]}
                         x={x * 2}
                         y={y * 2}
                     ></OneItem>,
@@ -151,13 +167,28 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
     };
 
     let hexGeo = useMemo(() => {
-        let box1: BufferGeometry = new PlaneGeometry(0.01, 1).toNonIndexed();
+        let box1: BufferGeometry = new CylinderGeometry(
+            0.05,
+            0.05,
+            1,
+            5,
+        ).toNonIndexed();
+        box1.rotateX(Math.PI * -0.5);
+        box1.center();
 
         return box1;
     }, []);
 
     let circleGeo = useMemo(() => {
-        let box1: BufferGeometry = new PlaneGeometry(1, 0.01).toNonIndexed();
+        let box1: BufferGeometry = new CylinderGeometry(
+            0.05,
+            0.05,
+            1,
+            5,
+        ).toNonIndexed();
+        box1.rotateX(Math.PI * -0.5);
+        box1.rotateY(Math.PI * -0.5);
+        box1.center();
 
         return box1;
     }, []);
@@ -170,13 +201,16 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                     frustumCulled={false}
                     count={num * num * 5}
                     meshes={{
+                        //
                         // Cross: new Mesh(
                         //     hexGeo,
                         //     new MeshBasicMaterial({ color: colors.primary }),
                         // ),
+                        //
                         SymbolOne: new Mesh(
                             hexGeo,
                             new MeshStandardMaterial({
+                                flatShading: true,
                                 color: BrandColors.primary,
                                 roughness: 0.0,
                                 metalness: 1.0,
@@ -185,8 +219,9 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                         SymbolTwo: new Mesh(
                             circleGeo,
                             new MeshStandardMaterial({
+                                flatShading: true,
                                 color: BrandColors.primary,
-                                roughness: 0.3,
+                                roughness: 0.0,
                                 metalness: 1.0,
                             }),
                         ),
