@@ -164,7 +164,7 @@ export function OneWindow({ win }: { win: WinObject }) {
                                         >
                                             <Content
                                                 transformTranslateZ={1}
-                                                padding={14}
+                                                padding={20}
                                                 keepAspectRatio={false}
                                                 width="100%"
                                                 height={400}
@@ -204,6 +204,10 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                                 marginRight={10}
                                                             ></PanelBottomClose>
                                                             <Text
+                                                                fontSize={17}
+                                                                fontWeight={
+                                                                    "bold"
+                                                                }
                                                                 color={"white"}
                                                             >{`Open`}</Text>
                                                         </Button>
@@ -222,7 +226,12 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                                 marginRight={10}
                                                             ></PanelBottomOpen>
 
-                                                            <Text>{`Close`}</Text>
+                                                            <Text
+                                                                fontWeight={
+                                                                    "bold"
+                                                                }
+                                                                fontSize={17}
+                                                            >{`Close`}</Text>
                                                         </Button>
                                                     )}
                                                 </>
@@ -259,13 +268,14 @@ export function OneWindow({ win }: { win: WinObject }) {
                                                 }}
                                                 flexDirection="row"
                                                 width="100%"
+                                                backgroundColor={"red"}
                                             >
-                                                <ArrowUp
-                                                    height={16}
-                                                    width={16}
-                                                    marginRight={10}
-                                                />
-                                                <Text>Close</Text>
+                                                <Text
+                                                    fontSize={17}
+                                                    fontWeight={"bold"}
+                                                >
+                                                    Close
+                                                </Text>
                                             </Button>
                                         </CardContent>
 
