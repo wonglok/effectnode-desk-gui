@@ -1,4 +1,4 @@
-import { Instances, Instance, Merged, Plane } from "@react-three/drei";
+import { Instances, Instance, Merged, Plane, Select } from "@react-three/drei";
 import { ReactThreeFiber, useFrame, useThree } from "@react-three/fiber";
 import { easing } from "maath";
 import { useEffect, useMemo, useRef, type ReactElement } from "react";
@@ -24,19 +24,11 @@ import {
     Vector2,
     Vector3,
 } from "three";
+import { BrandColors } from "./BrandColors";
+
 // import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
-let primary = new Color("#E96825").offsetHSL(0.0, 0.0, 0.05);
-let grid = new Color(primary).offsetHSL(0, 0, -0.2);
-let background = new Color(primary).offsetHSL(0, 0, -0.44);
-
 export const cursor = new Vector3();
-
-let colors = {
-    primary,
-    grid,
-    background,
-};
 
 function OneItem({
     MySymbol,
@@ -171,32 +163,6 @@ function OneItem({
                 position={[x, -2, y]}
                 color={color}
             ></MySymbol>
-        </>
-    );
-}
-
-export function PlaneGrid() {
-    return (
-        <>
-            <gridHelper
-                args={[50 * 2, 50, colors.grid, colors.grid]}
-                position={[0, -0.01, 0]}
-            />
-
-            <Plane
-                onPointerMove={(st) => {
-                    cursor.copy(st.point);
-                }}
-                scale={100}
-                rotation={[-Math.PI * 0.5, 0, 0]}
-                position={[0, -0.1, 0]}
-                receiveShadow
-                castShadow
-            >
-                <meshBasicMaterial
-                    color={colors.background}
-                ></meshBasicMaterial>
-            </Plane>
         </>
     );
 }
@@ -362,7 +328,7 @@ export const Grid = ({ num = 25, magic = false }) => {
                         SymbolOne: new Mesh(
                             hexGeo,
                             new MeshStandardMaterial({
-                                color: colors.primary,
+                                color: BrandColors.primary,
                                 roughness: 0.0,
                                 metalness: 1.0,
                             }),
@@ -370,7 +336,7 @@ export const Grid = ({ num = 25, magic = false }) => {
                         SymbolTwo: new Mesh(
                             circleGeo,
                             new MeshStandardMaterial({
-                                color: colors.primary,
+                                color: BrandColors.primary,
                                 roughness: 0.3,
                                 metalness: 1.0,
                             }),

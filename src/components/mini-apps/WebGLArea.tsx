@@ -8,13 +8,14 @@ import {
     MapControls,
     PerspectiveCamera,
     Plane,
+    useSelect,
     // RandomizedLight,
     // RoundedBox,
 } from "@react-three/drei";
 // import { LaydownText } from "./Objects/LaydownText";
-import { Grid, PlaneGrid } from "./Objects/Grid";
+import { Grid } from "./Objects/Grid";
 // import { StandUpText } from "./Objects/StandupText";
-import { NoToneMapping } from "three";
+import { DirectionalLight, NoToneMapping } from "three";
 // import { Avatar } from "./Objects/Avatar";
 // import { UIKitObject } from "./Objects/UIKitObject";
 // import { EnableDrag } from "./Objects/EnableDrag";
@@ -24,8 +25,20 @@ import { NoToneMapping } from "three";
 // import { UIKitCard } from "./Objects/UIKitCard";
 // import { createPortal } from "react-dom";
 // import { AvatarMotion } from "./Objects/AvatarMotion";
-import { MiniApps } from "./MiniApps";
 // import { HDRLoader } from "three/examples/jsm/loaders/HDRLoader.js";
+import { MiniApps } from "./MiniApps";
+import {
+    Bloom,
+    EffectComposer,
+    Select,
+    Selection,
+    SelectiveBloom,
+} from "@react-three/postprocessing";
+import { useRef } from "react";
+import { useMiniApps } from "./useMiniApps";
+import { PlaneGrid } from "./Objects/PlaneGrid";
+
+//
 
 export function WebGLArea() {
     return (
@@ -53,13 +66,14 @@ export function WebGLArea() {
 }
 
 function EnvirionmentContent() {
+    let refDir = useRef<DirectionalLight>(new DirectionalLight()) as any;
+
     return (
         <>
             {/* * */}
             {/* <group scale={1}>
                 <Grid></Grid>
             </group> */}
-            <PlaneGrid></PlaneGrid>
 
             <MapControls
                 object-position={[0, 10, 5]}
@@ -75,8 +89,41 @@ function EnvirionmentContent() {
             ></PerspectiveCamera>
 
             <Environment
+                //
                 files={[`/hdr/poly_haven_studio_1k.hdr`]}
             ></Environment>
+
+            <directionalLight ref={refDir}></directionalLight>
+
+            <PlaneGrid></PlaneGrid>
+
+            {/* <Grid magic={true}></Grid> */}
+
+            <Effects
+                data={{
+                    refDir,
+                }}
+            ></Effects>
+        </>
+    );
+}
+
+function Effects({ data }: any) {
+    let selection = useMiniApps((r) => r.selection);
+
+    return (
+        <>
+            <EffectComposer>
+                <SelectiveBloom
+                    lights={[data.refDir]}
+                    selection={selection.filter((r) => r?.parent)}
+                    selectionLayer={1}
+                    luminanceThreshold={0.0}
+                    intensity={2}
+                    mipmapBlur
+                    ignoreBackground={false}
+                ></SelectiveBloom>
+            </EffectComposer>
         </>
     );
 }

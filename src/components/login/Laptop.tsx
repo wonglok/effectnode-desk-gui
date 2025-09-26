@@ -6,9 +6,7 @@ import * as THREE from "three";
 import React, { useRef, type JSX } from "react";
 import { Box, Cloud, Sky, useGLTF } from "@react-three/drei";
 import { RenderPlane } from "../mini-apps/Objects/RenderPlane";
-import { Avatar2 } from "../mini-apps/Objects/Avatar2";
 import { Grid } from "../mini-apps/Objects/Grid";
-import { AvatarMotion } from "../mini-apps/Objects/AvatarMotion";
 
 export function Laptop(props: JSX.IntrinsicElements["group"]) {
     const { nodes, materials } = useGLTF("/login/laptop-v1.glb") as any;
@@ -144,6 +142,8 @@ export function Laptop(props: JSX.IntrinsicElements["group"]) {
                         geometry={nodes.Circle002_3.geometry}
                         material={materials.Rubber}
                     />
+
+                    {/*  */}
                     {/* <mesh
                         geometry={nodes.Circle002_4.geometry}
                         material={materials.DisplayGlass}
