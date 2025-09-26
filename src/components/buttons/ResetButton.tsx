@@ -2,6 +2,7 @@ import { vanilla } from "@/trpc/react";
 import { Button } from "@/components/ui/button";
 import { useMiniApps } from "../mini-apps/useMiniApps";
 import { launchCoder } from "../mini-apps/utils/launchCoder";
+import { Crosshair, CrossIcon, FactoryIcon, MinusIcon } from "lucide-react";
 
 export function ResetButton({ workspaceID = "" }) {
     return (
@@ -40,7 +41,9 @@ export function ResetButton({ workspaceID = "" }) {
             className="cursor-pointer"
             //
         >
-            Reset Button
+            <Crosshair className="mr-1"></Crosshair> Reset Button
         </Button>
     );
 }
+
+//
