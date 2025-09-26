@@ -142,7 +142,10 @@ function Effects({ data }: any) {
     return (
         <>
             <EffectComposer>
+                {/*  */}
                 <SelectiveBloom
+                    height={512}
+                    resolutionScale={0.5}
                     lights={[data.refDir]}
                     selection={selection}
                     selectionLayer={20}
