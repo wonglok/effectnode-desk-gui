@@ -107,12 +107,12 @@ function EnvirionmentContent() {
                 <PlaneGrid></PlaneGrid>
             </group>
 
-            {/* <EffectsBloom
+            <EffectsBloom
                 refs={{
                     refGlow,
                     redLights,
                 }}
-            ></EffectsBloom> */}
+            ></EffectsBloom>
         </>
     );
 }
@@ -147,8 +147,8 @@ export function EffectsBloom({ refs }: any) {
                     lights={lightsList}
                     selection={meshList}
                     selectionLayer={20}
-                    luminanceThreshold={1.0}
-                    intensity={0.5}
+                    luminanceThreshold={1}
+                    intensity={2.0}
                     mipmapBlur
                 ></SelectiveBloom>
             </EffectComposer>

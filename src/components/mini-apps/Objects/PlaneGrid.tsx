@@ -29,7 +29,7 @@ import {
     Vector3,
 } from "three";
 
-// import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
+import { mergeGeometries } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 
 function OneItem({
     type,
@@ -50,7 +50,7 @@ function OneItem({
     let gp = useRef<Object3D>(null);
 
     let color = useMemo(() => {
-        return BrandColors.grid;
+        return BrandColors.grid.clone().offsetHSL(0, 0.1, 0.1);
     }, []);
 
     useFrame((st, dt) => {
@@ -71,12 +71,6 @@ function OneItem({
 
                 //
             }
-
-            // ref.current.color.offsetHSL(Math.random() * dt, 0, 0);
-        }
-
-        if (gp.current) {
-            // gp.current.rotation.y += dt;
         }
     });
 
@@ -170,7 +164,6 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
         box1.scale(1.5, 5, 1.5);
-        box1.scale(2, 2, 2);
 
         box1.rotateX(Math.PI * -0.5);
         box1.center();
@@ -184,7 +177,16 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
             );
         }
 
-        return box1;
+        let b1 = box1.clone();
+        let b2 = box1.clone();
+        b1.translate(0, 0, box1.boundingBox?.max?.z || 0);
+        b2.translate(0, 0, box1.boundingBox?.min?.z || 0);
+
+        let com = mergeGeometries([b1, b2]);
+        com.center();
+        com.computeVertexNormals();
+
+        return com;
     }, []);
 
     let circleGeo = useMemo(() => {
@@ -197,7 +199,6 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
         box1.scale(1.5, 5, 1.5);
-        box1.scale(2, 2, 2);
 
         box1.rotateX(Math.PI * -0.5);
         box1.rotateY(Math.PI * -0.5);
@@ -212,7 +213,16 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
             );
         }
 
-        return box1;
+        let b1 = box1.clone();
+        let b2 = box1.clone();
+        b1.translate(box1.boundingBox?.max?.x || 0, 0, 0);
+        b2.translate(box1.boundingBox?.min?.x || 0, 0, 0);
+
+        let com = mergeGeometries([b1, b2]);
+        com.center();
+        com.computeVertexNormals();
+
+        return com;
     }, []);
 
     return (
@@ -221,7 +231,7 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                 <Merged
                     ref={ref}
                     frustumCulled={false}
-                    count={num * num * 5}
+                    count={num * num * 2}
                     meshes={{
                         //
                         // Cross: new Mesh(
@@ -234,16 +244,19 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                             new MeshStandardMaterial({
                                 flatShading: true,
                                 color: BrandColors.primary,
-                                roughness: 0.2,
+                                roughness: 0.15,
                                 metalness: 1.0,
                             }),
                         ),
+                        //
+                        //
+                        //
                         SymbolTwo: new Mesh(
                             circleGeo,
                             new MeshStandardMaterial({
                                 flatShading: true,
                                 color: BrandColors.primary,
-                                roughness: 0.2,
+                                roughness: 0.15,
                                 metalness: 1.0,
                             }),
                         ),
