@@ -103,7 +103,7 @@ function EnvirionmentContent() {
                 <directionalLight position={[5, 5, 5]}></directionalLight>
             </group>
 
-            <group ref={refGlow} layers={20} position={[0, -0.1, 0]}>
+            <group ref={refGlow} layers={20} position={[0, 0, 0]}>
                 <PlaneGrid></PlaneGrid>
             </group>
 
@@ -147,9 +147,9 @@ export function EffectsBloom({ refs }: any) {
                     lights={lightsList}
                     selection={meshList}
                     selectionLayer={20}
-                    luminanceThreshold={1}
+                    luminanceThreshold={1.0}
                     intensity={2.0}
-                    mipmapBlur
+                    mipmapBlur={true}
                 ></SelectiveBloom>
             </EffectComposer>
         </>

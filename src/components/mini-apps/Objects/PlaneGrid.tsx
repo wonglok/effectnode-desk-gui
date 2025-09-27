@@ -60,14 +60,14 @@ function OneItem({
             if (type === "1") {
                 //
 
-                ref.current.rotation.z += dt * 0.25;
+                ref.current.rotation.z += dt * 0.125;
 
                 //
             }
             if (type === "2") {
                 //
 
-                ref.current.rotation.x += dt * 0.25;
+                ref.current.rotation.x += dt * 0.125;
 
                 //
             }
@@ -163,7 +163,7 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
         ).toNonIndexed();
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
-        box1.scale(1.5, 3.5, 1.5);
+        box1.scale(1.25, 3.5, 1.25);
 
         box1.rotateX(Math.PI * -0.5);
         box1.center();
@@ -198,7 +198,7 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
         ).toNonIndexed();
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
-        box1.scale(1.5, 3.5, 1.5);
+        box1.scale(1.25, 3.5, 1.25);
 
         box1.rotateX(Math.PI * -0.5);
         box1.rotateY(Math.PI * -0.5);
@@ -244,7 +244,7 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                             new MeshStandardMaterial({
                                 flatShading: true,
                                 color: BrandColors.primary,
-                                roughness: 0.15,
+                                roughness: 0.25,
                                 metalness: 1.0,
                             }),
                         ),
@@ -256,7 +256,7 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
                             new MeshStandardMaterial({
                                 flatShading: true,
                                 color: BrandColors.primary,
-                                roughness: 0.15,
+                                roughness: 0.25,
                                 metalness: 1.0,
                             }),
                         ),
@@ -295,6 +295,9 @@ export function PlaneGrid() {
     return (
         <>
             <group position={[0, -0.2, 0]}>
+                <gridHelper
+                    args={[100, 50, BrandColors.grid, BrandColors.grid]}
+                ></gridHelper>
                 <PlusGrid></PlusGrid>
 
                 <Plane
