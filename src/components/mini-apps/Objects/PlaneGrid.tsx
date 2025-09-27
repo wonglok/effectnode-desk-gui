@@ -163,7 +163,8 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
         ).toNonIndexed();
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
-        box1.scale(1.25, 3.5, 1.25);
+        box1.scale(1, 2.5, 1);
+        box1.scale(0.75, 0.75, 0.75);
 
         box1.rotateX(Math.PI * -0.5);
         box1.center();
@@ -198,7 +199,8 @@ const PlusGrid = ({ ref, num = 25 }: any) => {
         ).toNonIndexed();
 
         box1 = new SphereGeometry(0.075, 7, 7).toNonIndexed();
-        box1.scale(1.25, 3.5, 1.25);
+        box1.scale(1, 2.5, 1);
+        box1.scale(0.75, 0.75, 0.75);
 
         box1.rotateX(Math.PI * -0.5);
         box1.rotateY(Math.PI * -0.5);
