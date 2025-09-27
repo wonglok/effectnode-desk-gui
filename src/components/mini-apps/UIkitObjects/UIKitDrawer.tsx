@@ -73,24 +73,26 @@ import { DragBlock } from "../Objects/EnableDrag";
 
 const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025);
 
-const notifications = [
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-    { title: "Your call has been confirmed.", description: "1 hour ago" },
-];
+// const notifications = [
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+//     { title: "Your call has been confirmed.", description: "1 hour ago" },
+// ];
 
 export function UIKitDrawer({
+    sizeX = 1,
     openDrawer = false,
     onSetDrawer = (v: boolean) => {},
     upperUI = null,
     drawerUI = null,
 }: {
+    sizeX?: number;
     openDrawer: boolean;
     onSetDrawer: (v: boolean) => void;
     upperUI: ReactElement | null;
@@ -195,7 +197,7 @@ export function UIKitDrawer({
                     transformTranslateY={groupMoveZ}
                     flexDirection="column"
                     pixelSize={0.01}
-                    sizeX={4.5}
+                    sizeX={4.5 * sizeX}
                     onSizeChange={(width, height) => {
                         setHeight(height);
                     }}

@@ -69,7 +69,6 @@ export function TitleSection({
             alignItems="center"
             justifyContent="space-between"
             borderBottomRadius={20}
-            castShadow
         >
             <Container flexShrink={0} flexDirection="column" gap={8}>
                 <Container

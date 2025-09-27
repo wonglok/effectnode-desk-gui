@@ -10,7 +10,14 @@ import { vanilla } from "@/trpc/react";
 import { useEffect, useState } from "react";
 import { useMiniApps } from "../mini-apps/useMiniApps";
 import { Button } from "../ui/button";
-import { GoalIcon, HomeIcon, Icon, LampDeskIcon, PenIcon } from "lucide-react";
+import {
+    GoalIcon,
+    HomeIcon,
+    Icon,
+    LampDeskIcon,
+    PenIcon,
+    Settings2Icon,
+} from "lucide-react";
 import type { WorkspaceObjectInterface } from "@/server/db/WorkspaceObject";
 import type { WorkspaceACLInterface } from "@/server/db/WorkspaceACL";
 import { useRouter } from "next/navigation";
@@ -40,7 +47,7 @@ export function TopMenu({}) {
                             <LampDeskIcon className="mr-2"></LampDeskIcon>
 
                             {workspaces?.find((r) => r._id === workspaceID)
-                                ?.name || "Workspaces..."}
+                                ?.name || "Loading..."}
                         </div>
                     </Button>
                 </DropdownMenuTrigger>
@@ -51,7 +58,7 @@ export function TopMenu({}) {
                                 setOpen(true);
                             }}
                         >
-                            <PenIcon></PenIcon>
+                            <Settings2Icon></Settings2Icon>
                             {`Edit Workspace Settings`}
                         </DropdownMenuItem>
                     </>

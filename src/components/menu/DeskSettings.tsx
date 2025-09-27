@@ -47,6 +47,7 @@ import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 const data = {
     nav: [
+        { name: "Privacy & visibility", icon: Lock },
         { name: "Notifications", icon: Bell },
         { name: "Navigation", icon: Menu },
         { name: "Home", icon: Home },
@@ -57,7 +58,6 @@ const data = {
         { name: "Mark as read", icon: Check },
         { name: "Audio & video", icon: Video },
         { name: "Connected accounts", icon: Link },
-        { name: "Privacy & visibility", icon: Lock },
         { name: "Advanced", icon: Settings },
     ],
 };

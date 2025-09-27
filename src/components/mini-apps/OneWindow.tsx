@@ -49,6 +49,7 @@ import {
     Sphere,
     MeshTransmissionMaterial,
     Plane,
+    Html,
 } from "@react-three/drei";
 import { createPortal, useFrame, useThree } from "@react-three/fiber";
 
@@ -88,6 +89,11 @@ import { DemoPlane } from "./UIkitObjects/RenderPlanes/DemoPlane";
 import { TitleSection } from "./UIkitObjects/Sections/TitleSection";
 import { getDragToggleProps } from "./utils/getDragToggleProps";
 
+//
+
+import { PreviewWindowNode } from "./UIkitObjects/Node/PreviewWindowNode";
+import { DefaultNode } from "./UIkitObjects/Node/DefaultNode";
+
 export function OneWindow({ win }: { win: WinObject }) {
     // let ref = useRef<Object3D>(null);
 
@@ -108,188 +114,15 @@ export function OneWindow({ win }: { win: WinObject }) {
     //     //
     // }, [win.key]);
 
-    let controls: any = useThree((r) => r.controls);
-
-    let [openDrawer, setOpenDrawer] = useState(false);
-
-    let getPropsForDragging = (
-        { onClick } = {
-            onClick: () => {
-                setOpenDrawer(!openDrawer);
-            },
-        },
-    ) => {
-        return getDragToggleProps({
-            onClick: () => {
-                onClick();
-            },
-        });
-    };
-
     return (
         <>
-            <EnableDrag
-                show={({ o3 }) => (
-                    <>
-                        {/*  */}
-                        {/*  */}
-                    </>
-                )}
-                grab={({ o3, at }) => {
-                    return (
-                        <>
-                            {/*  */}
+            {win.value.type === "app_node" && (
+                <DefaultNode win={win}></DefaultNode>
+            )}
 
-                            <UIKitDrawer
-                                //
-                                openDrawer={openDrawer}
-                                onSetDrawer={(value) => {
-                                    setOpenDrawer(value);
-                                    if (controls) {
-                                        controls.enabled = true;
-                                    }
-                                }}
-                                //
-                                //
-                                upperUI={
-                                    <>
-                                        <Suspense
-                                            fallback={
-                                                <Container
-                                                    borderRadius={14}
-                                                    height={400}
-                                                    width={"100%"}
-                                                ></Container>
-                                            }
-                                        >
-                                            <Content
-                                                transformTranslateZ={1}
-                                                padding={20}
-                                                keepAspectRatio={false}
-                                                width="100%"
-                                                height={400}
-                                                {...getPropsForDragging()}
-                                            >
-                                                {win.value.type ===
-                                                    "app_preview" && (
-                                                    <PreviewPlane
-                                                        win={win}
-                                                    ></PreviewPlane>
-                                                )}
-
-                                                {win.value.type ===
-                                                    "app_node" && (
-                                                    <NodePlane
-                                                        win={win}
-                                                    ></NodePlane>
-                                                )}
-                                            </Content>
-                                        </Suspense>
-
-                                        <TitleSection
-                                            title={`${win.value.name}`}
-                                            description={`Mini Window`}
-                                            cta={
-                                                <>
-                                                    {!openDrawer && (
-                                                        <Button
-                                                            flexDirection="row"
-                                                            width="100%"
-                                                            backgroundColor={
-                                                                "#000099"
-                                                            }
-                                                            {...getPropsForDragging()}
-                                                        >
-                                                            <PanelBottomClose
-                                                                marginRight={10}
-                                                            ></PanelBottomClose>
-                                                            <Text
-                                                                fontSize={17}
-                                                                fontWeight={
-                                                                    "bold"
-                                                                }
-                                                                color={"white"}
-                                                            >{`Open`}</Text>
-                                                        </Button>
-                                                    )}
-
-                                                    {openDrawer && (
-                                                        <Button
-                                                            flexDirection="row"
-                                                            width="100%"
-                                                            backgroundColor={
-                                                                "#ef0000"
-                                                            }
-                                                            {...getPropsForDragging()}
-                                                        >
-                                                            <PanelBottomOpen
-                                                                marginRight={10}
-                                                            ></PanelBottomOpen>
-
-                                                            <Text
-                                                                fontWeight={
-                                                                    "bold"
-                                                                }
-                                                                fontSize={17}
-                                                            >{`Close`}</Text>
-                                                        </Button>
-                                                    )}
-                                                </>
-                                            }
-                                        ></TitleSection>
-                                    </>
-                                }
-                                drawerUI={
-                                    <>
-                                        {/* <NotificationSection></NotificationSection> */}
-                                        <CardContent flexDirection={"column"}>
-                                            <Suspense fallback={null}>
-                                                <Content
-                                                    {...getPropsForDragging()}
-                                                    transformTranslateZ={1}
-                                                    keepAspectRatio={false}
-                                                    width="100%"
-                                                    height={400}
-                                                >
-                                                    <DemoPlane
-                                                        canRun={openDrawer}
-                                                        win={win}
-                                                    />
-                                                </Content>
-                                            </Suspense>
-                                        </CardContent>
-
-                                        <CardContent marginTop={0}>
-                                            <Button
-                                                cursor="pointer"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    setOpenDrawer(false);
-                                                }}
-                                                flexDirection="row"
-                                                width="100%"
-                                                backgroundColor={"red"}
-                                            >
-                                                <Text
-                                                    fontSize={17}
-                                                    fontWeight={"bold"}
-                                                >
-                                                    Close
-                                                </Text>
-                                            </Button>
-                                        </CardContent>
-
-                                        {/* <NotificationSection></NotificationSection> */}
-                                    </>
-                                }
-                            ></UIKitDrawer>
-                        </>
-                    );
-                }}
-                win={win}
-            ></EnableDrag>
-
-            {/*  */}
+            {win.value.type === "app_preview" && (
+                <PreviewWindowNode win={win}></PreviewWindowNode>
+            )}
         </>
     );
 }

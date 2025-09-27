@@ -8,6 +8,7 @@ export function OneMiniApp({ app }: { app: AppObject }) {
         <>
             {/*  */}
             {wins
+                .filter((r) => r.type === "wins")
                 .filter((win: WinObject) => win.value.appID === app.key)
                 .map((win: WinObject) => {
                     return <OneWindow key={win._id} win={win}></OneWindow>;

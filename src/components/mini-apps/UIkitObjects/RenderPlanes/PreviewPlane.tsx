@@ -48,11 +48,15 @@ export function PreviewPlane({ win }: { win: WinObject }) {
             cameraRotation={[-0.4, 0, 0]}
         >
             <Suspense fallback={null}>
+                {/*  */}
+                {/*  */}
                 <group>
                     <group
                         //
                         rotation={[0, 0, 0]}
+                        //
                         position={[0, 0, 0]}
+                        //
                     >
                         <Float>
                             <AvatarMotion
@@ -63,6 +67,8 @@ export function PreviewPlane({ win }: { win: WinObject }) {
                         </Float>
                     </group>
                 </group>
+                {/*  */}
+                {/*  */}
 
                 <ambientLight intensity={Math.PI * 1} />
 
