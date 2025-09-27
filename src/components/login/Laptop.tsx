@@ -6,7 +6,6 @@ import * as THREE from "three";
 import React, { useRef, type JSX } from "react";
 import { Box, Cloud, Sky, useGLTF } from "@react-three/drei";
 import { RenderPlane } from "../mini-apps/Objects/RenderPlane";
-import { Grid } from "../mini-apps/Objects/Grid";
 
 export function Laptop({
     screen = null,
@@ -157,8 +156,10 @@ export function Laptop({
                         scale={[size.x, size.z, 1]}
                     >
                         <RenderPlane
-                            width={(512 * size.x) / size.z}
-                            height={[512]}
+                            cameraPosition={[0, 2, 0]}
+                            radius={0.2}
+                            width={(1080 * size.x) / size.z}
+                            height={[1080]}
                         >
                             {screen}
                         </RenderPlane>

@@ -30,8 +30,6 @@ import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass.js";
 import { BloomPass } from "three/examples/jsm/postprocessing/BloomPass.js";
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass.js";
 
-const cardGeometry = new geometry.RoundedPlaneGeometry(1, 1, 0.025 * 2.0);
-
 export function RenderPlane({
     canRun = true,
     children,
@@ -41,7 +39,11 @@ export function RenderPlane({
     cameraRotation = [0, 0, 0],
     hdr = `/game-asset/hdr/brown_photostudio_02_1k.hdr`,
     onlyRenderWhenHover = false,
+    radius = 2.0,
 }: any) {
+    const cardGeometry = useMemo(() => {
+        return new geometry.RoundedPlaneGeometry(1, 1, 0.025 * radius);
+    }, [radius]);
     let env = useEnvironment({
         files: [hdr],
     });

@@ -19,7 +19,9 @@ import { suspend } from "suspend-react";
 import { clone } from "three/examples/jsm/utils/SkeletonUtils.js";
 
 export function AvatarMotion({
+    isMixamo = true,
     lookAt = false,
+    noFixRotation = false,
     avatarURL = "/avatar/angel.glb",
     motionURL = `/game-asset/motion-files/mixamo/greet/standup-greeting.fbx`,
     ...props
@@ -95,13 +97,16 @@ export function AvatarMotion({
 
                             if (avatarBone.name === "Hips") {
                                 // motionBone.getWorldScale(avatarBone.scale);
-                                avatarBone.rotation.x += Math.PI * -0.5;
+                                if (isMixamo) {
+                                    avatarBone.rotation.x += Math.PI * -0.5;
+                                }
 
-                                motionBone.getWorldPosition(
-                                    avatarBone.position,
-                                );
-
-                                avatarBone.position.multiplyScalar(1 / 100);
+                                if (isMixamo) {
+                                    motionBone.getWorldPosition(
+                                        avatarBone.position,
+                                    );
+                                    avatarBone.position.multiplyScalar(1 / 100);
+                                }
                             }
 
                             // console.log(motionBone.quaternion);
@@ -152,7 +157,7 @@ export function AvatarMotion({
             //
         };
         run();
-    }, [motion, glb]);
+    }, [motion, glb, isMixamo]);
 
     useFrame((st, dt) => {
         api.func(st, dt);

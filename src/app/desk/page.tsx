@@ -68,9 +68,8 @@ export default function Page() {
                                 <Gltf
                                     onPointerMove={(ev) => {
                                         cursor.copy(ev.point);
-
                                         (cursor as any).force = true;
-                                        console.log(ev.point.toArray());
+                                        // console.log(ev.point.toArray());
                                     }}
                                     scale={1.5}
                                     rotation={[0, Math.PI * 0.0, 0]}
@@ -79,26 +78,44 @@ export default function Page() {
                                 ></Gltf>
                                 <group
                                     scale={0.3}
-                                    rotation={[0, Math.PI * 0, 0]}
-                                    position={[0, -1.5, 0.3]}
+                                    rotation={[0, Math.PI * 0.05, 0]}
+                                    position={[-0.1, -1.5, 0.3]}
                                 >
                                     <Laptop
                                         screen={
                                             <>
                                                 <Sky></Sky>
+
                                                 <Cloud
-                                                    position={[0, 0, 0]}
+                                                    position={[0, 0, 2]}
                                                 ></Cloud>
+
                                                 <ambientLight
                                                     intensity={Math.PI / 2}
                                                 ></ambientLight>
 
-                                                <group position={[0, -5, 0]}>
-                                                    {/* <Grid magic></Grid> */}
+                                                <group
+                                                    scale={[1, 1, 1]}
+                                                    rotation={[0, 0, 0]}
+                                                >
+                                                    <AvatarMotion
+                                                        isMixamo={false}
+                                                        rotation={[0, 0.5, 0]}
+                                                        position={[
+                                                            -1.5, -0.7, -2.5,
+                                                        ]}
+                                                        scale={2}
+                                                        avatarURL={`/avatar/angel.glb`}
+                                                        motionURL={`/game-asset/motion-files/rpm-avatar-motion/masculine/fbx/expression/M_Standing_Expressions_001.fbx`}
+                                                    ></AvatarMotion>
                                                 </group>
                                             </>
                                         }
                                     ></Laptop>
+
+                                    {/* <group position={[0, 0, 0]}>
+                                        <Grid magic></Grid>
+                                    </group> */}
                                 </group>
                                 <Environment
                                     files={[
@@ -107,6 +124,15 @@ export default function Page() {
                                 ></Environment>
                             </Suspense>
                         </group>
+
+                        {/* <AvatarMotion
+                            isMixamo={false}
+                            rotation={[0, -0.5, 0]}
+                            position={[1.5, -0.7, -2.5]}
+                            scale={2}
+                            avatarURL={`/game-asset/rpm/fixed/game-builder.glb`}
+                            motionURL={`/game-asset/motion-files/rpm-avatar-motion/masculine/fbx/idle/M_Standing_Idle_Variations_003.fbx`}
+                        ></AvatarMotion> */}
 
                         <AvatarMotion
                             rotation={[0, -0.4, 0]}
@@ -144,12 +170,14 @@ function CardDemo() {
     }, []);
     return (
         <Card
-            className="absolute w-full max-w-sm bg-[rgb(255,255,255,0.6)] backdrop-blur"
+            className="absolute w-full max-w-sm overflow-scroll bg-[rgb(255,255,255,0.6)] backdrop-blur"
             style={{
-                top: `calc(50% - 333px / 2)`,
-                bottom: `calc(50% - 333px / 2)`,
-                left: `calc(50% - 333px / 2)`,
-                right: `calc(50% - 333px / 2)`,
+                width: `350px`,
+                height: `450px`,
+                top: `calc(50% - 450px / 2)`,
+                bottom: `calc(50% - 450px / 2)`,
+                left: `calc(50% - 350px / 2)`,
+                right: `calc(50% - 350px / 2)`,
             }}
         >
             <CardHeader>
@@ -181,6 +209,7 @@ function CardDemo() {
                             })
                             .then((data) => {
                                 console.log(data);
+                                listMy.mutateAsync({});
                             });
                     }}
                 >
@@ -191,8 +220,8 @@ function CardDemo() {
                 </Button> */}
             </CardContent>
             <CardContent>
-                <div>
-                    <div className="flex flex-col gap-6">
+                <div className="h-full w-full">
+                    <div className="flex h-full flex-col gap-6">
                         <div className="grid gap-2">
                             <Label htmlFor="email">Your Admin Desks</Label>
 
