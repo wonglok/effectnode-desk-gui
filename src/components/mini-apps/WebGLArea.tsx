@@ -56,7 +56,11 @@ export function WebGLArea() {
                 {/* <StandUpText text="Praise the LORD"></StandUpText> */}
 
                 <EnvirionmentContent></EnvirionmentContent>
+                {/* 
 
+                    
+
+                */}
                 <group position={[0, 0.01, 0]}>
                     <MiniApps
                         key={`${params?.workspaceID}-${"workspace"}`}

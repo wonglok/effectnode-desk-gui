@@ -41,7 +41,7 @@ export function ResetButton({ workspaceID = "" }) {
                 }
             }}
             variant={"destructive"}
-            className="cursor-pointer"
+            className="w-full cursor-pointer"
             //
         >
             <Crosshair className="mr-1"></Crosshair> Reset Button

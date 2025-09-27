@@ -47,24 +47,25 @@ import { DropdownMenuItem } from "../ui/dropdown-menu";
 
 const data = {
     nav: [
-        { name: "Privacy & visibility", icon: Lock },
-        { name: "Notifications", icon: Bell },
-        { name: "Navigation", icon: Menu },
-        { name: "Home", icon: Home },
-        { name: "Appearance", icon: Paintbrush },
-        { name: "Messages & media", icon: MessageCircle },
-        { name: "Language & region", icon: Globe },
-        { name: "Accessibility", icon: Keyboard },
-        { name: "Mark as read", icon: Check },
-        { name: "Audio & video", icon: Video },
-        { name: "Connected accounts", icon: Link },
-        { name: "Advanced", icon: Settings },
+        { tab: "home", name: "Home", icon: Home },
+        { tab: "privacy", name: "Privacy & visibility", icon: Lock },
+        { tab: "notifications", name: "Notifications", icon: Bell },
+        { tab: "nav", name: "Navigation", icon: Menu },
+        { tab: "appearence", name: "Appearance", icon: Paintbrush },
+        { tab: "msg", name: "Messages & media", icon: MessageCircle },
+        { tab: "lang", name: "Language & region", icon: Globe },
+        { tab: "access", name: "Accessibility", icon: Keyboard },
+        { tab: "read", name: "Mark as read", icon: Check },
+        { tab: "media", name: "Audio & video", icon: Video },
+        { tab: "social", name: "Connected accounts", icon: Link },
+        { tab: "advnace", name: "Advanced", icon: Settings },
     ],
 };
 
 //
 
 export function SettingsDialog({ open, setOpen }: any) {
+    let [tab, setTab] = React.useState("home");
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogContent className="overflow-hidden p-0 md:max-h-[500px] md:max-w-[700px] lg:max-w-[800px]">
@@ -73,24 +74,26 @@ export function SettingsDialog({ open, setOpen }: any) {
                     Customize your settings here.
                 </DialogDescription>
                 <SidebarProvider className="items-start">
-                    <Sidebar collapsible="none" className="hidden md:flex">
+                    <Sidebar collapsible="none" className="">
                         <SidebarContent>
                             <SidebarGroup>
                                 <SidebarGroupContent>
                                     <SidebarMenu>
                                         {data.nav.map((item) => (
-                                            <SidebarMenuItem key={item.name}>
+                                            <SidebarMenuItem
+                                                onClick={() => {
+                                                    setTab(item.tab);
+                                                }}
+                                                key={item.name}
+                                            >
                                                 <SidebarMenuButton
                                                     asChild
-                                                    isActive={
-                                                        item.name ===
-                                                        "Messages & media"
-                                                    }
+                                                    isActive={tab === item.tab}
                                                 >
-                                                    <a href="#">
+                                                    <span>
                                                         <item.icon />
                                                         <span>{item.name}</span>
-                                                    </a>
+                                                    </span>
                                                 </SidebarMenuButton>
                                             </SidebarMenuItem>
                                         ))}
@@ -99,35 +102,37 @@ export function SettingsDialog({ open, setOpen }: any) {
                             </SidebarGroup>
                         </SidebarContent>
                     </Sidebar>
-                    <main className="flex h-[480px] flex-1 flex-col overflow-hidden">
-                        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
-                            <div className="flex items-center gap-2 px-4">
-                                <Breadcrumb>
-                                    <BreadcrumbList>
-                                        <BreadcrumbItem className="hidden md:block">
-                                            <BreadcrumbLink href="#">
-                                                Settings
-                                            </BreadcrumbLink>
-                                        </BreadcrumbItem>
-                                        <BreadcrumbSeparator className="hidden md:block" />
-                                        <BreadcrumbItem>
-                                            <BreadcrumbPage>
-                                                Messages & media
-                                            </BreadcrumbPage>
-                                        </BreadcrumbItem>
-                                    </BreadcrumbList>
-                                </Breadcrumb>
+                    {tab === "home" && (
+                        <main className="flex h-[480px] flex-1 flex-col overflow-hidden">
+                            <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+                                <div className="flex items-center gap-2 px-4">
+                                    <Breadcrumb>
+                                        <BreadcrumbList>
+                                            <BreadcrumbItem className="">
+                                                <BreadcrumbLink href="#">
+                                                    Settings
+                                                </BreadcrumbLink>
+                                            </BreadcrumbItem>
+                                            <BreadcrumbSeparator className="" />
+                                            <BreadcrumbItem>
+                                                <BreadcrumbPage>
+                                                    Home
+                                                </BreadcrumbPage>
+                                            </BreadcrumbItem>
+                                        </BreadcrumbList>
+                                    </Breadcrumb>
+                                </div>
+                            </header>
+                            <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 pt-0">
+                                {Array.from({ length: 10 }).map((_, i) => (
+                                    <div
+                                        key={i}
+                                        className="bg-muted/50 aspect-video max-w-3xl rounded-xl"
+                                    />
+                                ))}
                             </div>
-                        </header>
-                        <div className="flex flex-1 flex-col gap-4 overflow-y-auto p-4 pt-0">
-                            {Array.from({ length: 10 }).map((_, i) => (
-                                <div
-                                    key={i}
-                                    className="bg-muted/50 aspect-video max-w-3xl rounded-xl"
-                                />
-                            ))}
-                        </div>
-                    </main>
+                        </main>
+                    )}
                 </SidebarProvider>
             </DialogContent>
         </Dialog>

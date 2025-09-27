@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { TopMenu } from "@/components/menu/TopMenu";
 import { useMiniApps } from "@/components/mini-apps/useMiniApps";
 import { BrandColors } from "@/components/mini-apps/Objects/BrandColors";
+import { TopRightMenu } from "@/components/menu/TopRightMenu";
 
 export default function Home() {
     let params = useParams();
@@ -22,6 +23,9 @@ export default function Home() {
         //
         useMiniApps.setState({
             workspaceID: `${params?.workspaceID || ""}`,
+            workspaces: [],
+            objects: [],
+            openDrawer: false,
         });
         //
         launchCoder({
@@ -41,11 +45,16 @@ export default function Home() {
 
                 <div
                     className="absolute top-[53px] right-0 bottom-[53px] left-0" //bg-gradient-to-tr from-red-200 to-violet-200
+                    //
+
                     // style={{
                     //     backgroundImage: `url('/bg/room.jpg')`,
                     //     backgroundSize: "cover",
                     //     backgroundPosition: "center center",
                     // }}
+
+                    //
+
                     style={{
                         backgroundColor: `#${BrandColors.background.getHexString()}`,
                     }}
@@ -55,20 +64,17 @@ export default function Home() {
 
                 <div className="absolute top-0 left-0 h-[53px] w-full border-b border-gray-300 bg-white">
                     {/*  */}
-                    {/*  */}
                     <div className="flex h-full w-full items-center justify-between select-none">
-                        <div className="ml-4 select-none">
+                        <div className="ml-3 w-1/3 select-none">
                             <BackButton
                                 workspaceID={params?.workspaceID as string}
                             ></BackButton>
                         </div>
-                        <div className="mx-4 select-none">
+                        <div className="mx-3 flex w-1/3 items-center justify-center select-none">
                             <TopMenu></TopMenu>
                         </div>
-                        <div className="mr-4 select-none">
-                            <ResetButton
-                                workspaceID={params?.workspaceID as string}
-                            ></ResetButton>
+                        <div className="mr-3 flex w-1/3 items-center justify-end select-none">
+                            <TopRightMenu />
                         </div>
                     </div>
                 </div>

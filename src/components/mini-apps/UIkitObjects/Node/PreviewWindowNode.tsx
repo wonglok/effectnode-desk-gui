@@ -144,6 +144,8 @@ export function PreviewWindowNode({ win }: { win: WinObject }) {
                         <>
                             <UIKitDrawer
                                 //
+                                //
+                                //
                                 sizeX={1}
                                 openDrawer={openDrawer}
                                 onSetDrawer={(value) => {
@@ -154,41 +156,52 @@ export function PreviewWindowNode({ win }: { win: WinObject }) {
                                 }}
                                 //
                                 //
+                                //
+                                //
                                 upperUI={
                                     <>
+                                        {/* <Html
+                                            center
+                                            rotation={[0, 0, 0]}
+                                            position={[0, 0, 0]}
+                                        >
+                                            <iframe
+                                                src={`/app/ppap123`}
+                                                className="h-[200px] w-[200px] scale-100 rounded-lg border bg-gray-200"
+                                            ></iframe>
+                                        </Html> */}
+
                                         <Suspense
                                             fallback={
                                                 <Container
-                                                    borderRadius={14}
                                                     height={400}
+                                                    borderRadius={14}
                                                     width={"100%"}
-                                                ></Container>
+                                                >
+                                                    <Container
+                                                        height={400}
+                                                        borderRadius={14}
+                                                        width={"100%"}
+                                                        backgroundColor={
+                                                            "#00ffff"
+                                                        }
+                                                    ></Container>
+                                                </Container>
                                             }
                                         >
                                             <Content
+                                                height={100}
                                                 transformTranslateZ={1}
                                                 padding={20}
                                                 keepAspectRatio={false}
                                                 width="100%"
-                                                height={400}
                                                 {...getPropsForDragging()}
                                             >
-                                                <Plane visible={false}></Plane>
-
-                                                <Html
-                                                    transform
-                                                    frustumCulled={false}
-                                                    center
-                                                    className="pointer-events-auto touch-manipulation select-none"
-                                                    rotation={[0, 0, 0]}
-                                                    position={[0, 0, 0.001]}
-                                                    scale={1 / 5}
-                                                >
-                                                    <iframe
-                                                        src={`/app/ppap123`}
-                                                        className="h-[200px] w-[200px] scale-100 rounded-lg border bg-gray-200"
-                                                    ></iframe>
-                                                </Html>
+                                                <Plane
+                                                    scale={1}
+                                                    position={[0, 0, 0]}
+                                                    visible={true}
+                                                ></Plane>
 
                                                 {/*  */}
                                                 {/*  */}

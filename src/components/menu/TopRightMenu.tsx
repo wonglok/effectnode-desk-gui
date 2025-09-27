@@ -17,7 +17,6 @@ import {
     LampCeilingIcon,
     LampDeskIcon,
     Loader,
-    PencilIcon,
     PenIcon,
     Settings2Icon,
     SettingsIcon,
@@ -27,11 +26,10 @@ import type { WorkspaceACLInterface } from "@/server/db/WorkspaceACL";
 import { useRouter } from "next/navigation";
 import { SettingsDialog } from "./DeskSettings";
 import { DialogTrigger } from "../ui/dialog";
-import { Input } from "@react-three/uikit-default";
-import { SidebarInput } from "../ui/sidebar";
+import { ResetButton } from "../buttons/ResetButton";
 // import { Rename } from "./Rename";
 
-export function TopMenu({}) {
+export function TopRightMenu({}) {
     let router = useRouter();
     let workspaces = useMiniApps((r) => r.workspaces);
     let workspaceID = useMiniApps((r) => r.workspaceID);
@@ -67,32 +65,25 @@ export function TopMenu({}) {
                         </div>
                     </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent className="">
-                    {/* <DropdownMenuLabel className="flex items-center justify-center">
-                        <PencilIcon className="mr-2 h-4 w-4"></PencilIcon>
-                        <SidebarInput></SidebarInput>
-                    </DropdownMenuLabel>
+                <DropdownMenuContent>
+                    <ResetButton
+                        workspaceID={workspaceID as string}
+                    ></ResetButton>
 
-                    <DropdownMenuSeparator /> */}
-
-                    <DropdownMenuItem
-                        className="flex items-center justify-center"
-                        onClick={() => {
-                            setOpen(true);
-                        }}
-                    >
-                        <SettingsIcon className="animate-spin"></SettingsIcon>
-                        {`Workspace Settings`}
-                        <Settings2Icon className=""></Settings2Icon>
-                    </DropdownMenuItem>
+                    <>
+                        <DropdownMenuItem
+                            onClick={() => {
+                                setOpen(true);
+                            }}
+                        >
+                            <SettingsIcon className="animate-spin"></SettingsIcon>
+                            {`Edit Workspace Settings`}
+                        </DropdownMenuItem>
+                    </>
 
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuLabel className="text-center text-xs">
-                        My Own & Shared Desks
-                    </DropdownMenuLabel>
-
-                    <DropdownMenuSeparator />
+                    <DropdownMenuLabel>My Own & Shared Desks</DropdownMenuLabel>
 
                     {workspaces.map((work) => {
                         return (
