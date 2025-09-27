@@ -11,6 +11,7 @@ import { useEffect } from "react";
 
 import { TopMenu } from "@/components/menu/TopMenu";
 import { useMiniApps } from "@/components/mini-apps/useMiniApps";
+import { BrandColors } from "@/components/mini-apps/Objects/BrandColors";
 
 export default function Home() {
     let params = useParams();
@@ -38,16 +39,17 @@ export default function Home() {
                 {/*  */}
 
                 <div
-                    className="absolute top-[53px] right-0 bottom-[53px] left-0 bg-gradient-to-tr from-red-200 to-violet-200"
+                    className="absolute top-[53px] right-0 bottom-[53px] left-0" //bg-gradient-to-tr from-red-200 to-violet-200
                     // style={{
                     //     backgroundImage: `url('/bg/room.jpg')`,
                     //     backgroundSize: "cover",
                     //     backgroundPosition: "center center",
                     // }}
+                    style={{
+                        backgroundColor: `#${BrandColors.background.getHexString()}`,
+                    }}
                 >
-                    {/*  */}
-                    <WebGLArea></WebGLArea>
-                    {/*  */}
+                    <WebGLArea key={`${params.workspaceID}`}></WebGLArea>
                 </div>
 
                 <div className="absolute top-0 left-0 h-[53px] w-full border-b border-gray-300 bg-white">
