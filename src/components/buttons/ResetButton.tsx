@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useMiniApps } from "../mini-apps/useMiniApps";
 import { launchCoder } from "../mini-apps/utils/launchCoder";
 import { Crosshair, CrossIcon, FactoryIcon, MinusIcon } from "lucide-react";
+import type { WorkspaceObjectInterface } from "@/server/db/WorkspaceObject";
 
 export function ResetButton({ workspaceID = "" }) {
     return (
@@ -23,7 +24,7 @@ export function ResetButton({ workspaceID = "" }) {
                         })
                         .then((objects) => {
                             useMiniApps.setState({
-                                objects: objects,
+                                objects: objects as WorkspaceObjectInterface[],
                             });
                         });
 
